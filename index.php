@@ -11,7 +11,11 @@
 </head>
 
 <body class="Site">
-
+	<!-- start of header -->
+	<?php 
+	include("header.php"); 
+	?>
+	<!-- end of header -->
 	<!--slide show-->
 	<div>
 		<div id="newCarousel" class="carousel slide" data-ride="carousel">
@@ -55,7 +59,10 @@
 		</div>
 	</div>
 
-
+	<!-- start of footer code -->
+	<?php include("footer.php"); ?>
+	<!-- end of footer -->
+	
 	
 	
 	
