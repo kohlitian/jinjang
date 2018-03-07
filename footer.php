@@ -11,7 +11,7 @@
 					</div>
 					<div class="col-sm-4 col-xs-5">
 						<p>Copyright © 2017 Jinjang Project<br/>
-						<small>Rights Reserved<span class="hidden-xs hidden-sm"> for A.Nikdel & K.L. Tian</span></small></p>
+						<small>Rights Reserved<span class="hidden-xs hidden-sm"> for A.Nikdel & L.T Koh</span></small></p>
 					</div>
 				</div>
 			</div>	
