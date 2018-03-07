@@ -23,6 +23,8 @@
 				<li data-target="#newCarousel" data-slide-to="0" class="active"></li>
 				<li data-target="#newCarousel" data-slide-to="1"></li>
 				<li data-target="#newCarousel" data-slide-to="2"></li>
+				<li data-target="#newCarousel" data-slide-to="3"></li>
+				<li data-target="#newCarousel" data-slide-to="4"></li>
 			</ol>
 			<div class="carousel-inner">
 				<div class="item active">
@@ -32,6 +34,10 @@
 					<div class="img" style="background-image: url('img/jinjang2.jpg');"></div></div>
 				<div class="item">
 					<div class="img" style="background-image: url('img/jinjang3.jpg');"></div></div>
+				<div class="item">
+					<div class="img" style="background-image: url('img/jinjang4.jpg');"></div></div>
+				<div class="item">
+					<div class="img" style="background-image: url('img/jinjang5.jpg');"></div></div>
 			</div>
 		<a class="left carousel-control" href="#newCarousel" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left"></span>
@@ -49,11 +55,11 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-6">
 				<h3>What is Jinjang Project?</h3>
-				<p>Jinjang project allow people from Jinjang community to utilize their free time and earn some money.</p>
+				<p>Jinjang project allow Job Provider from any place to create a recruitment, so stay-home mother who live in jinjang utara and apply for the job and earn extra income. Job Provider will be able to choose worker by stating requirement inside the job recruitment and by looking at profile of people who already applied for the job.</p>
 			</div>
 			<div class="col-xs-12 col-md-6">
 				<h3>What is e-business?</h3>
-				<p>e-business allow job providers to provide jobs for jinjang community job finders.
+				<p>E-business is a conduct of business processes on the internet. In this case, it provide services for job provider to post job recuitment and job finder to find job to earn extra income. It also provide processing payments service so after job, job provider can pay job finder and donation can be done.
 					</p>
 			</div>
 		</div>
