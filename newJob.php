@@ -20,7 +20,7 @@ else {
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
-		$titleError = ""; $salaryError = ""; $dateError = ""; $classError = ""; $trainingError = "";
+		$titleError = ""; $salaryError = ""; $startDateError = ""; $endDateError = ""; $deadlineError = ""; $requirementError = ""; $locationError = ""; $descriptionError = "";
 
 		//validate enteries
 		if(empty($_POST['titleName'])){
@@ -79,48 +79,35 @@ else {
 			}
 		}
 
-		//validate time and make sure time is valid
-		if(empty($_POST['datetimepicker'])){
-			$dateError = "Please choose a date and time";
+		if(empty($_POST['requirement'])){
+			$requirementError = "Please choose a requirement for this job.";
 		} else {
-			if(time()>strtotime($_POST['datetimepicker']) ){
-				$dateError = "Today is ".date("Y-m-d H:i:s", time())." new Session must be set after this time.";
-			} else {
-				$time = strtotime($_POST['datetimepicker']);
-			}
+			$requirement = $_POST['requirement'];
 		}
 
-
-		if($_POST['classtype'] == ""){
-			$classError = "Please choose a training type";
+		if(empty($_POST['location'])){
+			$locationError = "Please enter a location for this job.";
 		} else {
-			$classType = $_POST['classtype'];
+			$location = $_POST['location'];
 		}
 
-		if(isset($_POST['trainingType'])){
-			if($_POST['trainingType'] == ""){
-				if ($_POST["classtype"] == "Group")
-						$trainingError = "Please choose a activity";
-			} else {
-				$trainingType = $_POST['trainingType'];
-			}
-			if($_POST["classtype"] == "Personal"){
-				$participant = 1;
-			} else{
-				$participant = $_POST['participant'];
-			}
+		if(empty($_POST['description'])){
+			$descriptionError = "Please enter a description for this job.";
+		} else {
+			$description = $_POST['description'];
 		}
 
+		$participant = $_POST['participant'];
 
 		//if there is no error, insert training session into database
-		if($titleError =="" && $salaryError =="" && $dateError =="" && $classError =="" && $trainingError ==""){
-			$newSession = "INSERT INTO `TrainingSessions` (`sessionID`, `title`, `datetime`, `fee`, `status`, `note`, `trainingType`, `classType`, `maxParticipants`, `trainerID`) VALUES ('', '".addslashes($name)."', '$time', '$fee', 'Available', '', '$classType', '$trainingType', '$participant' , '".$user['trainerID']."') ";
-			if(mysqli_query($connect, $newSession)){
-				$_SESSION['passThruMessage']="Your new session has been added successfully.";
-				header('Location: myTraining.php'); exit;
-			} 
-		}else{
-			$passThruMessage="Please correct mentioned errors";
+		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
+			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', 'time', '$startDate', '$endDate', '$deadline', '$participant', 0, 'Available', '".$user['userID']."'";
+			if(mysqli_query($connect, $newJob)){
+				$_SESSION['passThruMessage'] = "Your new session has been added successfully.";
+				header('Location: myJob.php'); exit;
+			} else {
+				$passThruMessage = "Please correct mentioned errors";
+			}
 		}
 	}
 }
@@ -243,18 +230,7 @@ else {
 			</div>
 
 			<br>
-
-			title 
-
-			salary 			max
-
-			start 			end
-
-			deadline 		requirement
-
-			location 
-
-			description
+			<button type="submit" class="btn btn-primary btn-lg">Add This Session</button>
 
 		</form>
 	</div>
