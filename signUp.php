@@ -122,18 +122,14 @@ $no_error=1;
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/helpfit.css">
+	<link rel="stylesheet" type="text/css" href="css/jinjang.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	
 </head>
 <body>
 	<!-- start of header -->
 	<?php 
-		if(isset($_SESSION['id']) && $_SESSION['id'] > 0){
-			include("headerAfterLog.php");
-		} else{
-			include("header.php"); 
-		}
+	include("header.php"); 
 	?>
 	<!-- end of header -->
 	<!--content-->
@@ -145,22 +141,22 @@ $no_error=1;
 
 			<div class="formStyle">
 
-				<p><Strong>Register to your HELPFit</Strong></p>
+				<p><Strong>Register to your JinJang E-Business Account</Strong></p>
 				
 				<div class="reg-type center">
 					<small>Please choose which user type describe your role:</small>
 					<div>
-							<a href="#" onclick="btnregtrainer();" class="regtypebtn btn btn-lg btn-primary col-xs-6 noround btnregtrainer" id="btnregtrainer">
+							<a href="#" onclick="btnregJP();" class="regtypebtn btn btn-lg btn-primary col-xs-6 noround btnregtrainer" id="btnregtrainer">
 								
 								<i class="fa fa-slideshare verybigtext"  id="bigicon"></i>
 								<div class="smartlinebreaker"></div>
-								Trainer
+								Job Provider
 							</a>
 		
-							<a href="#" onclick="btnregmember();" class="regtypebtn btn btn-lg btn-success col-xs-6 noround btnregmember" id="btnregmember">
+							<a href="#" onclick="btnregJF();" class="regtypebtn btn btn-lg btn-success col-xs-6 noround btnregmember" id="btnregmember">
 								<i class="fa fa-user-circle-o verybigtext" id="bigicon1"></i>
 								<div class="smartlinebreaker"></div>
-								Member
+								Job Finder
 							</a>
 					</div>
 					<div class="clear"></div>
