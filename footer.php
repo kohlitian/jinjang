@@ -7,10 +7,10 @@
 						<small class="hidden-xs"><br><?php
 
 						//count statistics of users and jobs and postings and print them
-						if ($connect){ echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from member;"))[0]; ?> members, <?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobproviders;"))[0]; ?> job providers, <?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobads;"))[0]; ?> job ads <?php } ?></small>
+						if ($connect){ echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from member;"))[0]; ?> members, <?php echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobproviders;"))[0]; ?> job providers, <?php echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobads;"))[0]; ?> job ads <?php } ?></small>
 					</div>
 					<div class="col-sm-4 col-xs-5">
-						<p>Copyright © 2017 Jinjang Project<br/>
+						<p>Copyright © 2018 Jinjang Project<br/>
 						<small>Rights Reserved<span class="hidden-xs hidden-sm"> for A.Nikdel & L.T Koh</span></small></p>
 					</div>
 				</div>

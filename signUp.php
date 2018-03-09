@@ -24,7 +24,7 @@ $no_error=1;
 		$speciality = $_POST['trainerspecialty'];
 
 		//define required variables
-		$usernameError=""; $emailError=""; $passwordError=""; $conPassError=""; $nameError=""; $specialityError = ""; $levelError = ""; $selectError="";
+		$usernameError=""; $emailError=""; $passwordError=""; $conPassError=""; $nameError=""; $specialityError = ""; $levelError = ""; $selectError=""; $cnomborError="";
 
 		//validate email
 		if(empty($_POST['email'])){
@@ -87,6 +87,12 @@ $no_error=1;
 			}
 		}
 
+		//validate user full name
+		if(empty($_POST['cnombor'])){
+			$cnomborError = "Contact Number is required";
+		} 
+
+
 		//validate user type and level and speciality
 		if($level == "" && $_POST['userType'] == "member"){
 			$levelError = "Please choose your level";
@@ -95,7 +101,7 @@ $no_error=1;
 		}
 
 		//check if any error occured
-		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $nameError == "" && $levelError == "" && $specialityError == "" && $selectError == ""){
+		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $nameError == ""  && $cnomborError == "" && $levelError == "" && $specialityError == "" && $selectError == ""){
 			//insert data into database if no errors
 			if($_POST['userType']=='member'){
 				$signUp = "INSERT INTO `Member` (`memberID`, `email`, `username`, `password`, `fullName`, `level`, `signupDate`, `loginDate`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($level)."', '$signupDate', '$loginDate')";
@@ -168,8 +174,8 @@ $no_error=1;
 
 					<div class="form-group hidden-always">
 						<select class="form-control" name="userType" id="userType">
-							<option value="member">Member</option>
-							<option value="trainer">Trainer</option>
+							<option value="jp">Job Provider</option>
+							<option value="jf">Job Finder</option>
 						</select>
 					</div>
 
@@ -205,18 +211,45 @@ $no_error=1;
 					</div>
 					<?php if(isset($nameError)){ ?><span class="error"><?php echo $nameError; ?></span><?php } ?>
 
-					<div class="input-group" id="memberelement">
-						<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
-						<select class="form-control" name="memberlevel" id="memberlevel">
-							<option value="">Please choose your level</option>
-							<option value="Beginner" <?php if (isset($_POST['memberlevel'])&&$_POST['memberlevel']=='Beginner') echo ' selected'; ?>>Beginner</option>
-							<option value="Advanced"  <?php if (isset($_POST['memberlevel'])&&$_POST['memberlevel']=='Advanced') echo ' selected'; ?>>Advanced</option>
-							<option value="Expert"  <?php if (isset($_POST['memberlevel'])&&$_POST['memberlevel']=='Expert') echo ' selected'; ?>>Expert</option>
-						</select>
+
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa fa-phone"></i></label></span>
+						<input class="form-control" placeholder="Contact Number" type="text" id="cnombor" name="cnombor" required  value="<?php if (isset($_POST['cnombor'])) echo $_POST['cnombor']; ?>">
+					</div>
+					<?php if(isset($cnomborError)){ ?><span class="error"><?php echo $cnomborError; ?></span><?php } ?>
+
+
+					<div id="memberelement">
+						<div class="input-group">
+							<!-- educationLevel, expectedSalary, skills, languages -->
+
+							<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
+							<textarea class="form-control" placeholder="Experience History " type="text" id="experienceHistory" name="experienceHistory" required><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
+
+						</div>
+						<div class="input-group">
+
+							<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
+							<select class="form-control" name="educationLevel" id="educationLevel">
+								<option value="">Please choose your speciality</option>
+								<option value="Primary School"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Primary School') echo ' selected'; ?>>Primary School</option>
+								<option value="High School"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='High School') echo ' selected'; ?>>High School</option>
+								<option value="Diploma"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Diploma') echo ' selected'; ?>>Diploma</option>
+								<option value="Degree"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Degree') echo ' selected'; ?>>Degree</option>
+								<option value="Master"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Master') echo ' selected'; ?>>Master</option>
+								<option value="PhD"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='PhD') echo ' selected'; ?>>PhD</option>
+								<option value="ALevel"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='ALevel') echo ' selected'; ?>>ALevel</option>
+								<option value="Foundation"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Foundation') echo ' selected'; ?>>Foundation</option>
+
+							</select>
+
+						</div>
 					</div>
 					<?php if(isset($levelError)){ ?><span class="error"><?php echo $levelError; ?></span><?php } ?>
 
 					<div class="input-group" id="trainerelement">
+						<!-- companyName, companyAddress, position -->
+
 						<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
 						<select class="form-control" name="trainerspecialty" id="trainerspecialty">
 							<option value="">Please choose your speciality</option>

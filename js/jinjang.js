@@ -30,7 +30,7 @@ function btnregJP(){
 	document.getElementById("btnregmember").classList="regtypebtn btn btn-sm btn-success col-xs-6 noround btnregmember";
 	document.getElementById("bigicon").classList="fa fa-slideshare";
 	document.getElementById("bigicon1").classList="fa fa-user-circle-o";
-	document.getElementById("userType").value="trainer";
+	document.getElementById("userType").value="jp";
 	document.getElementById("reg-form").style.display="block";
 	document.getElementById("trainerelement").style.display="table";
 	document.getElementById("memberelement").style.display="none";
@@ -42,7 +42,7 @@ function btnregJF(){
 	document.getElementById("btnregmember").classList="regtypebtn btn btn-sm btn-default col-xs-6 noround btnregmember";
 	document.getElementById("bigicon").classList="fa fa-slideshare";
 	document.getElementById("bigicon1").classList="fa fa-user-circle-o";
-	document.getElementById("userType").value="member";
+	document.getElementById("userType").value="jf";
 	document.getElementById("reg-form").style.display="block";
 	document.getElementById("memberelement").style.display="table";
 	document.getElementById("trainerelement").style.display="none";
@@ -55,17 +55,17 @@ function validateSignupForm(){
 			bootbox.alert("Password and new password is different They must be same.");
 			return false;
 	}
-	if (document.getElementById("userType").value=='member')
+	if (document.getElementById("userType").value=='jf')
 	{
 		if (document.getElementById("memberlevel").value=='')
 		{
-			bootbox.alert("You need to choose member level first.");
+			bootbox.alert("You need to choose job finder level first.");
 			return false;
 		}
 	}else{
 		if (document.getElementById("trainerspecialty").value=='')
 		{
-			bootbox.alert("You need to choose trainer specialty first.");
+			bootbox.alert("You need to choose job provider specialty first.");
 			return false;
 		}
 	}
@@ -116,6 +116,9 @@ function applyTrainingType(){
 		document.getElementById("grouptraining2").style.display="none";
 	}
 }
+
+
+
 
 //Using additional plugins for: date and time picker and slider in add new training page and some other pages (edit training)
 if(typeof $.fn.datetimepicker !== 'undefined')

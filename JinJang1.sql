@@ -1,0 +1,1 @@
+ALTER TABLE `JobFinder` CHANGE `contactNo` `contactNo` VARCHAR(255) NOT NULL;
