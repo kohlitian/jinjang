@@ -1,1 +1,2 @@
 ALTER TABLE `JobFinder` CHANGE `contactNo` `contactNo` VARCHAR(255) NOT NULL;
+ALTER TABLE `JobFinder` CHANGE `languages` `languages` SET('Mandarin','Bahasa Malaysia','English','Indonesian','Cantonese','Hokkien','Hakka','Tamil') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;

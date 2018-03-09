@@ -221,17 +221,52 @@ $no_error=1;
 
 					<div id="memberelement">
 						<div class="input-group">
-							<!-- educationLevel, expectedSalary, skills, languages -->
+							<!-- expectedSalary, skills, languages -->
 
-							<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
+							<span class="input-group-addon" id="basic-addon2"><label for="experienceHistory"><i class="fa fa-bolt"></i></label></span>
 							<textarea class="form-control" placeholder="Experience History " type="text" id="experienceHistory" name="experienceHistory" required><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
 
 						</div>
 						<div class="input-group">
 
-							<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
+							<span class="input-group-addon" id="basic-addon2"><label for="expectedSalary"><i class="fa fa-bolt"></i></label></span>
+							<input class="form-control" placeholder="Expected Salary" type="number" id="expectedSalary" name="expectedSalary" required value="<?php if (isset($_POST['expectedSalary'])) echo $_POST['expectedSalary']; ?>">
+
+						</div>
+						<div class="input-group">
+
+							<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
+							<input class="form-control" placeholder="Skills (seperated by comma)" type="text" id="skills" name="skills" required value="<?php if (isset($_POST['skills'])) echo $_POST['skills']; ?>">
+							'Mandarin','Bahasa Malaysia','English','Indonesian','Cantonese','Hokkien','Hakka'
+						</div>
+
+
+
+
+						<div class="input-group">
+
+							<span class="input-group-addon" id="basic-addon2"><label for="languages"><i class="fa fa-bolt"></i></label></span>
+		
+							<select class="form-control" name="languages" id="languages" multiple="true">
+
+								<option value="Mandarin"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Mandarin", $_POST['languages'])) echo ' selected'; ?>>Mandarin</option>
+								<option value="Bahasa Malaysia"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Bahasa Malaysia", $_POST['languages'])) echo ' selected'; ?>>Bahasa Malaysia</option>
+								<option value="English"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("English", $_POST['languages'])) echo ' selected'; ?>>English</option>
+								<option value="Indonesian"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Indonesian", $_POST['languages'])) echo ' selected'; ?>>Indonesian</option>
+								<option value="Cantonese"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Cantonese", $_POST['languages'])) echo ' selected'; ?>>Cantonese</option>
+								<option value="Hokkien"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Hokkien", $_POST['languages'])) echo ' selected'; ?>>Hokkien</option>
+								<option value="Hakka"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Hakka", $_POST['languages'])) echo ' selected'; ?>>Hakka</option>
+								<option value="Tamil"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Tamil", $_POST['languages'])) echo ' selected'; ?>>Tamil</option>
+
+							</select>
+
+
+						</div>
+						<div class="input-group">
+
+							<span class="input-group-addon" id="basic-addon2"><label for="educationLevel"><i class="fa fa-bolt"></i></label></span>
 							<select class="form-control" name="educationLevel" id="educationLevel">
-								<option value="">Please choose your speciality</option>
+								<option value="">Please choose your education level</option>
 								<option value="Primary School"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Primary School') echo ' selected'; ?>>Primary School</option>
 								<option value="High School"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='High School') echo ' selected'; ?>>High School</option>
 								<option value="Diploma"  <?php if (isset($_POST['educationLevel'])&&$_POST['educationLevel']=='Diploma') echo ' selected'; ?>>Diploma</option>
@@ -244,6 +279,7 @@ $no_error=1;
 							</select>
 
 						</div>
+
 					</div>
 					<?php if(isset($levelError)){ ?><span class="error"><?php echo $levelError; ?></span><?php } ?>
 
