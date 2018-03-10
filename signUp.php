@@ -20,11 +20,17 @@ $no_error=1;
 		$ID = "";
 		$signupDate = time();
 		$loginDate = time();
-		$level = $_POST['memberlevel'];
-		$speciality = $_POST['trainerspecialty'];
+		$experienceHistory = $_POST['experienceHistory'];
+		$expectedSalary = $_POST['expectedSalary'];
+		$skills = $_POST['skills'];
+		$languages = $_POST['languages'];
+		$educationLevel = $_POST['educationLevel'];
+		$companyName = $_POST['companyName'];
+		$companyAddress = $_POST['companyAddress'];
+		$position = $_POST['position'];
 
 		//define required variables
-		$usernameError=""; $emailError=""; $passwordError=""; $conPassError=""; $nameError=""; $specialityError = ""; $levelError = ""; $selectError=""; $cnomborError="";
+		$usernameError=""; $emailError=""; $passwordError=""; $conPassError=""; $nameError=""; $expError = ""; $salaryError="";$langError="";$skillError=""; $eduError=""; $cnomborError=""; $orgError="";$addressError="";$posError="";
 
 		//validate email
 		if(empty($_POST['email'])){
@@ -34,11 +40,11 @@ $no_error=1;
 			 	$emailError = "Invalid email format";
 			 } else {
 			 	//make sure email is not used before
-			 	$find = "SELECT `email` FROM `Member` WHERE `email` = '".addslashes($_POST['email'])."'";
+			 	$find = "SELECT `email` FROM `JobFinder` WHERE `email` = '".addslashes($_POST['email'])."'";
 			 	$findMemberMail = mysqli_query($connect, $find);
-			 	$find = "SELECT `email` FROM `Trainers` WHERE `email` = '".addslashes($_POST['email'])."'";
-			 	$findTrainerMail = mysqli_query($connect, $find);
-			 	if(mysqli_num_rows($findMemberMail) >0 || mysqli_num_rows($findTrainerMail) >0){
+			 	$find = "SELECT `email` FROM `JobProvider` WHERE `email` = '".addslashes($_POST['email'])."'";
+			 	$findproviderMail = mysqli_query($connect, $find);
+			 	if(mysqli_num_rows($findMemberMail) >0 || mysqli_num_rows($findproviderMail) >0){
 			 		$emailError = "Someone have use this email already";
 			 	} else {
 			 		$email = $_POST['email'];
@@ -51,11 +57,11 @@ $no_error=1;
 			$usernameError = "Username cannot be empty";
 		}else {
 			//make sure username is not used before
-		 	$find = "SELECT `username` FROM `Member` WHERE `username` = '".addslashes($_POST['username'])."'";
+		 	$find = "SELECT `username` FROM `JobFinder` WHERE `username` = '".addslashes($_POST['username'])."'";
 		 	$findMember = mysqli_query($connect, $find);
-		 	$find = "SELECT `username` FROM `Trainers` WHERE `username` = '".addslashes($_POST['username'])."'";
-		 	$findTrainer = mysqli_query($connect, $find);
-		 	if(mysqli_num_rows($findMember) >0 || mysqli_num_rows($findTrainer) >0){
+		 	$find = "SELECT `username` FROM `JobProvider` WHERE `username` = '".addslashes($_POST['username'])."'";
+		 	$findprovider = mysqli_query($connect, $find);
+		 	if(mysqli_num_rows($findMember) >0 || mysqli_num_rows($findprovider) >0){
 		 		$usernameError = "Someone have use this username already";
 		 	} else {
 		 		$username = $_POST['username'];
@@ -94,19 +100,45 @@ $no_error=1;
 
 
 		//validate user type and level and speciality
-		if($level == "" && $_POST['userType'] == "member"){
-			$levelError = "Please choose your level";
-		}else if ($speciality == "" && $_POST['userType'] == "trainer"){
-			$specialityError = "Please choose your speciality";
+		if($_POST['userType'] == "jf"){
+			if ($experienceHistory==""){
+			$expError = "Please type your experience history";
+			}
+			if ($expectedSalary==""){
+			$salaryError = "Please type your desired salary";
+			}
+			if ($skills==""){
+			$skillError = "Please type your skill";
+			}
+			if ($languages==""){
+			$langError = "Please type your language";
+			}
+			if ($educationLevel==""){
+			$eduError = "Please type your language";
+			}
+			if ($educationLevel==""){
+			$eduError = "Please type your language";
+			}
+
+		}else if ($_POST['userType'] == "jp"){
+			if ($companyName==""){
+			$orgError = "Please type your organization name";
+			}
+			if ($companyAddress==""){
+			$addressError = "Please type your organization address";
+			}
+			if ($position==""){
+			$posError = "Please type your position";
+			}
 		}
 
 		//check if any error occured
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $nameError == ""  && $cnomborError == "" && $levelError == "" && $specialityError == "" && $selectError == ""){
 			//insert data into database if no errors
-			if($_POST['userType']=='member'){
+			if($_POST['userType']=='jf'){
 				$signUp = "INSERT INTO `Member` (`memberID`, `email`, `username`, `password`, `fullName`, `level`, `signupDate`, `loginDate`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($level)."', '$signupDate', '$loginDate')";
 			} else {
-				$signUp = "INSERT INTO `Trainers` (`trainerID`, `email`, `username`, `password`, `fullName`, `specialty`, `signupDate`, `loginDate`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($speciality)."', '$signupDate', '$loginDate')";
+				$signUp = "INSERT INTO `providers` (`providerID`, `email`, `username`, `password`, `fullName`, `specialty`, `signupDate`, `loginDate`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($speciality)."', '$signupDate', '$loginDate')";
 			}
 			if(mysqli_query($connect, $signUp)){
 				//notify user about successfull signup
@@ -219,27 +251,29 @@ $no_error=1;
 					<?php if(isset($cnomborError)){ ?><span class="error"><?php echo $cnomborError; ?></span><?php } ?>
 
 
-					<div id="memberelement">
+					<div id="memberelement"  style="width: 100%;">
 						<div class="input-group">
-							<!-- expectedSalary, skills, languages -->
 
 							<span class="input-group-addon" id="basic-addon2"><label for="experienceHistory"><i class="fa fa-bolt"></i></label></span>
-							<textarea class="form-control" placeholder="Experience History " type="text" id="experienceHistory" name="experienceHistory" required><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
+							<textarea class="form-control" placeholder="Experience History" type="text" id="experienceHistory" name="experienceHistory" required><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
 
 						</div>
+						<?php if(isset($expError)){ ?><span class="error"><?php echo $expError; ?></span><?php } ?>
+
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="expectedSalary"><i class="fa fa-bolt"></i></label></span>
 							<input class="form-control" placeholder="Expected Salary" type="number" id="expectedSalary" name="expectedSalary" required value="<?php if (isset($_POST['expectedSalary'])) echo $_POST['expectedSalary']; ?>">
 
 						</div>
+						<?php if(isset($salaryError)){ ?><span class="error"><?php echo $salaryError; ?></span><?php } ?>
+
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
 							<input class="form-control" placeholder="Skills (seperated by comma)" type="text" id="skills" name="skills" required value="<?php if (isset($_POST['skills'])) echo $_POST['skills']; ?>">
-							'Mandarin','Bahasa Malaysia','English','Indonesian','Cantonese','Hokkien','Hakka'
 						</div>
-
+						<?php if(isset($skillError)){ ?><span class="error"><?php echo $skillError; ?></span><?php } ?>
 
 
 
@@ -259,9 +293,11 @@ $no_error=1;
 								<option value="Tamil"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Tamil", $_POST['languages'])) echo ' selected'; ?>>Tamil</option>
 
 							</select>
+							
 
 
-						</div>
+						</div><small>Hold Ctrl/CMD to choose multiple</small>
+						<?php if(isset($langError)){ ?><span class="error"><?php echo $langError; ?></span><?php } ?>
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="educationLevel"><i class="fa fa-bolt"></i></label></span>
@@ -279,22 +315,35 @@ $no_error=1;
 							</select>
 
 						</div>
-
+						<?php if(isset($eduError)){ ?><span class="error"><?php echo $eduError; ?></span><?php } ?>
 					</div>
-					<?php if(isset($levelError)){ ?><span class="error"><?php echo $levelError; ?></span><?php } ?>
+					
 
-					<div class="input-group" id="trainerelement">
+					<div  id="trainerelement" style="width: 100%;">
 						<!-- companyName, companyAddress, position -->
+						<div class="input-group">
 
-						<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-bolt"></i></label></span>
-						<select class="form-control" name="trainerspecialty" id="trainerspecialty">
-							<option value="">Please choose your speciality</option>
-							<option value="Dance"  <?php if (isset($_POST['trainerspecialty'])&&$_POST['trainerspecialty']=='Dance') echo ' selected'; ?>>Dance</option>
-							<option value="MMA" <?php if (isset($_POST['trainerspecialty'])&&$_POST['trainerspecialty']=='MMA') echo ' selected'; ?>>MMA</option>
-							<option value="Sport" <?php if (isset($_POST['trainerspecialty'])&&$_POST['trainerspecialty']=='Sport') echo ' selected'; ?>>Sport</option>
-						</select>
+							<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-bolt"></i></label></span>
+							<input class="form-control" placeholder="Company Name" type="text" id="companyName" name="expectedSalary" required value="<?php if (isset($_POST['companyName'])) echo $_POST['companyName']; ?>">
+
+						</div>
+						<?php if(isset($orgError)){ ?><span class="error"><?php echo $orgError; ?></span><?php } ?>
+						<div class="input-group">
+
+							<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-bolt"></i></label></span>
+							<input class="form-control" placeholder="Company Address" type="text" id="companyAddress" name="companyAddress" required value="<?php if (isset($_POST['companyAddress'])) echo $_POST['companyAddress']; ?>">
+
+						</div>
+						<?php if(isset($addressError)){ ?><span class="error"><?php echo $addressError; ?></span><?php } ?>
+						<div class="input-group">
+
+							<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-bolt"></i></label></span>
+							<input class="form-control" placeholder="Your Position" type="text" id="position" name="position" required value="<?php if (isset($_POST['position'])) echo $_POST['position']; ?>">
+
+						</div>
+						<?php if(isset($posError)){ ?><span class="error"><?php echo $posError; ?></span><?php } ?>
 					</div>
-					<?php if(isset($specialityError)){ ?><span class="error"><?php echo $specialityError; ?></span><?php } ?>
+
 					<?php if(isset($selectError)){ ?><span class="error"><?php echo $selectError; ?></span><?php } ?>
 					<button type="submit" class="btn btn-success btn-block btn-lg formButton">Register</button>
 				</div>
@@ -317,7 +366,7 @@ $no_error=1;
 <?php
 if ($no_error==0){
 
-	if($_POST['userType'] == 'member'){
+	if($_POST['userType'] == 'jf'){
 ?>
 <script type="text/javascript">btnregmember();
 
