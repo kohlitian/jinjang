@@ -3,7 +3,6 @@
 //if user is not logged in, but there is cookies available, log user in via cookie
 if (!isset($_SESSION['id'])&&isset($_COOKIE['id'])){
 	$_SESSION['id']=$_COOKIE['id'];
-	$_SESSION['loginDate'] = $_COOKIE['loginDate'];
 	$_SESSION['username'] = $_COOKIE['username'];
 	$_SESSION['name'] = $_COOKIE['name'];
 }
