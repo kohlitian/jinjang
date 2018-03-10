@@ -1,3 +1,9 @@
+<?php
+//load default startup scripts
+include("config.php");
+include("control.php");
+
+?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -13,6 +19,7 @@
 <body class="Site">
 	<!-- start of header -->
 	<?php 
+
 	include("header.php"); 
 	?>
 	<!-- end of header -->
