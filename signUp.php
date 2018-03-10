@@ -7,7 +7,7 @@ include("control.php");
 //if user is already registered, don't allow register again
 if(isset($_SESSION['id']) && $_SESSION['id'] > 0){
 	$_SESSION['passThruMessage'] = "You have to log out first then only can sign up";
-	header("Location: welcome.php"); exit;
+	header("Location: index.php"); exit;
 }
 
 $no_error=1;
@@ -110,15 +110,13 @@ $no_error=1;
 			if ($skills==""){
 			$skillError = "Please type your skill";
 			}
-			if ($languages==""){
-			$langError = "Please type your language";
+			if (!is_array($languages)||(is_array($languages)&&count($languages)==0)){
+			$langError = "Please choose your language";
 			}
 			if ($educationLevel==""){
-			$eduError = "Please type your language";
+			$eduError = "Please choose your education level";
 			}
-			if ($educationLevel==""){
-			$eduError = "Please type your language";
-			}
+
 
 		}else if ($_POST['userType'] == "jp"){
 			if ($companyName==""){
@@ -136,9 +134,9 @@ $no_error=1;
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $nameError == ""  && $cnomborError == "" && $levelError == "" && $specialityError == "" && $selectError == ""){
 			//insert data into database if no errors
 			if($_POST['userType']=='jf'){
-				$signUp = "INSERT INTO `Member` (`memberID`, `email`, `username`, `password`, `fullName`, `level`, `signupDate`, `loginDate`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($level)."', '$signupDate', '$loginDate')";
+				$signUp = "INSERT INTO `JobFinder` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes($skills)."', '".addslashes(implode(",",$languages))."')";
 			} else {
-				$signUp = "INSERT INTO `providers` (`providerID`, `email`, `username`, `password`, `fullName`, `specialty`, `signupDate`, `loginDate`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($speciality)."', '$signupDate', '$loginDate')";
+				$signUp = "INSERT INTO `JobProvider` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`, `companyName`, `companyAddress`, `position`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($companyName)."', '".addslashes($companyAddress)."', '".addslashes($position)."')";
 			}
 			if(mysqli_query($connect, $signUp)){
 				//notify user about successfull signup
@@ -255,7 +253,7 @@ $no_error=1;
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="experienceHistory"><i class="fa fa-bolt"></i></label></span>
-							<textarea class="form-control" placeholder="Experience History" type="text" id="experienceHistory" name="experienceHistory" required><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
+							<textarea class="form-control" placeholder="Experience History" type="text" id="experienceHistory" name="experienceHistory"><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
 
 						</div>
 						<?php if(isset($expError)){ ?><span class="error"><?php echo $expError; ?></span><?php } ?>
@@ -263,7 +261,7 @@ $no_error=1;
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="expectedSalary"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Expected Salary" type="number" id="expectedSalary" name="expectedSalary" required value="<?php if (isset($_POST['expectedSalary'])) echo $_POST['expectedSalary']; ?>">
+							<input class="form-control" placeholder="Expected Salary" type="number" id="expectedSalary" name="expectedSalary" value="<?php if (isset($_POST['expectedSalary'])) echo $_POST['expectedSalary']; ?>">
 
 						</div>
 						<?php if(isset($salaryError)){ ?><span class="error"><?php echo $salaryError; ?></span><?php } ?>
@@ -271,7 +269,7 @@ $no_error=1;
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Skills (seperated by comma)" type="text" id="skills" name="skills" required value="<?php if (isset($_POST['skills'])) echo $_POST['skills']; ?>">
+							<input class="form-control" placeholder="Skills (seperated by comma)" type="text" id="skills" name="skills" value="<?php if (isset($_POST['skills'])) echo $_POST['skills']; ?>">
 						</div>
 						<?php if(isset($skillError)){ ?><span class="error"><?php echo $skillError; ?></span><?php } ?>
 
@@ -281,7 +279,7 @@ $no_error=1;
 
 							<span class="input-group-addon" id="basic-addon2"><label for="languages"><i class="fa fa-bolt"></i></label></span>
 		
-							<select class="form-control" name="languages" id="languages" multiple="true">
+							<select class="form-control" name="languages[]" id="languages" multiple="true">
 
 								<option value="Mandarin"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Mandarin", $_POST['languages'])) echo ' selected'; ?>>Mandarin</option>
 								<option value="Bahasa Malaysia"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Bahasa Malaysia", $_POST['languages'])) echo ' selected'; ?>>Bahasa Malaysia</option>
@@ -293,7 +291,7 @@ $no_error=1;
 								<option value="Tamil"  <?php if (isset($_POST['languages'])&&is_array($_POST['languages'])&& in_array("Tamil", $_POST['languages'])) echo ' selected'; ?>>Tamil</option>
 
 							</select>
-							
+
 
 
 						</div><small>Hold Ctrl/CMD to choose multiple</small>
@@ -324,21 +322,21 @@ $no_error=1;
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Company Name" type="text" id="companyName" name="expectedSalary" required value="<?php if (isset($_POST['companyName'])) echo $_POST['companyName']; ?>">
+							<input class="form-control" placeholder="Company Name" type="text" id="companyName" name="expectedSalary" value="<?php if (isset($_POST['companyName'])) echo $_POST['companyName']; ?>">
 
 						</div>
 						<?php if(isset($orgError)){ ?><span class="error"><?php echo $orgError; ?></span><?php } ?>
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Company Address" type="text" id="companyAddress" name="companyAddress" required value="<?php if (isset($_POST['companyAddress'])) echo $_POST['companyAddress']; ?>">
+							<input class="form-control" placeholder="Company Address" type="text" id="companyAddress" name="companyAddress" value="<?php if (isset($_POST['companyAddress'])) echo $_POST['companyAddress']; ?>">
 
 						</div>
 						<?php if(isset($addressError)){ ?><span class="error"><?php echo $addressError; ?></span><?php } ?>
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Your Position" type="text" id="position" name="position" required value="<?php if (isset($_POST['position'])) echo $_POST['position']; ?>">
+							<input class="form-control" placeholder="Your Position" type="text" id="position" name="position" value="<?php if (isset($_POST['position'])) echo $_POST['position']; ?>">
 
 						</div>
 						<?php if(isset($posError)){ ?><span class="error"><?php echo $posError; ?></span><?php } ?>
