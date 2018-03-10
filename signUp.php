@@ -135,6 +135,7 @@ $no_error=1;
 			//insert data into database if no errors
 			if($_POST['userType']=='jf'){
 				$signUp = "INSERT INTO `JobFinder` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes($skills)."', '".addslashes(implode(",",$languages))."')";
+
 			} else {
 				$signUp = "INSERT INTO `JobProvider` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`, `companyName`, `companyAddress`, `position`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($companyName)."', '".addslashes($companyAddress)."', '".addslashes($position)."')";
 			}
@@ -322,7 +323,7 @@ $no_error=1;
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Company Name" type="text" id="companyName" name="expectedSalary" value="<?php if (isset($_POST['companyName'])) echo $_POST['companyName']; ?>">
+							<input class="form-control" placeholder="Company Name" type="text" id="companyName" name="companyName" value="<?php if (isset($_POST['companyName'])) echo $_POST['companyName']; ?>">
 
 						</div>
 						<?php if(isset($orgError)){ ?><span class="error"><?php echo $orgError; ?></span><?php } ?>
