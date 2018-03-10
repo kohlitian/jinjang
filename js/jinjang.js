@@ -57,15 +57,41 @@ function validateSignupForm(){
 	}
 	if (document.getElementById("userType").value=='jf')
 	{
-		if (document.getElementById("memberlevel").value=='')
+		if (document.getElementById("experienceHistory").value=='')
 		{
-			bootbox.alert("You need to choose job finder level first.");
+			bootbox.alert("You need to type your experience history.");
 			return false;
 		}
-	}else{
-		if (document.getElementById("trainerspecialty").value=='')
+		if (document.getElementById("expectedSalary").value=='')
 		{
-			bootbox.alert("You need to choose job provider specialty first.");
+			bootbox.alert("You need to type your expected salary.");
+			return false;
+		}
+		if (document.getElementById("skills").value=='')
+		{
+			bootbox.alert("You need to type your skills.");
+			return false;
+		}
+		if (document.getElementById("educationLevel").value=='')
+		{
+			bootbox.alert("You need to choose your education level.");
+			return false;
+		}
+
+	}else{
+		if (document.getElementById("companyName").value=='')
+		{
+			bootbox.alert("You need to enter company name.");
+			return false;
+		}
+		if (document.getElementById("companyAddress").value=='')
+		{
+			bootbox.alert("You need to enter company address.");
+			return false;
+		}
+		if (document.getElementById("position").value=='')
+		{
+			bootbox.alert("You need to enter your position in your company.");
 			return false;
 		}
 	}
