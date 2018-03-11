@@ -56,9 +56,9 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		}
 
 
-		if (is_array($languages)&&(is_array($languages)&&count($languages)>1)){
-			$languages = $_POST['languages'];
-		} else if (!is_array($languages)||(is_array($languages)&&count($languages)==0)){
+		if (is_array($_POST['languages'])&&(is_array($_POST['languages'])&&count($_POST['languages'])>1)){
+			$languages = addslashes(implode(",",$_POST['languages']));
+		} else if (!is_array($_POST['languages'])||(is_array($_POST['languages'])&&count($_POST['languages'])==0)){
 			$langError = "Please choose a language";
 		} else {
 			$languages = $user['languages'];
@@ -68,7 +68,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 			$password = $user['password'];
 		} else {
 			if($conPass != $_POST['password']){
-				$passwordError = "(Both password must be same)";
+				$passwordError = "Both password must be same";
 			} else {
 				$password = $_POST['password'];
 			}
@@ -99,8 +99,8 @@ if(isset($user) && $user['type'] == "jobProvider"){
 			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 			 	$emailError = "Invalid email format";
 			 } else {
-			 	$find = "SELECT `email` FROM `jobprovider` WHERE `email` = '".addslashes($_POST['email'])."'  and `userID`!='".$user['userID']."';";
-			 	$find2 = "SELECT `email` FROM `jobfinder` WHERE `email` = '".addslashes($_POST['email'])."' ;";
+			 	$find = "SELECT `email` FROM `jobprovider` WHERE `email` = '".addslashes($_POST['email'])."' ";
+			 	$find2 = "SELECT `email` FROM `jobfinder` WHERE `email` = '".addslashes($_POST['email'])."'  and `userID`!='".$user['userID']."';";
 			 	$findMemberMail = mysqli_query($connect, $find);
 			 	$findMemberMail2 = mysqli_query($connect, $find2);
 			 	if(mysqli_num_rows($findMemberMail) >0 || mysqli_num_rows($findMemberMail2) >0 ){
@@ -115,8 +115,8 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		if(empty($_POST['username'])){
 			$usernameError = "(Please enter a username)";
 		} else {
-			 	$find = "SELECT `username` FROM `jobprovider` WHERE `username` = '".addslashes($_POST['username'])."'  and `userID`!='".$user['userID']."';";
-			 	$find2 = "SELECT `username` FROM `jobfinder` WHERE `username` = '".addslashes($_POST['username'])."' ;";
+			 	$find = "SELECT `username` FROM `jobprovider` WHERE `username` = '".addslashes($_POST['username'])."' ;";
+			 	$find2 = "SELECT `username` FROM `jobfinder` WHERE `username` = '".addslashes($_POST['username'])."'  and `userID`!='".$user['userID']."';";
 			 	$findMember = mysqli_query($connect, $find);
 			 	$findMember2 = mysqli_query($connect, $find2);
 			 	if(mysqli_num_rows($findMember) >0 || mysqli_num_rows($findMember2) >0 ){
@@ -127,11 +127,11 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		}
 
 		//if there is no errors, update trainer info
-		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $cnomborError==""&& $orgError==""&&$addressError==""&&$posError==""){
-			mysqli_query($connect, "UPDATE `jobprivder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."', `companyName` = '".addslashes($companyName)."',`companyAddress` = '".addslashes($companyAddress)."',`position` = '".addslashes($position)."' WHERE `userID` = '".$user['userID']."'");
+		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""){
+			mysqli_query($connect, "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."', ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."'");
 			$_SESSION['name'] = $fname;
 			$_SESSION['username'] = $username;
-			$_SESSION['passThruMessage']="Your job provider account info modified successfully.";
+			$_SESSION['passThruMessage']="Your job finder account info modified successfully.";
 			header("Location: index.php");
 		}else{
 			$passThruMessage="Please correct mentioned errors.";
@@ -162,7 +162,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		<br>
 		<form class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" onsubmit="return validateTrainerForm();"  method="POST" action="modifyTrainer.php">
 			<div class="formStyle">
-				<p><Strong>Modify your job provider account info</Strong></p>
+				<p><Strong>Modify your job finder account info</Strong></p>
 				<span>New Password:<br>(Leave password empty to keep unchanged)</span>
 				<?php if(isset($passwordError)){ echo $passwordError;} ?>
 				<div class="input-group noSpaceTop">
