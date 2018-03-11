@@ -20,11 +20,13 @@ $no_error=1;
 		$ID = "";
 		$signupDate = time();
 		$loginDate = time();
+		
 		$experienceHistory = $_POST['experienceHistory'];
 		$expectedSalary = $_POST['expectedSalary'];
 		$skills = $_POST['skills'];
 		$languages = $_POST['languages'];
 		$educationLevel = $_POST['educationLevel'];
+
 		$companyName = $_POST['companyName'];
 		$companyAddress = $_POST['companyAddress'];
 		$position = $_POST['position'];
@@ -324,7 +326,7 @@ $no_error=1;
 					
 
 					<div  id="trainerelement" style="width: 100%;">
-						<!-- companyName, companyAddress, position -->
+			
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-bolt"></i></label></span>
