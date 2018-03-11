@@ -131,11 +131,15 @@ $no_error=1;
 		}
 
 		//check if any error occured
-		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $nameError == ""  && $cnomborError == "" && $levelError == "" && $specialityError == "" && $selectError == ""){
+
+		$usernameError=""; $emailError=""; $passwordError=""; $conPassError=""; $nameError=""; ; ;;; ;
+
+
+
+		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""&& $cnomborError==""&& $orgError==""&&$addressError==""&&$posError==""){
 			//insert data into database if no errors
 			if($_POST['userType']=='jf'){
 				$signUp = "INSERT INTO `JobFinder` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes($skills)."', '".addslashes(implode(",",$languages))."')";
-
 			} else {
 				$signUp = "INSERT INTO `JobProvider` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`, `companyName`, `companyAddress`, `position`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($companyName)."', '".addslashes($companyAddress)."', '".addslashes($position)."')";
 			}
@@ -146,6 +150,7 @@ $no_error=1;
 			}
 		}else{
 			$no_error=0;
+
 
 		}
 	}
@@ -346,7 +351,7 @@ $no_error=1;
 					<?php if(isset($selectError)){ ?><span class="error"><?php echo $selectError; ?></span><?php } ?>
 					<button type="submit" class="btn btn-success btn-block btn-lg formButton">Register</button>
 				</div>
-				<hr>
+				<hr
 					<div class="center">
 					<small>Or <a href="LogIn.php">login to your account</a></small>
 					</div>
@@ -367,7 +372,7 @@ if ($no_error==0){
 
 	if($_POST['userType'] == 'jf'){
 ?>
-<script type="text/javascript">btnregmember();
+<script type="text/javascript">btnregJF();
 
 	bootbox.alert("Please correct mentioned errors.");
 
@@ -375,7 +380,7 @@ if ($no_error==0){
 <?php 
 	} else {
 ?>
-<script type="text/javascript">btnregtrainer();
+<script type="text/javascript">btnregP();
 
 	bootbox.alert("Please correct mentioned errors.");
 
