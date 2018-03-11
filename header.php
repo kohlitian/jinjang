@@ -26,7 +26,7 @@
 						if($_SESSION['id']>0 && $user['type'] == "jobFinder"){
 							echo"<ul>
 								<li><a href=\"jobs.php?status=available\">Available Jobs</a></li>
-								<li><a href=\"modifyMember.php\">Edit Account Info</a></li>
+								<li><a href=\"modifyJF.php\">Edit Account Info</a></li>
 								<li><a href=\"logOut.php\">Logout</a></li>
 
 							</ul></li>
@@ -34,7 +34,7 @@
 						} else if($_SESSION['id'] > 0 && $user['type'] == "jobProvider"){
 							echo "<ul>
 								<li><a href=\"newJob.php\">Add New Jobs</a></li>
-								<li><a href=\"modifyJobFinder.php\">Edit Account Info</a></li>
+								<li><a href=\"modifyJP.php\">Edit Account Info</a></li>
 								<li><a href=\"logOut.php\">Logout</a></li>
 
 							</ul></li>
