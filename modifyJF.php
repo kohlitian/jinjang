@@ -47,6 +47,23 @@ if(isset($user) && $user['type'] == "jobProvider"){
 			$skills = $user['skills'];
 		}
 
+		if(!empty($_POST['educationLevel'])){
+			$educationLevel = $_POST['educationLevel'];
+		} else if($_POST['educationLevel'] == ""){
+			$eduError = "Please enter education level";
+		} else {
+			$educationLevel = $user['educationLevel'];
+		}
+
+
+		if (is_array($languages)&&(is_array($languages)&&count($languages)>1)){
+			$languages = $_POST['languages'];
+		} else if (!is_array($languages)||(is_array($languages)&&count($languages)==0)){
+			$langError = "Please choose a language";
+		} else {
+			$languages = $user['languages'];
+		}
+
 		if(empty($_POST['password'])){
 			$password = $user['password'];
 		} else {
