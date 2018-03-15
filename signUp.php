@@ -134,10 +134,6 @@ $no_error=1;
 
 		//check if any error occured
 
-		$usernameError=""; $emailError=""; $passwordError=""; $conPassError=""; $nameError=""; ; ;;; ;
-
-
-
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""&& $cnomborError==""&& $orgError==""&&$addressError==""&&$posError==""){
 			//insert data into database if no errors
 			if($_POST['userType']=='jf'){
@@ -353,7 +349,7 @@ $no_error=1;
 					<?php if(isset($selectError)){ ?><span class="error"><?php echo $selectError; ?></span><?php } ?>
 					<button type="submit" class="btn btn-success btn-block btn-lg formButton">Register</button>
 				</div>
-				<hr
+				<hr>
 					<div class="center">
 					<small>Or <a href="LogIn.php">login to your account</a></small>
 					</div>
