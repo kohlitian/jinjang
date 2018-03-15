@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	if($amount<=0){
 		$passThruMessage = "Sorry amount cannot be less than or equal to 0.";
 	} else {
-		header("Location: afterDonate.php?name=$fullName");
+		header("Location: afterDonate.php?name=$fullName&money=$amount");
 	}
 }
 
@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>Home</title>
+	<title>Donation</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">
