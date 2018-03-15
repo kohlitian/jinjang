@@ -4,11 +4,11 @@ include("config.php");
 include("control.php");
 
 //check if user is logged in
-// if(!isset($_SESSION['id'])){
-// 	$_SESSION['passThruMessage'] = "This page only allow subscriber, please log in or sign up then only can access this page.";
-// 	header("Location: login.php");
-// 	die();
-// }
+if(!isset($_SESSION['id'])){
+	$_SESSION['passThruMessage'] = "This page only allow subscriber, please log in or sign up then only can access this page.";
+	header("Location: login.php");
+	die();
+}
 
 //if a member came to this page, bring him out to home page
 if($user['type'] == "jobFinder"){
@@ -28,6 +28,7 @@ else {
 		} else {
 			$title = $_POST['titleName'];
 		}
+
 		if(!empty($_POST['salary'])){
 			if($_POST['salary'] < 0){
 				$salaryError = "Salary cannot be negative";
@@ -101,7 +102,7 @@ else {
 
 		//if there is no error, insert training session into database
 		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
-			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', 'time', '$startDate', '$endDate', '$deadline', '$participant', 0, 'Available', '".$user['userID']."'";
+			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDate', '$endDate', '$deadline', '$participant', 0, 'Available', '".$user['userID']."'";
 			if(mysqli_query($connect, $newJob)){
 				$_SESSION['passThruMessage'] = "Your new session has been added successfully.";
 				header('Location: myJob.php'); exit;
@@ -116,7 +117,7 @@ else {
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>New Training</title>
+	<title>New Job</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">
@@ -150,7 +151,7 @@ else {
 			<div class="marginTB">
 				<span>Job Title</span>
 				<?php if(isset($titleError)){echo $titleError;} ?>
-				<input class="input-lg form-control" type="text" name="jobTitle" placeholder="Please enter title of training session" required value="<?php if (isset($_POST['jobTitle'])&&$_POST['jobTitle']) echo $_POST['jobTitle']; ?>">
+				<input class="input-lg form-control" type="text" name="jobTitle" placeholder="Please enter title of job" required value="<?php if (isset($_POST['jobTitle'])&&$_POST['jobTitle']) echo $_POST['jobTitle']; ?>">
 			</div>
 			
 			<div class="row">
@@ -172,7 +173,7 @@ else {
 				</div>
 				
 			</div>
-
+			<br>
 			<div class="row">
 				<div class="col-sm-6">
 					<span>Start Date</span>
@@ -191,7 +192,7 @@ else {
 					</div>
 				</div>
 			</div>
-
+			<br>
 			<div class="row">
 				<div class="col-sm-6">
 					<span>Deadline</span>
@@ -230,7 +231,7 @@ else {
 			</div>
 
 			<br>
-			<button type="submit" class="btn btn-primary btn-lg">Add This Session</button>
+			<button type="submit" class="btn btn-primary btn-lg">Add This Job</button>
 
 		</form>
 	</div>
@@ -244,6 +245,7 @@ else {
 
 	<!-- start of footer code -->
 	<?php
+	//problem
 	$no_helpfit_js=1;
 	include("footer.php"); ?>
 	<!-- end of footer -->
