@@ -124,7 +124,7 @@ else {
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-slider.min.css">
-	<link rel="stylesheet" type="text/css" href="css/helpfit.css">
+	<link rel="stylesheet" type="text/css" href="css/jinjang.css">
 	
 	<style type="text/css">
 		form div span{

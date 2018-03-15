@@ -14,7 +14,7 @@ include("control.php");
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/helpfit.css">
+	<link rel="stylesheet" type="text/css" href="css/jinjang.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	
 </head>
@@ -30,7 +30,7 @@ include("control.php");
 		<br>
 		<br>
 		<br>
-		<p><strong>Thank You for Donating to us, the money will process to other payment system and we will receive it soon. We will use the money to improve our system to help more people that live in jinjang utara. We will contact you if something happen, and you are welcome to contact us for more information. THANK YOU ! </strong></p>
+		<p><strong>Thank You Mr. <?php if(isset($_GET['name'])){echo $_GET['name'];} else {echo "Guess";} ?> for Donating to us, the money will process to other payment system and we will receive it soon. We will use the money to improve our system to help more people that live in jinjang utara. We will contact you if something happen, and you are welcome to contact us for more information. THANK YOU ! </strong></p>
 		<div class="clear"></div>
 		<br>
 		<br>
