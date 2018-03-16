@@ -19,14 +19,13 @@ else {
 	//if form is posted
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-
 		$titleError = ""; $salaryError = ""; $startDateError = ""; $endDateError = ""; $deadlineError = ""; $requirementError = ""; $locationError = ""; $descriptionError = "";
 
 		//validate enteries
-		if(empty($_POST['titleName'])){
+		if(empty($_POST['jobTitle'])){
 			$titleError = "please enter a job title";
 		} else {
-			$title = $_POST['titleName'];
+			$title = $_POST['jobTitle'];
 		}
 
 		if(!empty($_POST['salary'])){
@@ -48,7 +47,8 @@ else {
 			$startDateError = "Please choose starting date for this job";
 		} else {
 			if(time()>strtotime($_POST['startDate'])){
-				$dateError = "Today is ".date("Y-m-d H:i:s", time())." new Job must be set after.";
+				$startDateError = "Today is ".date("Y-m-d H:i:s", time())." new Job must be set after.";
+				echo time();
 			} else {
 				$startDateC = strtotime($_POST['startDate']);
 			}
@@ -59,12 +59,12 @@ else {
 			$endDateError = "Please choose ending date for this job";
 		} else {
 			if(time()>strtotime($_POST['endDate'])){
-				if(strtotime($_POST['endDate'])<strtotime($_POST['startDate'])){
-					$endDateError = "End working date cannot be early than start working date.";
-				} else {
-					$endDateError = "Today is".date("Y-m-d H:i:s", time())." new Job must be set after.";
-				}
-			} else {
+				$endDateError = "Today is".date("Y-m-d H:i:s", time())." new Job must be set after.";
+			}
+			else if(strtotime($_POST['endDate'])<strtotime($_POST['startDate'])){
+				$endDateError = "End working date cannot be early than start working date.";
+			}
+			else {
 				$endDateC = strtotime($_POST['endDate']);
 			}
 		}
@@ -83,6 +83,9 @@ else {
 		if(empty($_POST['requirement'])){
 			$requirementError = "Please choose a requirement for this job.";
 		} else {
+			if($_POST['requirement'] == "noChoose"){
+				$requirementError = "Please choose a requiremnet for this job.";
+			}
 			$requirement = $_POST['requirement'];
 		}
 
@@ -99,13 +102,12 @@ else {
 		}
 
 		$participant = $_POST['participant'];
-
 		//if there is no error, insert training session into database
 		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
-			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDate', '$endDate', '$deadline', '$participant', 0, 'Available', '".$user['userID']."'";
+			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."')";
 			if(mysqli_query($connect, $newJob)){
 				$_SESSION['passThruMessage'] = "Your new session has been added successfully.";
-				header('Location: myJob.php'); exit;
+				header('Location: jobs.php'); exit;
 			} else {
 				$passThruMessage = "Please correct mentioned errors";
 			}
@@ -136,11 +138,7 @@ else {
 <body>
 	<!-- start of header -->
 	<?php 
-		if($_SESSION['id'] > 0){
-			include("headerAfterLog.php");
-		} else{
-			include("header.php"); 
-		}
+		include("header.php"); 
 	?>
 	<!-- end of header -->
 
@@ -150,14 +148,14 @@ else {
 		<form method="POST" action="newJob.php">
 			<div class="marginTB">
 				<span>Job Title</span>
-				<?php if(isset($titleError)){echo $titleError;} ?>
+				<?php if(isset($titleError)){echo '<span style="color:#AFA;">'.$titleError.'</span>';} ?>
 				<input class="input-lg form-control" type="text" name="jobTitle" placeholder="Please enter title of job" required value="<?php if (isset($_POST['jobTitle'])&&$_POST['jobTitle']) echo $_POST['jobTitle']; ?>">
 			</div>
 			
 			<div class="row">
 				<div class="col-sm-6">
 					<span>Salary</span>
-					<?php if(isset($salaryError)){echo $salaryError;} ?>
+					<?php if(isset($salaryError)){echo '<span style="color:#FF0000;">'.$salaryError.'</span>';} ?>
 					<div class="input-group noSpaceTop">
 						<span class="input-group-addon" id="basic-addon1"><label for="price">RM</label></span>
 						<input class="form-control" type="number" name="salary" required id="price" placeholder="Type amount of Salary for job"  value="<?php if (isset($_POST['salary'])&&$_POST['salary']) echo $_POST['salary']; ?>">
@@ -177,7 +175,7 @@ else {
 			<div class="row">
 				<div class="col-sm-6">
 					<span>Start Date</span>
-					<?php if(isset($startDateError)){echo $startDateError;} ?>
+					<?php if(isset($startDateError)){echo '<span style="color:#FF0000;">'.$startDateError.'</span>';} ?>
 					<div class="input-group date noSpaceTop datetimepicker" id="datetimepicker1">
 						<input class="form-control" type="text" required name="startDate" placeholder="Choose start date for job"  value="<?php if (isset($_POST['startDate'])&&$_POST['startDate']) echo $_POST['startDate']; ?>">
 						<span class="input-group-addon"><label><i class="glyphicon glyphicon-calendar"></i></label></span>
@@ -185,7 +183,7 @@ else {
 				</div>
 				<div class="col-sm-6">
 					<span>End Date</span>
-					<?php if(isset($endDateError)){echo $endDateError;} ?>
+					<?php if(isset($endDateError)){echo '<span style="color:#FF0000;">'.$endDateError.'</span>';} ?>
 					<div class="input-group date noSpaceTop datetimepicker" id="datetimepicker1">
 						<input class="form-control" type="text" required name="endDate" placeholder="Choose end date for job"  value="<?php if (isset($_POST['endDate'])&&$_POST['endDate']) echo $_POST['endDate']; ?>">
 						<span class="input-group-addon"><label><i class="glyphicon glyphicon-calendar"></i></label></span>
@@ -196,7 +194,7 @@ else {
 			<div class="row">
 				<div class="col-sm-6">
 					<span>Deadline</span>
-					<?php if(isset($deadlineError)){echo $deadlineError;} ?>
+					<?php if(isset($deadlineError)){echo '<span style="color:#FF0000;">'.$deadlineError.'</span>';} ?>
 					<div class="input-group date noSpaceTop datetimepicker" id="datetimepicker1">
 						<input class="form-control" type="text" required name="deadline" placeholder="Choose deadline for job recuitment"  value="<?php if (isset($_POST['deadline'])&&$_POST['deadline']) echo $_POST['deadline']; ?>">
 						<span class="input-group-addon"><label><i class="glyphicon glyphicon-calendar"></i></label></span>
@@ -204,31 +202,34 @@ else {
 				</div>
 				<div class="col-sm-6">
 					<span>requirement</span>
-					<?php if(isset($requirementError)){echo $requirementError;} ?>
-					<div class="input-group date noSpaceTop datetimepicker" id="datetimepicker1">
-						<input class="form-control" type="text" required name="requirement" placeholder="Choose requirement for job"  value="<?php if (isset($_POST['requirement'])&&$_POST['requirement']) echo $_POST['requirement']; ?>">
-						<span class="input-group-addon"><label><i class="glyphicon glyphicon-calendar"></i></label></span>
-					</div>
+					<?php if(isset($requirementError)){echo '<span style="color:#FF0000;">'.$requirementError.'</span>';} ?>
+					<select class="form-control" name="requirement">
+						<option value="noChoose" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "noChoose") echo "selected"; ?> >Please choose a requirement</option>
+						<option value="" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "") echo "selected"; ?> >No requirement</option>
+						<option value="Primary School" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "Primary School") echo "selected"; ?> >Primary School</option>
+						<option value="High School" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "High School") echo "selected"; ?> >High School</option>
+						<option value="ALevel" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "ALevel") echo "selected"; ?> >ALevel</option>
+						<option value="Foundation" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "Foundation") echo "selected"; ?> >Foundation</option>
+						<option value="Diploma" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "Diploma") echo "selected"; ?> >Diploma</option>
+						<option value="Degree" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "Degree") echo "selected"; ?> >Degree</option>
+						<option value="Master" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "Master") echo "selected"; ?> >Master</option>
+						<option value="Phd" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "Phd") echo "selected"; ?> >Professor</option>
+					</select>
 				</div>
 			</div>
 			
 			<div class="marginTB">
 				<span>Location</span>
-				<?php if(isset($locationError)){echo $locationError;} ?>
-				<div class="input-group date noSpaceTop datetimepicker" id="datetimepicker1">
-					<input class="form-control" type="text" required name="location" placeholder="Choose location for job"  value="<?php if (isset($_POST['location'])&&$_POST['location']) echo $_POST['location']; ?>">
-					<span class="input-group-addon"><label><i class="glyphicon glyphicon-calendar"></i></label></span>
-				</div>
+				<?php if(isset($locationError)){echo '<span style="color:#FF0000;">'.$locationError.'</span>';} ?>
+				<input class="form-control" type="text" required name="location" placeholder="Choose location for job"  value="<?php if (isset($_POST['location'])&&$_POST['location']) echo $_POST['location']; ?>">
 			</div>
 
 			<div class="marginTB">
 				<span>description</span>
-				<?php if(isset($descriptionError)){echo $descriptionError;} ?>
-				<div class="input-group date noSpaceTop datetimepicker" id="datetimepicker1">
-					<input class="form-control" type="text" required name="description" placeholder="Description for the job"  value="<?php if (isset($_POST['location'])&&$_POST['location']) echo $_POST['location']; ?>">
-					<span class="input-group-addon"><label><i class="glyphicon glyphicon-calendar"></i></label></span>
-				</div>
+				<?php if(isset($descriptionError)){echo '<span style="color:#FF0000;">'.$descriptionError.'</span>';} ?>
+				<textarea rows="5" class="input-lg form-control" name="description" required placeholder="Description of the job"><?php if(isset($_POST['description'])) echo $_POST['description']; ?></textarea>
 			</div>
+
 
 			<br>
 			<button type="submit" class="btn btn-primary btn-lg">Add This Job</button>
