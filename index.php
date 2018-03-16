@@ -2,7 +2,7 @@
 //load default startup scripts
 include("config.php");
 include("control.php");
-
+$is_home=1;
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
