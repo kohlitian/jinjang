@@ -224,7 +224,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 				<span>Your position:</span>
 				<?php if(isset($posError)){ echo $posError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-user-cirycle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-user-circle"></i></label></span>
 					<input class="form-control" placeholder="Please enter position" type="text" id="position" name="position" value="<?php echo $user['position']; ?>">
 				</div>
 
