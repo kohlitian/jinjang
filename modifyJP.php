@@ -143,7 +143,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 	<!--content-->
 	<div class="container marginTB">
 		<br>
-		<form class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" onsubmit="return validateTrainerForm();"  method="POST" action="modifyTrainer.php">
+		<form class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" onsubmit="return validateTrainerForm();"  method="POST" action="modifyJP.php">
 			<div class="formStyle">
 				<p><Strong>Modify your job provider account info</Strong></p>
 				<span>New Password:<br>(Leave password empty to keep unchanged)</span>

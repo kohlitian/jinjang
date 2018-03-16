@@ -248,7 +248,7 @@ $no_error=1;
 
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa fa-phone"></i></label></span>
-						<input class="form-control" placeholder="Contact Number" type="text" id="cnombor" name="cnombor" required  value="<?php if (isset($_POST['cnombor'])) echo $_POST['cnombor']; ?>">
+						<input class="form-control" placeholder="Contact Number" type="number" id="cnombor" name="cnombor" required  value="<?php if (isset($_POST['cnombor'])) echo $_POST['cnombor']; ?>">
 					</div>
 					<?php if(isset($cnomborError)){ ?><span class="error"><?php echo $cnomborError; ?></span><?php } ?>
 

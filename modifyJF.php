@@ -56,7 +56,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		}
 
 
-		if (is_array($_POST['languages'])&&(is_array($_POST['languages'])&&count($_POST['languages'])>1)){
+		if (is_array($_POST['languages'])&&(is_array($_POST['languages'])&&count($_POST['languages'])>0)){
 			$languages = addslashes(implode(",",$_POST['languages']));
 		} else if (!is_array($_POST['languages'])||(is_array($_POST['languages'])&&count($_POST['languages'])==0)){
 			$langError = "Please choose a language";
@@ -115,7 +115,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 
 		//validate username and make sure username is not taken by others
 		if(empty($_POST['username'])){
-			$usernameError = "(Please enter a username)";
+			$usernameError = "Please enter a username";
 		} else {
 			 	$find = "SELECT `username` FROM `jobprovider` WHERE `username` = '".addslashes($_POST['username'])."' ;";
 			 	$find2 = "SELECT `username` FROM `jobfinder` WHERE `username` = '".addslashes($_POST['username'])."'  and `userID`!='".$user['userID']."';";
@@ -130,7 +130,8 @@ if(isset($user) && $user['type'] == "jobProvider"){
 
 		//if there is no errors, update trainer info
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""){
-			mysqli_query($connect, "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."', ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."'");
+			mysqli_query($connect, "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."' ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."';");
+//echo "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."' ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."';";die();
 			$_SESSION['name'] = $fname;
 			$_SESSION['username'] = $username;
 			$_SESSION['passThruMessage']="Your job finder account info modified successfully.";
@@ -141,9 +142,6 @@ if(isset($user) && $user['type'] == "jobProvider"){
 
 	}
 
-
-
-		if (strpos($user['languages'], ","))
 		$languageArr=explode(",", $user['languages']);
 
 ?><!DOCTYPE HTML>
@@ -167,7 +165,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 	<!--content-->
 	<div class="container marginTB">
 		<br>
-		<form class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" onsubmit="return validateTrainerForm();"  method="POST" action="modifyTrainer.php">
+		<form class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" onsubmit="return validateTrainerForm();"  method="POST" action="modifyJF.php">
 			<div class="formStyle">
 				<p><Strong>Modify your job finder account info</Strong></p>
 				<span>New Password:<br>(Leave password empty to keep unchanged)</span>
@@ -212,6 +210,13 @@ if(isset($user) && $user['type'] == "jobProvider"){
 					<input class="form-control" placeholder="Please enter contact Number" type="text" id="cnombor" name="cnombor" value="<?php echo $user['contactNo']; ?>">
 				</div>
 
+				<span>Expected Salary:</span>
+				<?php if(isset($salaryError)){ echo $salaryError;} ?>
+				<div class="input-group noSpaceTop">
+					<span class="input-group-addon" id="basic-addon2"><label for="expectedSalary"><i class="fa fa-bolt"></i></label></span>
+					<input class="form-control" placeholder="Please enter expected salary" type="number" id="expectedSalary" name="expectedSalary" value="<?php echo $user['expectedSalary']; ?>">
+				</div>
+
 
 				<span>Experience History:</span>
 				<?php if(isset($expError)){ echo $expError;} ?>
@@ -247,7 +252,6 @@ if(isset($user) && $user['type'] == "jobProvider"){
 
 							</select>
 				</div>
-
 
 
 
