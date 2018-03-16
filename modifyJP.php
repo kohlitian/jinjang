@@ -184,7 +184,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				<span>Contact Number:</span>
 				<?php if(isset($cnomborError)){ echo $cnomborError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa-phone"></i></label></span>
 					<input class="form-control" placeholder="Please enter contact Number" type="text" id="cnombor" name="cnombor" value="<?php echo $user['contactNo']; ?>">
 				</div>
 
@@ -192,14 +192,14 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				<span>Company Name:</span>
 				<?php if(isset($orgError)){ echo $orgError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter company name" type="text" id="companyName" name="companyName" value="<?php echo $user['companyName']; ?>">
 				</div>
 
 				<span>Company Address:</span>
 				<?php if(isset($addressError)){ echo $addressError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter company address" type="text" id="companyAddress" name="companyAddress" value="<?php echo $user['companyAddress']; ?>">
 				</div>
 
@@ -207,7 +207,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				<span>Your position:</span>
 				<?php if(isset($posError)){ echo $posError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter position" type="text" id="position" name="position" value="<?php echo $user['position']; ?>">
 				</div>
 
@@ -228,7 +228,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-user-circle"></i></label></span>
 					<input class="form-control" placeholder="Please enter your skills" type="text" id="skills" name="skills" value="<?php echo $user['skills']; ?>">
 				</div>
-			-->
+
+-->
 
 				<button type="submit" class="btn btn-success btn-block btn-lg formButton">Update</button>
 			</div>

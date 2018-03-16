@@ -20,7 +20,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		$conPass = $_POST['conPass'];
 
-		$usernameError = ""; $passwordError = ""; $nameError = ""; $emailError = "";$expError = ""; $skillError="";$langError="";$skillError=""; $eduError=""; $cnomborError=""; 
+		$usernameError = ""; $passwordError = ""; $nameError = ""; $emailError = "";$expError = ""; $langError="";$skillError=""; $eduError=""; $cnomborError=""; 
 		
 		//validate form data
 		if(!empty($_POST['experienceHistory'])){
@@ -63,6 +63,8 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		} else {
 			$languages = $user['languages'];
 		}
+
+
 
 		if(empty($_POST['password'])){
 			$password = $user['password'];
@@ -139,6 +141,11 @@ if(isset($user) && $user['type'] == "jobProvider"){
 
 	}
 
+
+
+		if (strpos($user['languages'], ","))
+		$languageArr=explode(",", $user['languages']);
+
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -201,51 +208,64 @@ if(isset($user) && $user['type'] == "jobProvider"){
 				<span>Contact Number:</span>
 				<?php if(isset($cnomborError)){ echo $cnomborError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa-phone"></i></label></span>
 					<input class="form-control" placeholder="Please enter contact Number" type="text" id="cnombor" name="cnombor" value="<?php echo $user['contactNo']; ?>">
 				</div>
 
 
-				<span>Company Name:</span>
-				<?php if(isset($orgError)){ echo $orgError;} ?>
-				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-user-circle"></i></label></span>
-					<input class="form-control" placeholder="Please enter company name" type="text" id="companyName" name="companyName" value="<?php echo $user['companyName']; ?>">
-				</div>
-
-				<span>Company Address:</span>
-				<?php if(isset($addressError)){ echo $addressError;} ?>
-				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-user-circle"></i></label></span>
-					<input class="form-control" placeholder="Please enter company address" type="text" id="companyAddress" name="companyAddress" value="<?php echo $user['companyAddress']; ?>">
-				</div>
-
-
-				<span>Your position:</span>
-				<?php if(isset($posError)){ echo $posError;} ?>
-				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-user-circle"></i></label></span>
-					<input class="form-control" placeholder="Please enter position" type="text" id="position" name="position" value="<?php echo $user['position']; ?>">
-				</div>
-
-
-
-
-<!--
 				<span>Experience History:</span>
 				<?php if(isset($expError)){ echo $expError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="experienceHistory"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="experienceHistory"><i class="fa fa-bolt"></i></label></span>
 					<textarea class="form-control" placeholder="Please enter experience history" type="text" id="experienceHistory" name="experienceHistory"><?php echo $user['experienceHistory']; ?></textarea>
 				</div>
 
 				<span>Skills:</span>
 				<?php if(isset($skillError)){ echo $skillError;} ?>
 				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-user-circle"></i></label></span>
+					<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter your skills" type="text" id="skills" name="skills" value="<?php echo $user['skills']; ?>">
 				</div>
-			-->
+
+
+
+
+				<span>Education Level:</span>
+				<?php if(isset($eduError)){ echo $eduError;} ?>
+				<div class="input-group noSpaceTop">
+					<span class="input-group-addon" id="basic-addon2"><label for="educationLevel"><i class="fa fa-bolt"></i></label></span>
+							<select class="form-control" name="educationLevel" id="educationLevel">
+								<option value="">Please choose your education level</option>
+								<option value="Primary School"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='Primary School') echo ' selected'; ?>>Primary School</option>
+								<option value="High School"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='High School') echo ' selected'; ?>>High School</option>
+								<option value="Diploma"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='Diploma') echo ' selected'; ?>>Diploma</option>
+								<option value="Degree"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='Degree') echo ' selected'; ?>>Degree</option>
+								<option value="Master"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='Master') echo ' selected'; ?>>Master</option>
+								<option value="PhD"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='PhD') echo ' selected'; ?>>PhD</option>
+								<option value="ALevel"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='ALevel') echo ' selected'; ?>>ALevel</option>
+								<option value="Foundation"  <?php if (isset($user['educationLevel'])&&$user['educationLevel']=='Foundation') echo ' selected'; ?>>Foundation</option>
+
+							</select>
+				</div>
+
+
+
+
+				<span>Languages:</span>
+				<?php if(isset($langError)){ echo $langError;} ?>
+				<div class="input-group noSpaceTop">
+					<span class="input-group-addon" id="basic-addon2"><label for="languages"><i class="fa fa-bolt"></i></label></span>
+							<select class="form-control" name="languages[]" id="languages" multiple="true">
+								<option value="Mandarin"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Mandarin", $languageArr)) echo ' selected'; ?>>Mandarin</option>
+								<option value="Bahasa Malaysia"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Bahasa Malaysia", $languageArr)) echo ' selected'; ?>>Bahasa Malaysia</option>
+								<option value="English"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("English", $languageArr)) echo ' selected'; ?>>English</option>
+								<option value="Indonesian"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Indonesian", $languageArr)) echo ' selected'; ?>>Indonesian</option>
+								<option value="Cantonese"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Cantonese", $languageArr)) echo ' selected'; ?>>Cantonese</option>
+								<option value="Hokkien"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Hokkien", $languageArr)) echo ' selected'; ?>>Hokkien</option>
+								<option value="Hakka"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Hakka", $languageArr)) echo ' selected'; ?>>Hakka</option>
+								<option value="Tamil"  <?php if (isset($languageArr)&&is_array($languageArr)&& in_array("Tamil", $languageArr)) echo ' selected'; ?>>Tamil</option>
+							</select>
+				</div>
 
 				<button type="submit" class="btn btn-success btn-block btn-lg formButton">Update</button>
 			</div>
