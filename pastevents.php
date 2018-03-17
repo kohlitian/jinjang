@@ -24,7 +24,9 @@ include("control.php");
 	<!-- end of header -->
 	<!--content-->
 	<div class="container marginTB">
-		<div class="row">Past Events</h3>
+		<div class="row">
+
+			<h3>Past Events</h3>
 
 			AGN will provide this later
 		</div>
