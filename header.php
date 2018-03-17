@@ -15,7 +15,15 @@
 					<ul class="nav navbar-nav">
 						<li <?php if (isset($is_home)){ ?>class="active"<?php } ?>><a href="index.php">Home</a></li>
 						<li <?php if (isset($is_jobs)){ ?>class="active"<?php } ?>><a href="jobs.php">Jobs</a></li>
-						<li <?php if (isset($is_contact)){ ?>class="active"<?php } ?>><a href="contact.php">Contract Us</a></li>
+
+
+						<li <?php if (isset($is_aboutagn)){ ?>class="active"<?php }else{ ?><?php } ?>><a href="aboutagn.php">About AGN</a></li>
+						<li <?php if (isset($is_ourwork)){ ?>class="active hidden-sm"<?php }else{ ?>class="hidden-sm"<?php } ?>><a href="ourwork.php">Our Work</a></li>
+
+						<li <?php if (isset($is_howhelp)){ ?>class="active hidden-sm"<?php }else{ ?>class="hidden-sm"<?php } ?>><a href="howhelp.php">How Help</a></li>
+						<li <?php if (isset($is_pastevents)){ ?>class="active hidden-sm"<?php }else{ ?>class="hidden-sm"<?php } ?>><a href="pastevents.php">Past Events</a></li>
+
+
 					</ul>
 					<ul class="navbar-right">
 						<li><a href="myJobs.php" class="btn btn-success">
@@ -47,7 +55,14 @@
 				<ul class="nav navbar-nav">
 						<li <?php if (isset($is_home)){ ?>class="active"<?php } ?>><a href="index.php">Home</a></li>
 						<li <?php if (isset($is_jobs)){ ?>class="active"<?php } ?>><a href="jobs.php">Jobs</a></li>
-						<li <?php if (isset($is_contact)){ ?>class="active"<?php } ?>><a href="contact.php">Contract Us</a></li>
+
+						<li <?php if (isset($is_aboutagn)){ ?>class="active"<?php }else{ ?><?php } ?>><a href="aboutagn.php">About AGN</a></li>
+						<li <?php if (isset($is_ourwork)){ ?>class="active hidden-sm"<?php }else{ ?>class="hidden-sm"<?php } ?>><a href="ourwork.php">Our Work</a></li>
+
+						<li <?php if (isset($is_howhelp)){ ?>class="active hidden-sm"<?php }else{ ?>class="hidden-sm"<?php } ?>><a href="howhelp.php">How Help</a></li>
+						<li <?php if (isset($is_pastevents)){ ?>class="active hidden-sm"<?php }else{ ?>class="hidden-sm"<?php } ?>><a href="pastevents.php">Past Events</a></li>
+
+
 				</ul>
 				<ul class="navbar-right">
 					<li><a href="LogIn.php" class="btn btn-trans">Log In</a></li>
