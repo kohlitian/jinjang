@@ -32,7 +32,7 @@ if(!isset($_SESSION['id'])){
 	<div>
 		<div class="container marginTBL">
 			
-			<?php if($user['type'] == "jobFinder"){ ?>
+			<?php if($user['type'] == "jobProvider"){ ?>
 				<h2><i class="fa fa-calendar verybigtext lefty marginright10" style="color: #05C3F7;"></i> <?php echo $user['fullName']."'s Jobs"; ?></h2>Here are jobs that you've created
 			<?php } else { ?>
 				<h2><i class="fa fa-calendar verybigtext lefty marginright10" style="color: #05C3F7;"></i> <?php echo $user['fullName']."'s Jobs"; ?></h2>Here are jobs that you've requested
@@ -92,6 +92,12 @@ $sqlpid=($pid-1)*$limit;
 					}else{
 					$rating = mysqli_query($connect, "SELECT `rating` FROM `Review` WHERE `jobID` = '".$row['jobID']."'");
 					}
+					if($user['type'] == "jobFinder"&&$user['userID']>0){
+						$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."';"));
+					}else{
+						$check=0;
+					}
+					echo mysqli_error($connect);
 					$totalR = 0;
 					$avgR = 0;
 						//calculate the rating to show
