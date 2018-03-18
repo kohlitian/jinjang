@@ -164,11 +164,11 @@ if(isset($user) && $user['type'] == "jobFinder"){
 			
 			<div class="row">
 				<div class="col-sm-6">
-					<span>Salary</span>
+					<span>Hourly Rate</span>
 					<?php if(isset($salaryError)){echo '<span style="color:#FF0000;">'.$salaryError.'</span>';} ?>
 					<div class="input-group noSpaceTop">
 						<span class="input-group-addon" id="basic-addon1"><label for="price">RM</label></span>
-						<input class="form-control" type="number" name="salary" required id="price" placeholder="Type amount of Salary for job"  value="<?php if (isset($job)) echo $job['hourlyRate']; ?>">
+						<input class="form-control" type="number" name="salary" required id="price" placeholder="Type amount of hourly rate for job"  value="<?php if (isset($job)) echo $job['hourlyRate']; ?>">
 						<span class="input-group-addon" id="basic-addon1" style="padding-bottom:0px;"><label for="number"><span>.00</span></label></span>
 					</div>
 				</div>
