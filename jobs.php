@@ -96,11 +96,11 @@ if(!isset($user['fullName'])){
 			//request sessions from database
 			$training = mysqli_query($connect, "SELECT * FROM `Jobs`  where `status`!='Passed' ".$addsql."  LIMIT ".$sqlpid.", ".$limit.";");
 			$i = 1;
+			
 			if(mysqli_num_rows($training) > 0){
 				while($row = mysqli_fetch_assoc($training)){
 					if($user['type'] == "jobFinder"&&$user['userID']>0){
 						$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestedID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."';"));
-						echo mysqli_query($connect, "SELECT `requestedID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."';");
 					}else{
 						$check=0;
 					}

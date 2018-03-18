@@ -283,40 +283,41 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 		if((mysqli_num_rows($find))>0){
 			while($result = mysqli_fetch_assoc($find)){
-				echo '<div class="row">
-				<div class="col-sm-3>
-					<span>'.$result['fullName'].'</span>
+				echo "<div class=\"row\">
+				<div class=\"col-sm-3\">
+					<span>".$result['fullName']."</span>
 				</div>
-				<div class="col-sm-3">
-					<span>'.$result['languages'].'</span>
-					<span>'.$result['expectedSalary'].'</span>
+				<div class=\"col-sm-3\">
+					<span>".$result['languages']."</span>
+					<span>".$result['expectedSalary']."</span>
 				</div>
-				<div class="col-sm-3">
-					<span>'.$result['skills'].'</span>
-					<span>'.$result['educationLevel'].'</span>
+				<div class=\"col-sm-3\">
+					<span>".$result['skills']."</span>
+					<span>".$result['educationLevel']."</span>
 				</div>
-				<div class="col-sm-3">
-					<a class="btn btn-success btn-sm fullwidth" href="accept.php?jobID='.$result['jobID'].'" onclick="return ";
-					if ($user["memberID"]==0){
-									echo "confirm(\'Please login to system to join events\');";
-								}
-								echo "confirm(\'Are you sure you want to join this ".$row[\'title\']." by ".$trainer[\'fullName\']." for RM"'.$row['fee'].'"?\')"; >";
-								if ($user[\'memberID\']==0){
-									echo "Costs ";
-								}else{
-									echo "Join for";
-								}
-								echo " RM"'.$row['fee'].'"</a>";
-							';
+				<div class=\"col-sm-3\">
+					<a class=\"btn btn-success btn-sm col-xs-6\" href=\"accept.php?jobID=".$result['jobID']."\" onclick=\"return ";
+					if ($user["userID"]==0){
+						echo "confirm('Please login to system to join events');";
+					}
+					echo "confirm('Are you sure you want to join this ".$job['jobTitle']." by ".$user['companyName']." ?')\"; >";
+					if ($user['userID']!=0){
+						echo "Choose worker ";
+					}
+					echo "</a> <a class=\"btn btn-danger btn-sm col-xs6\" href=\"cancel.php?jobID=".$result['jobID']."\" onclick=\"return ";
+					if($user['userID']==0){
+						echo "confirm('Please login to system to join events');";
+					} 
+					echo "confirm('Are you sure you want to reject ".$result['fullName']." ?')\";>";
+					if($user['userID']!=0){
+						echo "Reject";
+					}
+					echo "</a></div></div>";
+				}
 
-
-
-
-						}
 			}
 		?>
-
-
+</div>
 	<!-- start of footer code -->
 	<?php include("footer.php"); ?>
 	<!-- end of footer -->
