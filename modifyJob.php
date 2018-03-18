@@ -278,7 +278,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		<?php 
 
 		$find = mysqli_query($connect, "SELECT * FROM `jobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."''");
-		if(mysqli_num_rows($find)>0){
+		if(isset($find)){echo $find;} else {echo "no";}
+		if((mysqli_num_rows($find))>0){
 			while($result = mysqli_fetch_assoc($find)){
 				echo '<div class="row">
 				<div class="col-sm-3>
@@ -304,12 +305,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 									echo "Join for";
 								}
 								echo " RM"'.$row['fee'].'"</a>";
-
-				'
-				echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"viewJob.php?jobID=".$row['jobID']."\">View</button>";
+							';}
 			}
-		}
-
 		?>
 
 
