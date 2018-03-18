@@ -95,11 +95,7 @@ else {
 			$location = $_POST['location'];
 		}
 
-		if(empty($_POST['description'])){
-			$descriptionError = "Please enter a description for this job.";
-		} else {
-			$description = $_POST['description'];
-		}
+		$description = $_POST['description'];
 
 		$participant = $_POST['participant'];
 		//if there is no error, insert training session into database
@@ -227,7 +223,7 @@ else {
 			<div class="marginTB">
 				<span>description</span>
 				<?php if(isset($descriptionError)){echo '<span style="color:#FF0000;">'.$descriptionError.'</span>';} ?>
-				<textarea rows="5" class="input-lg form-control" name="description" required placeholder="Description of the job"><?php if(isset($_POST['description'])) echo $_POST['description']; ?></textarea>
+				<textarea rows="5" class="input-lg form-control" name="description" placeholder="Description of the job"><?php if(isset($_POST['description'])) echo $_POST['description']; ?></textarea>
 			</div>
 
 
