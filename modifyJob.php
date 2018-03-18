@@ -277,8 +277,10 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 		<?php 
 
-		$find = mysqli_query($connect, "SELECT * FROM `jobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."''");
-		if(isset($find)){echo $find;} else {echo "no";}
+		$find = mysqli_query($connect, "SELECT * FROM `jobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."'");
+		echo mysqli_error($connect);
+
+
 		if((mysqli_num_rows($find))>0){
 			while($result = mysqli_fetch_assoc($find)){
 				echo '<div class="row">
@@ -305,7 +307,12 @@ if(isset($user) && $user['type'] == "jobFinder"){
 									echo "Join for";
 								}
 								echo " RM"'.$row['fee'].'"</a>";
-							';}
+							';
+
+
+
+
+						}
 			}
 		?>
 
