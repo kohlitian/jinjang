@@ -11,10 +11,27 @@ if(isset($_SESSION['id']) && $_SESSION['id'] <= 0){
 if(isset($_GET['jobID'])){
 	$job = $_GET['jobID'];
 	$detail = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jobID` = '$job';"));
+	$company = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `companyName` FROM `JobProvider` WHERE `userID` = '".$detail['jpID']."';"));
 } 
 //else {
 // 	header("Location: jobs.php"); exit;
 // }
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$rateError = ""; 
+	if(empty($_POST['rating'])){
+		$rateError = "Please select a rating";
+	} else {
+		$rate = $_POST['rating'];
+	}
+	$comment = $_POST['comment'];
+
+	if($rateError == ""){
+		mysqli_query($connect, "INSERT INTO `Review` (`reviewID`, `timeStamp`, `rating`, `comment`, `jfID`, `jobID`) VALUES ('', '".time()."', '$rate', '$comment', '".$user['userID']."', '".$_GET['jobID']."');");
+		$_SESSION['passThruMessage']="Your review has been added successfully.";
+		header("Location: myJob.php"); exit;
+	}
+}
 
 ?>
 
@@ -40,53 +57,57 @@ if(isset($_GET['jobID'])){
 	<!--content-->
 	<div class="container marginTB">
 		<h2><strong>#<?php if(isset($detail)){echo $detail['jobID']." ".$detail['jobTitle'];} ?> Info</strong></h2>
-		<div class="well"><?php if(isset($detail)){echo $detail['description'];} ?></div>
 		<br>
+		<div class="well"><?php if(isset($detail)){echo $detail['description'];} ?></div>
 		<div class="row">
 			<div class="col-md-6 col-xs-12">Hourly Rate: RM<?php if(isset($detail)){echo $detail['hourlyRate'];} ?></div>
 			<div class="col-md-6 col-xs-12">Location: <?php if(isset($detail)){echo $detail['location'];} ?></div>
 		</div>
 		<div class="row">
 			<div class="col-md-6 col-xs-12">Requirement: <?php if(isset($detail)){echo $detail['requirement'];} ?></div>
-			<div class="col-md-6 col-xs-12">Start Date: <?php if(isset($detail)){echo $detail['startDateTime'];} ?></div>
+			<div class="col-md-6 col-xs-12">Start Date: <?php if(isset($detail)){echo date("m/d/Y H:i A", $detail['startDateTime']);} ?></div>
 		</div>
 		<div class="row">
 			<div class="col-md-6 col-xs-12">Participants: <?php if(isset($detail)){echo $detail['maxParticipant'];} ?></div>
-			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($detail)){echo $detail['endDateTime'];} ?></div>
+			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($detail)){echo date("m/d/Y H:i A", $detail['endDateTime']);} ?></div>
 		</div>
 		<br>
+		<?php
+		echo "<a class=\"btn btn-success btn-lg\" href=\"joinJob.php?jobID=".$job."\" onclick=\"return ";
+		if($user['userID']==0){
+			echo "confirm('Please login to system to join events');";
+		}
+		echo "confirm('Are you sure you want to join this ".$detail['jobTitle']." by ".$company['companyName']."?')\";>";
+		if($user['userID']!=0){
+			echo "Join";
+		} 
+		echo "</a>";
+
+		?>
 		<br>
-		<form class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6" method="POST" action="LogIn.php">
-			<div class="formStyle">
-				<p><Strong>Detail Information For Job #<?php if(isset($detail)){echo $detail['jobID'];} ?></Strong></p>
-				<div class="input-group">
-				  	<span class="input-group-addon" id="basic-addon1"><label for="jobTitle">Job Title: </label></span>
-					<input type="text" class="form-control" id="jobTitle" name="jobTitle" value="<?php if(isset($detail)){echo $detail['jobTitle'];} ?>">
-				</div>
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon2"><label for="pwd"><i class="fa fa-key"></i></label></span>
-					<input class="form-control" required placeholder="Please enter your password" type="password" id="pwd" name="password">
-				</div>
-				<button type="submit" class="btn btn-success btn-block btn-lg formButton">Log In</button>
-				<?php if(isset($usernameError)){echo $usernameError;}?>
-				<?php if(isset($passwordError)){echo $passwordError;}?>
-				<hr>
-				<div class="center">
-				<small>Or <a href="signup.php">sign up for a new account</a></small>
-				</div>
-			</div>
+		<br>
+		<br>
+		<h3><strong>Review Job Provider: </strong></h3>
+		<form method="POST" action="<?php echo "viewJob.php?jobID=".$detail['jobID'] ?>">
+			<h2>Your Review</h2>
+			<input required id="input-id" name="rating" type="text" class="ratinginput" data-size="sm" >
+			<textarea name="comment" rows="6" class="form-control" required></textarea>
+			<br><button type="submit" class="btn btn-primary btn-lg">Submit</button>
 		</form>
-		<div class="clear"></div>
-		<br>
-		<br>
-		<br>
+
 	</div>
 
 <!-- start of footer code -->
 	<?php include("footer.php"); ?>
 	<!-- end of footer -->
 	
-	
+	<script type="text/javascript" src = "js/moment.js"></script>
+	<script type="text/javascript" src = "js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src = "js/bootstrap-slider.min.js"></script>
+	<script type="text/javascript" src = "js/jinjang.js"></script>
+	<script>
+		applyTrainingType();
+	</script>
 	
 	
 

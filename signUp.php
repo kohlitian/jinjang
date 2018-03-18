@@ -378,7 +378,7 @@ if ($no_error==0){
 <?php 
 	} else {
 ?>
-<script type="text/javascript">btnregP();
+<script type="text/javascript">btnregJP();
 
 	bootbox.alert("Please correct mentioned errors.");
 

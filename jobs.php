@@ -100,6 +100,7 @@ if(!isset($user['fullName'])){
 				while($row = mysqli_fetch_assoc($training)){
 					if($user['type'] == "jobFinder"&&$user['userID']>0){
 						$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestedID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."';"));
+						echo mysqli_query($connect, "SELECT `requestedID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."';");
 					}else{
 						$check=0;
 					}
@@ -175,7 +176,7 @@ if(!isset($user['fullName'])){
 						<div class=\"col-xs-12 col-sm-2 marginTBL\">";?>
 						<?php
 						if($user['type'] == "jobFinder"){ 
-							echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"viewJob.php?jobID=".$row['jobID']."\">View</button>";
+							echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"viewJob.php?jobID=".$row['jobID']."\">View</a>";
 						} else if ($user['type'] == "jobProvider") {
 							if($row['jpID'] == $user['userID']){
 								if($row['deadlineDays'] < time()){echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=view\">View</a>";} else {
