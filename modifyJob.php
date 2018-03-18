@@ -11,6 +11,7 @@ if(!isset($_SESSION['id'])){
 }
 
 
+
 //if user is member, dont allow him access this page
 if(isset($user) && $user['type'] == "jobFinder"){
 	$_SESSION['passThruMessage'] = "Sorry ! You are not allowed to access to the page !";
@@ -127,7 +128,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>Modify Session</title>
+	<title>Modify Job</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">
@@ -151,6 +152,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 	<!-- end of header -->
 
 	<!--content-->
+	<?php if($user['userID'] == $job['jpID']){ ?>
 	<div class="container marginTB">
 		<h3><strong>#<?php if(isset($job)){echo $job['jobID']." ".$job['jobTitle'];} ?> Info</strong></h3>
 		<form method="POST" action="modifyJob.php">
@@ -295,8 +297,9 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					<span>".$result['skills']."</span>
 					<span>".$result['educationLevel']."</span>
 				</div>
-				<div class=\"col-sm-3\">
-					<a class=\"btn btn-success btn-sm col-xs-6\" href=\"accept.php?jobID=".$result['jobID']."\" onclick=\"return ";
+				<div class=\"col-sm-3\">";
+				if($job['status'] == "Requested"){ echo "
+					<a class=\"btn btn-success btn-sm col-xs-6\" href=\"accept.php?jobID=".$result['jobID']."&chooseWorker=".$result['userID']."\" onclick=\"return ";
 					if ($user["userID"]==0){
 						echo "confirm('Please login to system to join events');";
 					}
@@ -304,7 +307,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					if ($user['userID']!=0){
 						echo "Choose worker ";
 					}
-					echo "</a> <a class=\"btn btn-danger btn-sm col-xs6\" href=\"cancel.php?jobID=".$result['jobID']."\" onclick=\"return ";
+					echo "</a> <a class=\"btn btn-danger btn-sm col-xs6\" href=\"reject.php?jobID=".$result['jobID']."&chooseWorker=".$result['userID']."\" onclick=\"return ";
 					if($user['userID']==0){
 						echo "confirm('Please login to system to join events');";
 					} 
@@ -313,11 +316,37 @@ if(isset($user) && $user['type'] == "jobFinder"){
 						echo "Reject";
 					}
 					echo "</a></div></div>";
+				} else if($job['status'] == "Accepted") {
+					echo "<button class=\"btn btn-primary btn-sm disabled fullwidth\">Accepted</button></div></div>";
+				} else if ($job['status'] == "Rejected") {
+					echo "<button class=\"btn btn-warning btn-sm disabled fullwidth\">Rejected</button></div></div>";
+				}
 				}
 
 			}
 		?>
 </div>
+<?php } else{ ?>
+
+<div class="container marginTB">
+		<h2><strong>#<?php if(isset($job)){echo $job['jobID']." ".$job['jobTitle'];} ?> Info</strong></h2>
+		<br>
+		<div class="well"><?php if(isset($job)){echo $job['description'];} ?></div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">Hourly Rate: RM<?php if(isset($job)){echo $job['hourlyRate'];} ?></div>
+			<div class="col-md-6 col-xs-12">Location: <?php if(isset($job)){echo $job['location'];} ?></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">Requirement: <?php if(isset($job)){echo $job['requirement'];} ?></div>
+			<div class="col-md-6 col-xs-12">Start Date: <?php if(isset($job)){echo date("m/d/Y H:i A", $job['startDateTime']);} ?></div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">Participants: <?php if(isset($job)){echo $job['maxParticipant'];} ?></div>
+			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($job)){echo date("m/d/Y H:i A", $job['endDateTime']);} ?></div>
+		</div>
+	</div>
+
+	<?php } ?>
 	<!-- start of footer code -->
 	<?php include("footer.php"); ?>
 	<!-- end of footer -->

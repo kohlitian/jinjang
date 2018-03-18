@@ -96,7 +96,7 @@ if(!isset($user['fullName'])){
 			//request sessions from database
 			$training = mysqli_query($connect, "SELECT * FROM `Jobs`  where `status`!='Passed' ".$addsql."  LIMIT ".$sqlpid.", ".$limit.";");
 			$i = 1;
-			
+
 			if(mysqli_num_rows($training) > 0){
 				while($row = mysqli_fetch_assoc($training)){
 					if($user['type'] == "jobFinder"&&$user['userID']>0){
@@ -178,11 +178,7 @@ if(!isset($user['fullName'])){
 						if($user['type'] == "jobFinder"){ 
 							echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"viewJob.php?jobID=".$row['jobID']."\">View</a>";
 						} else if ($user['type'] == "jobProvider") {
-							if($row['jpID'] == $user['userID']){
-								if($row['deadlineDays'] < time()){echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=view\">View</a>";} else {
-									echo "<a class=\"btn btn-success btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=edit\">Edit</a>";
-								}
-							}
+								echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=view\">View</a>";
 						}
 						// if($user['type'] == "jobFinder"){
 						// 	if($check >0){ 
