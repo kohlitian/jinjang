@@ -277,20 +277,11 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 		<?php 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$find = mysqli_query($connect, "SELECT * FROM `jobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."''");
-		$row = mysqli_num_rows($find);
-		if(mysqli_num_rows($find)>0){
-=======
-=======
->>>>>>> 7f4c310ea680d2dc4f4fc955f3e9302ab2b18307
 		$find = mysqli_query($connect, "SELECT * FROM `jobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."'");
 		echo mysqli_error($connect);
 
 
 		if((mysqli_num_rows($find))>0){
->>>>>>> 7f4c310ea680d2dc4f4fc955f3e9302ab2b18307
 			while($result = mysqli_fetch_assoc($find)){
 				echo '<div class="row">
 				<div class="col-sm-3>
@@ -304,9 +295,6 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					<span>'.$result['skills'].'</span>
 					<span>'.$result['educationLevel'].'</span>
 				</div>
-<<<<<<< HEAD
-				';
-=======
 				<div class="col-sm-3">
 					<a class="btn btn-success btn-sm fullwidth" href="accept.php?jobID='.$result['jobID'].'" onclick="return ";
 					if ($user["memberID"]==0){
@@ -325,12 +313,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 
 						}
-<<<<<<< HEAD
->>>>>>> 7f4c310ea680d2dc4f4fc955f3e9302ab2b18307
-=======
->>>>>>> 7f4c310ea680d2dc4f4fc955f3e9302ab2b18307
 			}
-		}
 		?>
 
 
