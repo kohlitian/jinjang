@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>Login</title>
+	<title>View Job</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">
@@ -105,9 +105,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	<script type="text/javascript" src = "js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src = "js/bootstrap-slider.min.js"></script>
 	<script type="text/javascript" src = "js/jinjang.js"></script>
-	<script>
-		applyTrainingType();
-	</script>
 	
 	
 
