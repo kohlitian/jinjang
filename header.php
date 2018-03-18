@@ -26,7 +26,7 @@
 
 					</ul>
 					<ul class="navbar-right">
-						<li><a href="myJobs.php" class="btn btn-success">
+						<li><a href="myJob.php" class="btn btn-success">
 							<?php if ($user['type']=='jobFinder'){ ?>Jobs History<?php } else { ?>My Jobs<?php } ?></a></li>
 						<li><a href="#" class="btn btn-primary btn-user"><i class="fa fa-user-circle-o"></i> <?php echo $_SESSION['username'] ?> <i class="fa fa-caret-down"></i></a>
 						<?php 

@@ -35,5 +35,5 @@ if(!isset($_SESSION['id'])){
 
 //show message to user about joining session
 $_SESSION['passThruMessage']="You've requested to join the job #".$_GET['jobID']." successfully.";
-header('Location: myJobs.php');
+header('Location: myJob.php');
 ?>
