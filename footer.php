@@ -7,8 +7,8 @@
 						<small class="hidden-xs"><br><?php
 
 						//count statistics of users and jobs and postings and print them
-						if ($connect){ echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from member;"))[0]; ?> members, <?php echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobproviders;"))[0]; ?> job providers, <?php echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobads;"))[0]; ?> job ads <?php } ?></small>
-						<br><small><a href="donate.php">Click me! for donation</a></small>
+						if ($connect){ echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobfinder;"))[0]; ?> job finders, <?php echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobprovider;"))[0]; ?> job providers, <?php echo @mysqli_fetch_array(mysqli_query($connect,"select count(*) from jobs;"))[0]; ?> job ads <?php } ?></small>
+						<br><small style="font-size: 8pt;"><a href="donate.php">Click here for donation</a></small>
 					</div>
 					<div class="col-sm-4 col-xs-5">
 						<p>Copyright © 2018 Jinjang Project<br/>
