@@ -61,7 +61,7 @@ if(!isset($user['fullName'])){
 					<span>Job Provider</span>
 				</div>
 				<div class="col-sm-3 hidden-xs ">
-					<span>Job Type</span>
+					<span>Job Info <small style="color: grey;">(no. part., salary, status)</small></span>
 				</div>
 				<div class="col-sm-2 hidden-xs">
 					<span>Start Date</span>
@@ -105,10 +105,10 @@ if(!isset($user['fullName'])){
 					}
 
 					//get trainer of session
-					$trainer = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `JobProvider` WHERE `userID` = '".$row['userID']."'"));
+					$trainer = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `JobProvider` WHERE `userID` = '".$row['jpID']."'"));
 					
 					//get rating of session
-					$rating = mysqli_query($connect, "SELECT rating FROM `Review`,`Jobs` where review.jobID=TrainingSessions.jobID and TrainingSessions.jpID='".$row['userID']."';");
+					$rating = mysqli_query($connect, "SELECT `rating` FROM `Review`,`Jobs` where review.jobID=Jobs.jobID and Jobs.jpID='".$row['jpID']."';");
 					$totalR = 0;
 					$avgR = 0;
 					//calculate rating of session
@@ -124,7 +124,7 @@ if(!isset($user['fullName'])){
 					{
 					echo "<div class=\"row\">
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
-							<span class=\"lefty marginright10 hidden-xs idcol\">".$row['sessionID']."</span>
+							<span class=\"lefty marginright10 hidden-xs idcol\">".$row['jobID']."</span>
 							<span>".$row['jobTitle']."</span>
 						</div>
 						<div class=\"col-xs-6 col-sm-3\">
@@ -132,7 +132,7 @@ if(!isset($user['fullName'])){
 							<div class=\"trainer\">
 								<i class=\"glyphicon glyphicon-user lefty hidden-xs \"></i>
 								<span>".$trainer['fullName']."</span></br>
-								<span><small>".$trainer['specialty']."</small>&nbsp;
+								<span><small>".$trainer['companyName']."</small>&nbsp;
 									
 									";
 
@@ -152,47 +152,64 @@ if(!isset($user['fullName'])){
 							
 						</div>
 						<div class=\"col-xs-6 col-sm-3 marginTBL\">"; ?>
-						<?php if ($row['trainingType']=='Group') { ?><span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from joinedsessions where sessionid='".$row['sessionID']."';"))[0]; ?>/<?php echo $row['maxParticipants']; ?></span><?php } ?>
+						<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?>/<?php echo $row['maxParticipant']; ?></span>
 						<?php 
-						if($user['type'] == "member"){
-							echo "<span class=\"label label-success\">".$row['trainingType']." ".$row['classType']."</span>";?><?php if($check >0){ if($row['status'] == 'Cancelled'){ echo "<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>"; } else if($row['status'] == 'Passed') { echo "<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>"; } else if($row['status'] == 'Full'){echo "<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else { echo "<span class=\"label label-warning\" style=\"margin-left:5px;\">Joined</span>";}} else if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}
-						} else if($user['type'] = "trainer") {
-							echo "<span class=\"label label-success\">".$row['trainingType']." ".$row['classType']."</span>";?><?php if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}
+						if($user['type'] == "jobFinder"){
+							echo "<span class=\"label label-success\">".$row['hourlyRate']."</span>";?><?php 
+							if($check >0){ 
+								if($row['status'] == 'Cancelled'){ echo "<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>"; 
+								} else if($row['status'] == 'Passed') { echo "<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>"; 
+								} else { echo "<span class=\"label label-warning\" style=\"margin-left:5px;\">Joined</span>";
+								}
+							} else if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";
+							} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";
+							} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";
+							}
+						} else if($user['type'] = "jobProvider") {
+							echo "<span class=\"label label-info\">".$row['hourlyRate']."</span>";?><?php if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}
 						}
 						echo "</div>
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
-							<span>".date("d M, H:i", $row['datetime'])."<small class=\"transWord hidden-sm\">".date("Y", $row['datetime'])."</small></span>
+							<span>".date("d M, H:i", $row['startDateTime'])."<small class=\"transWord hidden-sm\">".date("Y", $row['startDateTime'])."</small></span>
 						</div>
 						<div class=\"col-xs-12 col-sm-2 marginTBL\">";?>
 						<?php
-						if($user['type'] == "member"){
-							if($check >0){ echo "<button class=\"btn btn-warning btn-sm disabled\">Joined</button>";
-							} else if($row['status'] == 'Available'){
-								echo "<a class=\"btn btn-success btn-sm fullwidth\" href=\"JoinTraining.php?sessionID=".$row['sessionID']."\" onclick=\"return ";
-								if ($user['memberID']==0){
-									echo "confirm('Please login to system to join events');";
-								}
-								echo "confirm('Are you sure you want to join this ".$row['title']." by ".$trainer['fullName']." for RM".$row['fee']."?')\"; >";
-								if ($user['memberID']==0){
-									echo "Costs ";
-								}else{
-									echo "Join for";
-								}
-								echo " RM".$row['fee']."</a>";
-							} else if($row['status'] == 'Full'){
-								echo "<button class=\"btn btn-danger btn-sm disabled\">Full</button>";
-							} else if($row['status'] == 'Cancelled') {
-								echo "<button class=\"btn btn-basic btn-sm disabled\">Cancelled</button>";
-							} else {
-								echo "<button class=\"btn btn-info btn-sm disabled\">Passed</button>";
-							}
-						} else if ($user['type'] == "trainer") {
-							if($row['trainerID'] == $user['trainerID']){
-								if($row['datetime'] < time()){echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"modifySession.php?sessionID=".$row['sessionID']."&type=view\">View</a>";} else {
-									echo "<a class=\"btn btn-success btn-sm fullwidth\" href=\"modifySession.php?sessionID=".$row['sessionID']."&type=edit\">Edit</a>";
+						if($user['type'] == "jobFinder"){ 
+							echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"viewJob.php?jobID=".$row['jobID']."\">View</button>";
+						} else if ($user['type'] == "jobProvider") {
+							if($row['jpID'] == $user['userID']){
+								if($row['deadlineDays'] < time()){echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=view\">View</a>";} else {
+									echo "<a class=\"btn btn-success btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=edit\">Edit</a>";
 								}
 							}
 						}
+						// if($user['type'] == "jobFinder"){
+						// 	if($check >0){ 
+						// 		echo "<button class=\"btn btn-warning btn-sm disabled\">Joined</button>";
+						// 	} else if($row['status'] == 'Available'){
+						// 		echo "<a class=\"btn btn-success btn-sm fullwidth\" href=\"JoinJob.php?jobID=".$row['jobID']."\" onclick=\"return ";
+						// 		if ($user['userID']==0){
+						// 			echo "confirm('Please login to system to join events');";
+						// 		}
+						// 		echo "confirm('Are you sure you want to join this ".$row['jobTitle']." by ".$trainer['fullName']." with salary RM".$row['hourlyRate']."?')\"; >";
+						// 		if ($user['userID']==0){
+						// 			echo "Costs ";
+						// 		}else{
+						// 			echo "Join for";
+						// 		}
+						// 		echo " RM".$row['fee']."</a>";
+						// 	} else if($row['status'] == 'Cancelled') {
+						// 		echo "<button class=\"btn btn-basic btn-sm disabled\">Cancelled</button>";
+						// 	} else {
+						// 		echo "<button class=\"btn btn-info btn-sm disabled\">Passed</button>";
+						// 	}
+						// } else if ($user['type'] == "jobProvider") {
+						// 	if($row['jpID'] == $user['userID']){
+						// 		if($row['deadlineDays'] < time()){echo "<a class=\"btn btn-primary btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=view\">View</a>";} else {
+						// 			echo "<a class=\"btn btn-success btn-sm fullwidth\" href=\"modifyJob.php?jobID=".$row['jobID']."&type=edit\">Edit</a>";
+						// 		}
+						// 	}
+						// }
 						echo"</div>
 					</div>";
 					}

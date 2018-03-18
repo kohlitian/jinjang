@@ -48,9 +48,7 @@ function debug($manualID=""){
 		while($row = mysqli_fetch_assoc($jobs)){
 			if($row['deadlineDays'] < time()){
 				mysqli_query($connect, "UPDATE `Jobs` SET `status` = 'Passed' WHERE `jobID` = '".$row['jobID']."'");
-			} else if ($row['maxParticipant'] != mysqli_num_rows(mysqli_query($connect, "SELECT `requestID` FROM `requestedJobs` WHERE `jobID` = '".$row['jobID']."'"))){
-				$row['status'] = 'Available';
-			}
+			} 
 		}
 	}
 
