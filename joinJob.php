@@ -13,7 +13,7 @@ if(!isset($_SESSION['id'])){
 	$session = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jobID` = ".$_GET['jobID'].""));
 	//if session is valid and date of session is in future, join the member to that session
 	if(isset($session['deadlineDays']) && isset($user)){
-		$check = mysqli_query($connect, "SELECT `userID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$session['jobID']."'");
+		$check = mysqli_query($connect, "SELECT `jfID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$session['jobID']."'");
 		if($session['status'] == 'Available' && $session['deadlineDays'] > time() && $user['type'] == "jobFinder" && mysqli_num_rows($check) == 0){
 				mysqli_query($connect, "INSERT INTO `requestedJobs` (`requestID`, `jfID`, `jobID`, `status`) VALUES ('$ID', '".$user['userID']."', '".$session['jobID']."', 'Requested')");
 				

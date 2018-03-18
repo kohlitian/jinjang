@@ -72,21 +72,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($detail)){echo date("m/d/Y H:i A", $detail['endDateTime']);} ?></div>
 		</div>
 		<br>
-		<?php
-		echo "<a class=\"btn btn-success btn-lg\" href=\"joinJob.php?jobID=".$job."\" onclick=\"return ";
-		if($user['userID']==0){
-			echo "confirm('Please login to system to join events');";
+		<?php 
+		$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestID` FROM `requestedJobs` WHERE `jobID` = ".$detail['jobID']." AND `jfID` = ".$user['userID'].""));
+		echo mysqli_error($connect);
+		if($check == 0){
+			echo "<a class=\"btn btn-success btn-lg\" href=\"joinJob.php?jobID=".$job."\" onclick=\"return ";
+			if($user['userID']==0){
+				echo "confirm('Please login to system to join events');";
+			}
+			echo "confirm('Are you sure you want to join this ".$detail['jobTitle']." by ".$company['companyName']."?')\";>";
+			if($user['userID']!=0){
+				echo "Join";
+			} 
+			echo "</a>";
+		} else if($check >0) {
+			echo "<button class=\"btn btn-warning disabled btn-lg\">Joined</button>";
 		}
-		echo "confirm('Are you sure you want to join this ".$detail['jobTitle']." by ".$company['companyName']."?')\";>";
-		if($user['userID']!=0){
-			echo "Join";
-		} 
-		echo "</a>";
 
 		?>
 		<br>
 		<br>
 		<br>
+		<?php if($detail['endDateTime'] < time()){ ?>
 		<h3><strong>Review Job Provider: </strong></h3>
 		<form method="POST" action="<?php echo "viewJob.php?jobID=".$detail['jobID'] ?>">
 			<h2>Your Review</h2>
@@ -94,6 +101,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			<textarea name="comment" rows="6" class="form-control" required></textarea>
 			<br><button type="submit" class="btn btn-primary btn-lg">Submit</button>
 		</form>
+
+		<?php } ?>
 
 	</div>
 
