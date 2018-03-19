@@ -44,8 +44,9 @@ if(!isset($user['fullName'])){
 					      <span class="input-group-btn">
 					        <button class="btn btn-default" type="button">Go!</button>
 					      </span>
-					 
+					
 					    </div>
+					     <br>
 					</div>
 					 </form>
 				</div>
