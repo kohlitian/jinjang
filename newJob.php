@@ -102,7 +102,7 @@ else {
 		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
 			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."')";
 			if(mysqli_query($connect, $newJob)){
-				$_SESSION['passThruMessage'] = "Your new session has been added successfully.";
+				$_SESSION['passThruMessage'] = "Your new job has been added successfully.";
 				header('Location: jobs.php'); exit;
 			} else {
 				$passThruMessage = "Please correct mentioned errors";

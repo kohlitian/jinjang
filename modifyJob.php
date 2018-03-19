@@ -116,7 +116,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 
 			if(mysqli_query($connect, $newSession)){
-				$_SESSION['passThruMessage']="Your session has been modified successfully.";
+				$_SESSION['passThruMessage']="Your job has been modified successfully.";
 				header("Location: myTraining.php"); die();
 			} 
 		}else{
