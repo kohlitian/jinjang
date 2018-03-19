@@ -110,15 +110,6 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		} else {
 			$location = $_POST['location'];
 		}
-		echo $nameError;
-		echo $hourlyError;
-		echo $startDateError;
-		echo $endDateError;
-		echo $deadlineError;
-		echo $descriptionError;
-		echo $requirementError;
-		echo $statusError;
-		echo $locationError;
 		
 		//if there is no validation error, update session in database
 		if($nameError =="" && $hourlyError =="" && $startDateError =="" && $endDateError =="" && $deadlineError =="" && $descriptionError == "" && $requirementError == "" && $statusError == "" && $locationError == ""){
@@ -127,11 +118,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 			if(mysqli_query($connect, $newSession)){
 				$_SESSION['passThruMessage']="Your job has been modified successfully.";
-				echo $user['userID'];
-				echo $job['jpID'];
-				echo $job['jobID'];
 
-				// header("Location: myJob.php"); die();
+				header("Location: myJob.php"); die();
 			} 
 		}else{
 			$passThruMessage="Please correct mentioned mistakes.";

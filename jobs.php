@@ -38,9 +38,9 @@ if(!isset($user['fullName'])){
 
 				//get user created or joined sessions and print it
 				if($user['type']== "jobFinder"&&$user['userID']>0 ){
-					echo "You have joined ".mysqli_num_rows(mysqli_query($connect, "SELECT * FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."'"))." training(s)";}
+					echo "You have joined ".mysqli_num_rows(mysqli_query($connect, "SELECT * FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."'"))." job(s)";}
 					 else if($user['type'] == "jobProvider") {
-					 	echo mysqli_num_rows(mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jpID` = '".$user['userID']."'"))." training(s) created by you";
+					 	echo mysqli_num_rows(mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jpID` = '".$user['userID']."'"))." job(s) created by you";
 					 }else{
 					 	echo "Login to system to join to classes";
 					 }?></h4>
@@ -213,7 +213,7 @@ if(!isset($user['fullName'])){
 					
 				}
 			} else {
-				echo "We have currently no training yet";
+				echo "We have currently no job yet";
 			}
 			?>
 		<!-- end responsive division for training list -->
