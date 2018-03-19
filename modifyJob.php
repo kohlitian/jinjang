@@ -312,7 +312,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					if ($user["userID"]==0){
 						echo "confirm('Please login to system to join events');";
 					}
-					echo "confirm('Are you sure you want to join this ".$job['jobTitle']." by ".$user['companyName']." ?')\"; >";
+					echo "confirm('Are you sure you want to choose this worker for ".$job['jobTitle']." by ".$user['companyName']." ?')\"; >";
 					if ($user['userID']!=0){
 						echo "Choose worker ";
 					}
