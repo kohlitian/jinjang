@@ -152,7 +152,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 	<!-- end of header -->
 
 	<!--content-->
-	<?php if($user['userID'] == $job['jpID']){ ?>
+	<?php 
+	if($user['userID'] == $job['jpID'] && $user['type'] == "jobProvider"){ ?>
 	<div class="container marginTB">
 		<h3><strong>#<?php if(isset($job)){echo $job['jobID']." ".$job['jobTitle'];} ?> Info</strong></h3>
 		<form method="POST" action="modifyJob.php">
@@ -258,8 +259,13 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		</form>
 		<br>
 		<br>
-		<h3><strong><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$job['jobID']."';"))[0] ?> Participants: </strong></h3>
+		<?php
+		$check = mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$job['jobID']."';"));
+		?>
+		<h3><strong><?php echo $check[0] ?> Participants: </strong></h3>
 		<br>
+		<?php 
+		if($check[0] > 0){ ?>
 		<div class="marginTBL border tabletraining">
 			<div class="row hidden-xs " style="padding-top:10px; padding-bottom:10px; border-top: 0px;">
 				<div class="col-sm-3 hidden-xs ">
@@ -283,21 +289,22 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 
 		if((mysqli_num_rows($find))>0){
+
 			while($result = mysqli_fetch_assoc($find)){
-				echo "<div class=\"row\">
+				echo "<hr style=\"border:1px solid #808080; margin-top: 0px; margin-bottom: 2px;\"><div class=\"row\">
 				<div class=\"col-sm-3\">
 					<span>".$result['fullName']."</span>
 				</div>
 				<div class=\"col-sm-3\">
-					<span>".$result['languages']."</span>
-					<span>".$result['expectedSalary']."</span>
+					<span><small><small>".$result['languages']."</small></small></span><br>
+					<span><small><small>".$result['expectedSalary']."</small></small></span>
 				</div>
 				<div class=\"col-sm-3\">
-					<span>".$result['skills']."</span>
-					<span>".$result['educationLevel']."</span>
+					<span><small><small>".$result['skills']."</small></small></span><br>
+					<span><small><small>".$result['educationLevel']."</small></small></span>
 				</div>
 				<div class=\"col-sm-3\">";
-				if($job['status'] == "Requested"){ echo "
+				if($result['status'] == "Requested"){ echo "
 					<a class=\"btn btn-success btn-sm col-xs-6\" href=\"accept.php?jobID=".$result['jobID']."&chooseWorker=".$result['userID']."\" onclick=\"return ";
 					if ($user["userID"]==0){
 						echo "confirm('Please login to system to join events');";
@@ -306,7 +313,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					if ($user['userID']!=0){
 						echo "Choose worker ";
 					}
-					echo "</a> <a class=\"btn btn-danger btn-sm col-xs6\" href=\"reject.php?jobID=".$result['jobID']."&chooseWorker=".$result['userID']."\" onclick=\"return ";
+					echo "</a> <a class=\"btn btn-danger btn-sm col-xs-6\" href=\"reject.php?jobID=".$result['jobID']."&chooseWorker=".$result['userID']."\" onclick=\"return ";
 					if($user['userID']==0){
 						echo "confirm('Please login to system to join events');";
 					} 
@@ -315,16 +322,16 @@ if(isset($user) && $user['type'] == "jobFinder"){
 						echo "Reject";
 					}
 					echo "</a></div></div>";
-				} else if($job['status'] == "Accepted") {
-					echo "<button class=\"btn btn-primary btn-sm disabled fullwidth\">Accepted</button></div></div>";
-				} else if ($job['status'] == "Rejected") {
-					echo "<button class=\"btn btn-warning btn-sm disabled fullwidth\">Rejected</button></div></div>";
+				} else if($result['status'] == "Accepted") {
+					echo "<button class=\"btn btn-primary btn-sm disabled fullwidth\">Accepted</button>";
+				} else if ($result['status'] == "Rejected") {
+					echo "<button class=\"btn btn-warning btn-sm disabled fullwidth\">Rejected</button>";
 				}
+				echo "</div></div>";
 			}
 
 		}
-		?>
-</div>
+		}?>
 
 <?php } else{ ?>
 
@@ -347,6 +354,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 	</div>
 
 	<?php } ?>
+
+	</div>
 	<!-- start of footer code -->
 	<?php include("footer.php"); ?>
 	<!-- end of footer -->
