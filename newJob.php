@@ -30,16 +30,16 @@ else {
 
 		if(!empty($_POST['salary'])){
 			if($_POST['salary'] < 0){
-				$salaryError = "Salary cannot be negative";
+				$salaryError = "hourly cannot be negative";
 			} else {
 				if(is_numeric($_POST['salary'])){
 					$salary = $_POST['salary'];
 				} else {
-					$salaryError = "Salary must be numeric";
+					$salaryError = "hourly must be numeric";
 				}
 			}
 		} else {
-			$salaryError = "Please enter a salary";
+			$salaryError = "Please enter a hourly";
 		}
 
 		//validate start date of job
