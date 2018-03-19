@@ -34,6 +34,22 @@ if(!isset($user['fullName'])){
 	<div>
 		<div class="container marginTBL">
 				
+				
+				<div class="col-md-3" style="float: right;">
+			<form method="GET" action="?">
+					<div>
+						<div class="input-group">
+						
+					      <input type="text" name="search" class="form-control" placeholder="Search for..." value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
+					      <span class="input-group-btn">
+					        <button class="btn btn-default" type="button">Go!</button>
+					      </span>
+					 
+					    </div>
+					</div>
+					 </form>
+				</div>
+
 				<h2><i class="fa fa-calendar verybigtext lefty marginright10" style="color: #05C3F7;"></i>Welcome <?php echo $user['fullName']; ?>!</h2><h4><?php 
 
 				//get user created or joined sessions and print it
@@ -86,6 +102,12 @@ if(!isset($user['fullName'])){
 
 			$addsql='';
 			$addpagequery='';
+
+			//if user searched, create sql for search and pagination url query
+			if (isset($_GET['search'])){
+				$addsql="and (jobTitle like '%".addslashes($_GET['search'])."%' or description like '%".addslashes($_GET['search'])."%')";
+				$addpagequery="&search=".urlencode($_GET['search']);
+			}
 
 			//if user requested to see list of available sessions, create sql statement and pagination statement for that
 			if (isset($_GET['status'])&&$_GET['status']=='available'){
