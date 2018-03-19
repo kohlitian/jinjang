@@ -166,7 +166,7 @@ $sqlpid=($pid-1)*$limit;
 		else{
 		?>
 
-		<div class="well">You don't have any trainings yet.</div>
+		<div class="well">You don't have any jobs yet.</div>
 		<?php
 
 		}
