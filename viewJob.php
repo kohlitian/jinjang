@@ -27,7 +27,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$comment = $_POST['comment'];
 
 	if($rateError == ""){
-		mysqli_query($connect, "INSERT INTO `Review` (`reviewID`, `timeStamp`, `rating`, `comment`, `jfID`, `jobID`) VALUES ('', '".time()."', '$rate', '$comment', '".$user['userID']."', '".$_GET['jobID']."');");
+		mysqli_query($connect, "INSERT INTO `Review` (`reviewID`, `timeStamp`, `rating`, `comments`, `jfID`, `jobID`) VALUES ('', '".time()."', '$rate', '$comment', '".$user['userID']."', '".$_GET['jobID']."');");
+		//echo mysqli_error($connect);die();
 		$_SESSION['passThruMessage']="Your review has been added successfully.";
 		header("Location: myJob.php"); exit;
 	}
@@ -45,7 +46,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/jinjang.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/star-rating.min.css">
 	
+
+
 </head>
 <body>
 	<!-- start of header -->
@@ -93,7 +97,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		<br>
 		<br>
 		<br>
-		<?php if($detail['endDateTime'] < time()){ ?>
+		<?php 
+		//check reviews
+		$q=mysqli_query($connect,"select * from `Review` where `jfID`='".$user['userID']."' and `jobID`='".$detail['jobID']."';");
+		echo mysqli_error($connect);
+		if (mysqli_num_rows($q)>0){
+			$review=mysqli_fetch_assoc($q);
+		?>
+		<h3><strong>Your Review for Job Provider:</strong></h3>
+
+			<input required id="input-id" name="rating" type="text" class="ratinginput" data-size="sm" value="<?php echo $review['rating']; ?>"><br>
+			<blockquote>
+				<?php echo $review['comments']; ?>
+			</blockquote>
+			
+
+		<?php
+		}else{
+		if($detail['endDateTime'] < time()){ ?>
 		<h3><strong>Review Job Provider: </strong></h3>
 		<form method="POST" action="<?php echo "viewJob.php?jobID=".$detail['jobID'] ?>">
 			<h2>Your Review</h2>
@@ -102,7 +123,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			<br><button type="submit" class="btn btn-primary btn-lg">Submit</button>
 		</form>
 
-		<?php } ?>
+		<?php }} ?>
 
 	</div>
 
@@ -113,6 +134,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	<script type="text/javascript" src = "js/moment.js"></script>
 	<script type="text/javascript" src = "js/bootstrap-datetimepicker.js"></script>
 	<script type="text/javascript" src = "js/bootstrap-slider.min.js"></script>
+	<script type="text/javascript" src = "js/star-rating.min.js"></script>
 	<script type="text/javascript" src = "js/jinjang.js"></script>
 	
 	

@@ -111,7 +111,8 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 		//if there is no errors, update trainer info
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $cnomborError==""&& $orgError==""&&$addressError==""&&$posError==""){
-			mysqli_query($connect, "UPDATE `jobproivder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."', `companyName` = '".addslashes($companyName)."',`contactNo` = '".addslashes($cnombor)."',`companyAddress` = '".addslashes($companyAddress)."',`position` = '".addslashes($position)."' WHERE `userID` = '".$user['userID']."'");
+			mysqli_query($connect, "UPDATE `jobprovider` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."', `companyName` = '".addslashes($companyName)."',`contactNo` = '".addslashes($cnombor)."',`companyAddress` = '".addslashes($companyAddress)."',`position` = '".addslashes($position)."' WHERE `userID` = '".$user['userID']."'");
+
 			$_SESSION['name'] = $fname;
 			$_SESSION['username'] = $username;
 			$_SESSION['passThruMessage']="Your job provider account info modified successfully.";
