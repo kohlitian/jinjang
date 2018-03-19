@@ -31,12 +31,12 @@ if(isset($user) && $user['type'] == "jobFinder"){
 			$companyName = $user['companyName'];
 		}
 
-		if(!empty($_POST['companyName'])){
-			$companyName = $_POST['companyName'];
-		} else if($_POST['companyName'] == ""){
+		if(!empty($_POST['companyAddress'])){
+			$companyAddress = $_POST['companyAddress'];
+		} else if($_POST['companyAddress'] == ""){
 			$addressError = "Please enter company address";
 		} else {
-			$companyName = $user['companyName'];
+			$companyAddress = $user['companyAddress'];
 		}
 
 		if(!empty($_POST['position'])){
@@ -205,6 +205,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				</div>
 
 
+
 				<span>Your position:</span>
 				<?php if(isset($posError)){ echo $posError;} ?>
 				<div class="input-group noSpaceTop">
@@ -214,23 +215,6 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 
 
-
-<!--
-				<span>Experience History:</span>
-				<?php if(isset($expError)){ echo $expError;} ?>
-				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="experienceHistory"><i class="fa fa-user-circle"></i></label></span>
-					<textarea class="form-control" placeholder="Please enter experience history" type="text" id="experienceHistory" name="experienceHistory"><?php echo $user['experienceHistory']; ?></textarea>
-				</div>
-
-				<span>Skills:</span>
-				<?php if(isset($skillError)){ echo $skillError;} ?>
-				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-user-circle"></i></label></span>
-					<input class="form-control" placeholder="Please enter your skills" type="text" id="skills" name="skills" value="<?php echo $user['skills']; ?>">
-				</div>
-
--->
 
 				<button type="submit" class="btn btn-success btn-block btn-lg formButton">Update</button>
 			</div>
