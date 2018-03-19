@@ -280,7 +280,6 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		<?php 
 
 		$find = mysqli_query($connect, "SELECT * FROM `jobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."'");
-		echo mysqli_error($connect);
 
 
 		if((mysqli_num_rows($find))>0){
@@ -321,11 +320,12 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				} else if ($job['status'] == "Rejected") {
 					echo "<button class=\"btn btn-warning btn-sm disabled fullwidth\">Rejected</button></div></div>";
 				}
-				}
-
 			}
+
+		}
 		?>
 </div>
+
 <?php } else{ ?>
 
 <div class="container marginTB">

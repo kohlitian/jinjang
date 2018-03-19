@@ -13,9 +13,9 @@ if(isset($_GET['jobID'])){
 	$detail = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jobID` = '$job';"));
 	$company = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `companyName` FROM `JobProvider` WHERE `userID` = '".$detail['jpID']."';"));
 } 
-//else {
-// 	header("Location: jobs.php"); exit;
-// }
+else {
+	header("Location: jobs.php"); exit;
+}
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$rateError = ""; 
