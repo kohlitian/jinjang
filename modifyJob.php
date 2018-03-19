@@ -25,17 +25,17 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 	//if form is POSTED
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-		$titleError = ""; $hourlyError = ""; $startDateError = ""; $endDateError = ""; $locationError = ""; $requirementError = ""; $deadlineError = ""; $participantError = ""; $descriptionError = ""; $statusError = "";
+		$nameError = ""; $hourlyError = ""; $startDateError = ""; $endDateError = ""; $locationError = ""; $requirementError = ""; $deadlineError = ""; $participantError = ""; $descriptionError = ""; $statusError = "";
 
 		$description = $_POST['description'];
 		$participant = $_POST['participant'];
 
 		//validate forms entry 
 
-		if(empty($_POST['statusType']) || $_POST['statusType'] == ""){
+		if(empty($_POST['status']) || $_POST['status'] == ""){
 			$statusError = "Please choose a status";
 		} else {
-			$status = $_POST['statusType'];
+			$status = $_POST['status'];
 		}
 
 		if(empty($_POST['jobTitle'])){
@@ -46,10 +46,11 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 		if(!empty($_POST['hourlyRate'])){
 			if($_POST['hourlyRate'] < 0){
-				$feeError = "hourly rate cannot be negative";
+				$hourlyError = "hourly rate cannot be negative";
 			} else {
 				if(is_numeric($_POST['hourlyRate'])){
 					$hourlyRate = $_POST['hourlyRate'];
+					$job['hourlyRate']=$hourlyRate;
 				} else {
 					$hourlyError = "hourly rate must be numeric";
 				}
@@ -109,15 +110,28 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		} else {
 			$location = $_POST['location'];
 		}
-
+		echo $nameError;
+		echo $hourlyError;
+		echo $startDateError;
+		echo $endDateError;
+		echo $deadlineError;
+		echo $descriptionError;
+		echo $requirementError;
+		echo $statusError;
+		echo $locationError;
+		
 		//if there is no validation error, update session in database
-		if($nameError =="" && $feeError =="" && $dateError =="" && $classError =="" && $trainingError ==""){
-			$newSession = "UPDATE `TrainingSessions` SET `note` = '".addslashes($note)."', `fee` = '$fee', `datetime` = '$time', `trainingType` = '$classType', `classType` = '$trainingType', `status` = '$status', `maxParticipants` = '$participant' WHERE `sessionID` = '".$_GET['sessionID']."';";
+		if($nameError =="" && $hourlyError =="" && $startDateError =="" && $endDateError =="" && $deadlineError =="" && $descriptionError == "" && $requirementError == "" && $statusError == "" && $locationError == ""){
+			$newSession = "UPDATE `Jobs` SET `jobTitle` = '".$name."', `hourlyRate` = '".$hourlyRate."', `maxParticipant` = '".$participant."', `startDateTime` = '".$startDateC."', `endDateTime` = '".$endDateC."', `deadlineDays` = '".$deadlineC."', `requirement` = '".$requirement."', `location` = '".$location."', `status` = '".$status."', `description` = '".$description."' WHERE `jobID` = '".$job['jobID']."' AND `jpID` = '".$user['userID']."'";
 
 
 			if(mysqli_query($connect, $newSession)){
 				$_SESSION['passThruMessage']="Your job has been modified successfully.";
-				header("Location: myTraining.php"); die();
+				echo $user['userID'];
+				echo $job['jpID'];
+				echo $job['jobID'];
+
+				// header("Location: myJob.php"); die();
 			} 
 		}else{
 			$passThruMessage="Please correct mentioned mistakes.";
@@ -156,20 +170,21 @@ if(isset($user) && $user['type'] == "jobFinder"){
 	if($user['userID'] == $job['jpID'] && $user['type'] == "jobProvider"){ ?>
 	<div class="container marginTB">
 		<h3><strong>#<?php if(isset($job)){echo $job['jobID']." ".$job['jobTitle'];} ?> Info</strong></h3>
-		<form method="POST" action="modifyJob.php">
+		<form method="POST" action="modifyJob.php?jobID=<?php echo $_GET['jobID']; ?>&type=view">
 			<div class="marginTB">
 				<span>Job Title</span>
-				<?php if(isset($titleError)){echo '<span style="color:#AFA;">'.$titleError.'</span>';} ?>
+				<?php if(isset($nameError)){echo '<span style="color:#AFA;">'.$nameError.'</span>';} ?>
 				<input class="input-lg form-control" type="text" name="jobTitle" placeholder="Please enter title of job" required value="<?php if (isset($job)) {echo $job['jobTitle'];} ?>">
 			</div>
 			
+
 			<div class="row">
 				<div class="col-sm-6">
 					<span>Hourly Rate</span>
 					<?php if(isset($salaryError)){echo '<span style="color:#FF0000;">'.$salaryError.'</span>';} ?>
 					<div class="input-group noSpaceTop">
 						<span class="input-group-addon" id="basic-addon1"><label for="price">RM</label></span>
-						<input class="form-control" type="number" name="salary" required id="price" placeholder="Type amount of hourly rate for job"  value="<?php if (isset($job)) echo $job['hourlyRate']; ?>">
+						<input class="form-control" type="number" name="hourlyRate" required id="price" placeholder="Type amount of hourly rate for job"  value="<?php if (isset($job)) echo $job['hourlyRate']; ?>">
 						<span class="input-group-addon" id="basic-addon1" style="padding-bottom:0px;"><label for="number"><span>.00</span></label></span>
 					</div>
 				</div>
