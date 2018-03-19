@@ -64,7 +64,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		} else {
 			if(time()>strtotime($_POST['startDate'])){
 				$startDateError = "Today is ".date("Y-m-d H:i:s", time())." new Job must be set after.";
-				echo time();
+				
 			} else {
 				$startDateC = strtotime($_POST['startDate']);
 			}
