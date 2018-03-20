@@ -68,26 +68,7 @@ if(!isset($user['fullName'])){
 		</div>
 
 		<!-- start responsive division to show list of trainings -->
-		<div class="container marginTBL border tabletraining">
-			<div class="row hidden-xs " style="padding-top:10px; padding-bottom:10px; border-top: 0px;">
-				<div class="col-sm-2 hidden-xs ">
-					<span class="lefty marginright10 ">ID</span>
-					<span>Title</span>
-				</div>
-				<div class="col-sm-3 hidden-xs ">
-					<span>Job Provider</span>
-				</div>
-				<div class="col-sm-3 hidden-xs ">
-					<span>Job Info <small style="color: grey;">(no. part., hourly, status)</small></span>
-				</div>
-				<div class="col-sm-2 hidden-xs">
-					<span>Start Date</span>
-				</div>
-				<div class="col-sm-2 hidden-xs">
-					<span></span>
-				</div>
-			</div>
-			<?php
+		<?php
 
 			
 			
@@ -121,6 +102,26 @@ if(!isset($user['fullName'])){
 			$i = 1;
 
 			if(mysqli_num_rows($training) > 0){
+		echo "<div class=\"container marginTBL border tabletraining\">
+			<div class=\"row hidden-xs \" style=\"padding-top:10px; padding-bottom:10px; border-top: 0px;\">
+				<div class=\"col-sm-2 hidden-xs \">
+					<span class=\"lefty marginright10 \">ID</span>
+					<span>Title</span>
+				</div>
+				<div class=\"col-sm-3 hidden-xs \">
+					<span>Job Provider</span>
+				</div>
+				<div class=\"col-sm-3 hidden-xs \">
+					<span>Job Info <small style=\"color: grey;\">(no. part., hourly, status)</small></span>
+				</div>
+				<div class=\"col-sm-2 hidden-xs\">
+					<span>Start Date</span>
+				</div>
+				<div class=\"col-sm-2 hidden-xs\">
+					<span></span>
+				</div>
+			</div>";
+			
 				while($row = mysqli_fetch_assoc($training)){
 					if($user['type'] == "jobFinder"&&$user['userID']>0){
 						$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."';"));
@@ -236,7 +237,7 @@ if(!isset($user['fullName'])){
 					
 				}
 			} else {
-				echo "We have currently no job yet";
+				echo "<div class=\"container\"><div class=\"well\">We have currently no job yet</div></div>";
 			}
 			?>
 		<!-- end responsive division for training list -->
