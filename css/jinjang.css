@@ -480,7 +480,7 @@ z-index: 9;
 /* dropdown menu on hover for logged in members */
 .navbar-right ul{
 	position: fixed;
-	z-index:2;
+	z-index:4;
 	right: 10px;
 	list-style-type: none;
 	display: block;
