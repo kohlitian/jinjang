@@ -342,7 +342,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 					if($user['userID']!=0){
 						echo "Reject";
 					}
-					echo "</a></div></div>";
+					echo "</a>";
 				} else if($result['status'] == "Accepted") {
 					echo "<button class=\"btn btn-primary btn-sm disabled fullwidth\">Accepted</button>";
 				} else if ($result['status'] == "Rejected") {
