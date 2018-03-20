@@ -44,6 +44,13 @@ if(isset($user) && $user['type'] == "jobFinder"){
 			$name = $_POST['jobTitle'];
 		}
 
+
+		if(empty($_POST['skills']) || $_POST['skills'] == ""){
+			$skillError = "Please type a skills";
+		} else {
+			$skills = $_POST['skills'];
+		}
+
 		if(!empty($_POST['hourlyRate'])){
 			if($_POST['hourlyRate'] < 0){
 				$hourlyError = "hourly rate cannot be negative";
@@ -113,7 +120,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		
 		//if there is no validation error, update session in database
 		if($nameError =="" && $hourlyError =="" && $startDateError =="" && $endDateError =="" && $deadlineError =="" && $descriptionError == "" && $requirementError == "" && $statusError == "" && $locationError == ""){
-			$newSession = "UPDATE `Jobs` SET `jobTitle` = '".$name."', `hourlyRate` = '".$hourlyRate."', `maxParticipant` = '".$participant."', `startDateTime` = '".$startDateC."', `endDateTime` = '".$endDateC."', `deadlineDays` = '".$deadlineC."', `requirement` = '".$requirement."', `location` = '".$location."', `status` = '".$status."', `description` = '".$description."' WHERE `jobID` = '".$job['jobID']."' AND `jpID` = '".$user['userID']."'";
+			$newSession = "UPDATE `Jobs` SET `jobTitle` = '".$name."', `hourlyRate` = '".$hourlyRate."', `maxParticipant` = '".$participant."', `startDateTime` = '".$startDateC."', `endDateTime` = '".$endDateC."', `deadlineDays` = '".$deadlineC."', `requirement` = '".$requirement."', `location` = '".$location."', `skills` = '".$skills."', `status` = '".$status."', `description` = '".$description."' WHERE `jobID` = '".$job['jobID']."' AND `jpID` = '".$user['userID']."'";
 
 
 			if(mysqli_query($connect, $newSession)){
@@ -247,6 +254,17 @@ if(isset($user) && $user['type'] == "jobFinder"){
 						<option value="Available" <?php if(isset($job) && $job['status'] == "Available") echo "selected"; ?>>Available</option>
 						<option value="Cancelled" <?php if(isset($job) && $job['status'] == "Cancelled") echo "selected"; ?>>Cancelled</option>
 					</select>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<span>Skills</span>
+					<?php if(isset($skillError)){echo '<span style="color:#FF0000;">'.$skillError.'</span>';} ?>
+					<input class="form-control" type="text" required name="skills" placeholder="Type required skills for job"  value="<?php if (isset($job)) echo $job['skills']; ?>">
+				</div>
+				<div class="col-sm-6">
+	
 				</div>
 			</div>
 

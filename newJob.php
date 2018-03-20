@@ -19,13 +19,19 @@ else {
 	//if form is posted
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-		$titleError = ""; $salaryError = ""; $startDateError = ""; $endDateError = ""; $deadlineError = ""; $requirementError = ""; $locationError = ""; $descriptionError = "";
+		$titleError = ""; $salaryError = ""; $startDateError = ""; $endDateError = ""; $deadlineError = ""; $requirementError = ""; $locationError = ""; $descriptionError = "";$skillError = "";
 
 		//validate enteries
 		if(empty($_POST['jobTitle'])){
 			$titleError = "please enter a job title";
 		} else {
 			$title = $_POST['jobTitle'];
+		}
+
+		if(empty($_POST['skills'])){
+			$skillError = "please enter a skill";
+		} else {
+			$skills = $_POST['skills'];
 		}
 
 		if(!empty($_POST['salary'])){
@@ -100,7 +106,7 @@ else {
 		$participant = $_POST['participant'];
 		//if there is no error, insert training session into database
 		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
-			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."')";
+			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`,`skills`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."','".addslashes($skills)."')";
 			if(mysqli_query($connect, $newJob)){
 				$_SESSION['passThruMessage'] = "Your new job has been added successfully.";
 				header('Location: jobs.php'); exit;
@@ -215,9 +221,19 @@ else {
 			</div>
 			
 			<div class="marginTB">
+				<div class="row">
+				<div class="col-sm-6">
+					
 				<span>Location</span>
 				<?php if(isset($locationError)){echo '<span style="color:#FF0000;">'.$locationError.'</span>';} ?>
 				<input class="form-control" type="text" required name="location" placeholder="Choose location for job"  value="<?php if (isset($_POST['location'])&&$_POST['location']) echo $_POST['location']; ?>">
+				</div>
+				<div class="col-sm-6">
+				<span>Skills</span>
+				<?php if(isset($skillError)){echo '<span style="color:#FF0000;">'.$skillError.'</span>';} ?>
+				<input class="form-control" type="text" required name="skills" placeholder="Enter skills for job"  value="<?php if (isset($_POST['skills'])&&$_POST['skills']) echo $_POST['skills']; ?>">
+				</div>
+</div>
 			</div>
 
 			<div class="marginTB">

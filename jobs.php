@@ -40,7 +40,7 @@ if(!isset($user['fullName'])){
 					<div>
 						<div class="input-group">
 						
-					      <input type="text" name="search" class="form-control" placeholder="Search for..." value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
+					      <input type="text" name="search" class="form-control" placeholder="Search based on skills..." value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
 					      <span class="input-group-btn">
 					        <button class="btn btn-default" type="button">Go!</button>
 					      </span>
@@ -87,7 +87,7 @@ if(!isset($user['fullName'])){
 
 			//if user searched, create sql for search and pagination url query
 			if (isset($_GET['search'])){
-				$addsql="and (jobTitle like '%".addslashes($_GET['search'])."%' or description like '%".addslashes($_GET['search'])."%')";
+				$addsql="and (skills like '%".addslashes($_GET['search'])."%')";
 				$addpagequery="&search=".urlencode($_GET['search']);
 			}
 
@@ -150,7 +150,7 @@ if(!isset($user['fullName'])){
 					echo "<div class=\"row\">
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
 							<span class=\"lefty marginright10 hidden-xs idcol\">".$row['jobID']."</span>
-							<span>".$row['jobTitle']."</span>
+							<span>".$row['jobTitle']."<br>".$row['skills']."</span>
 						</div>
 						<div class=\"col-xs-6 col-sm-3\">
 							

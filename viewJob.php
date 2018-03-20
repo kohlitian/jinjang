@@ -74,6 +74,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		<div class="row">
 			<div class="col-md-6 col-xs-12">Participants: <?php if(isset($detail)){echo $detail['maxParticipant'];} ?></div>
 			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($detail)){echo date("m/d/Y H:i A", $detail['endDateTime']);} ?></div>
+			
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">Skills: <?php if(isset($detail)){echo $detail['skills'];} ?></div>
+
 		</div>
 		<br>
 		<?php 

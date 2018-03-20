@@ -1,0 +1,1 @@
+ALTER TABLE `Jobs` ADD `skills` VARCHAR(255) NOT NULL AFTER `jpID`;
