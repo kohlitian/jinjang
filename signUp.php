@@ -20,6 +20,8 @@ $no_error=1;
 		$ID = "";
 		$signupDate = time();
 		$loginDate = time();
+
+		$contactNo=$_POST['cnombor'];
 		
 		$experienceHistory = $_POST['experienceHistory'];
 		$expectedSalary = $_POST['expectedSalary'];
@@ -98,7 +100,7 @@ $no_error=1;
 		//validate user full name
 		if(empty($_POST['cnombor'])){
 			$cnomborError = "Contact Number is required";
-		} 
+		}
 
 
 		//validate user type and level and speciality

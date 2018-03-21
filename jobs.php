@@ -150,7 +150,7 @@ if(!isset($user['fullName'])){
 					echo "<div class=\"row\">
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
 							<span class=\"lefty marginright10 hidden-xs idcol\">".$row['jobID']."</span>
-							<span>".$row['jobTitle']."<br>".$row['skills']."</span>
+							<span>".$row['jobTitle']."<br><small>".$row['skills']."</small></span>
 						</div>
 						<div class=\"col-xs-6 col-sm-3\">
 							
