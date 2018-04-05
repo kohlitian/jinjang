@@ -28,8 +28,9 @@ else {
 			$title = $_POST['jobTitle'];
 		}
 
-		if(empty($_POST['skills'])){
-			$skillError = "please enter a skill";
+
+		if (!is_array($_POST['skills'])||(is_array($_POST['skills'])&&count($_POST['skills'])==0)){
+		$skillError = "Please choose your skill";
 		} else {
 			$skills = $_POST['skills'];
 		}
@@ -106,7 +107,7 @@ else {
 		$participant = $_POST['participant'];
 		//if there is no error, insert training session into database
 		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
-			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`,`skills`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."','".addslashes($skills)."')";
+			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`,`skills`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."','".addslashes(implode(",",$skills))."')";
 			if(mysqli_query($connect, $newJob)){
 				$_SESSION['passThruMessage'] = "Your new job has been added successfully.";
 				header('Location: jobs.php'); exit;
@@ -203,7 +204,7 @@ else {
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<span>requirement</span>
+					<span>Requirement</span>
 					<?php if(isset($requirementError)){echo '<span style="color:#FF0000;">'.$requirementError.'</span>';} ?>
 					<select class="form-control" name="requirement">
 						<option value="noChoose" <?php if(isset($_POST['requirement']) && $_POST['requirement'] == "noChoose") echo "selected"; ?> >Please choose a requirement</option>
@@ -231,7 +232,19 @@ else {
 				<div class="col-sm-6">
 				<span>Skills</span>
 				<?php if(isset($skillError)){echo '<span style="color:#FF0000;">'.$skillError.'</span>';} ?>
-				<input class="form-control" type="text" required name="skills" placeholder="Enter skills for job"  value="<?php if (isset($_POST['skills'])&&$_POST['skills']) echo $_POST['skills']; ?>">
+				
+
+							<select name="skills[]" id="skills" class="form-control" multiple="true">
+								<?php
+								$skillsq=mysqli_query($connect,"select * from skills where hide=0;");
+								while ($skill=mysqli_fetch_assoc($skillsq)){
+									?>
+									<option value="<?php echo $skill['skill']; ?>" <?php if (isset($_POST['skills'])&&is_array($_POST['skills'])&& in_array($skill['skill'], $_POST['skills'])) echo ' selected'; ?>><?php echo $skill['skill']; ?></option>
+									<?php
+								}
+								?>
+							</select>
+
 				</div>
 </div>
 			</div>

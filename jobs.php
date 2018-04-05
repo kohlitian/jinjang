@@ -40,9 +40,26 @@ if(!isset($user['fullName'])){
 					<div>
 						<div class="input-group">
 						
-					      <input type="text" name="search" class="form-control" placeholder="Search based on skills..." value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
+
+
+
+					      <select name="search" id="search" class="form-control">
+					      		<option value="">Search based on skills...</option>
+								<?php
+								$skillsq=mysqli_query($connect,"select * from skills where hide=0;");
+								while ($skill=mysqli_fetch_assoc($skillsq)){
+									?>
+									<option value="<?php echo $skill['skill']; ?>" <?php if (isset($_GET['search'])&&$_GET['search']==$skill['skill']) echo ' selected'; ?>><?php echo $skill['skill']; ?></option>
+									<?php
+								}
+								?>
+							</select>
+
+
+
+
 					      <span class="input-group-btn">
-					        <button class="btn btn-default" type="button">Go!</button>
+					        <button class="btn btn-default" type="submit">Go!</button>
 					      </span>
 					
 					    </div>

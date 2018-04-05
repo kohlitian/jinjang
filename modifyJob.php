@@ -21,6 +21,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 	if(isset($_GET['jobID'])){
 		$theJobID = $_GET['jobID'];
 		$job = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jobID` = ".$_GET['jobID'].""));
+		$skills = $job['skills'];
 	}
 
 	//if form is POSTED
@@ -45,11 +46,17 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		}
 
 
-		if(empty($_POST['skills']) || $_POST['skills'] == ""){
-			$skillError = "Please type a skills";
-		} else {
-			$skills = $_POST['skills'];
+		if (!is_array($_POST['skills'])||(is_array($_POST['skills'])&&count($_POST['skills'])==0)){
+			$skillError = "Please choose a skill";
+		} else if (is_array($_POST['skills'])&&(is_array($_POST['skills'])&&count($_POST['skills'])>0)){
+			$skills = addslashes(implode(",",$_POST['skills']));
+		}else{
+			$skills = $job['skills'];
 		}
+
+
+
+
 
 		if(!empty($_POST['hourlyRate'])){
 			if($_POST['hourlyRate'] < 0){
@@ -134,6 +141,11 @@ if(isset($user) && $user['type'] == "jobFinder"){
 		}
 	}
 }
+
+
+$skillArr=explode(",", $skills);
+
+
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -258,10 +270,22 @@ if(isset($user) && $user['type'] == "jobFinder"){
 			</div>
 
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-sm-12">
 					<span>Skills</span>
 					<?php if(isset($skillError)){echo '<span style="color:#FF0000;">'.$skillError.'</span>';} ?>
-					<input class="form-control" type="text" required name="skills" placeholder="Type required skills for job"  value="<?php if (isset($job)) echo $job['skills']; ?>">
+
+
+					<select name="skills[]" id="skills" class="form-control" multiple="true">
+								<?php
+								$skillsq=mysqli_query($connect,"select * from skills where hide=0;");
+								while ($skill=mysqli_fetch_assoc($skillsq)){
+									?>
+									<option value="<?php echo $skill['skill']; ?>" <?php if (isset($skillArr)&&is_array($skillArr)&& in_array($skill['skill'], $skillArr)) echo ' selected'; ?>><?php echo $skill['skill']; ?></option>
+									<?php
+								}
+								?>
+							</select>
+
 				</div>
 				<div class="col-sm-6">
 	
@@ -352,7 +376,9 @@ if(isset($user) && $user['type'] == "jobFinder"){
 			}
 
 		}
-		}?>
+		}else{?>
+		There is no participants yet
+		<?php } ?>
 
 <?php } else{ ?>
 
