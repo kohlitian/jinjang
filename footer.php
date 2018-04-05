@@ -1,3 +1,5 @@
+<div class="footer-gap-provider"></div>
+
 <footer class="container-fluid">
 		<div class="footer">
 			<div class="container marginTB">
@@ -17,7 +19,7 @@
 				</div>
 			</div>	
 		</div>	
-	</footer>
+</footer>
 
 <!-- Put scripts at end of the page, so they don't slow down loading time -->
 <script type="text/javascript" src = "js/jquery.js"></script>
