@@ -112,7 +112,7 @@ $no_error=1;
 			$salaryError = "Please type your desired salary";
 			}
 			if (!is_array($skills)||(is_array($skills)&&count($skills)==0)){
-			$langError = "Please choose your skill";
+			$skillError = "Please choose your skill";
 			}
 			if (!is_array($languages)||(is_array($languages)&&count($languages)==0)){
 			$langError = "Please choose your language";
