@@ -66,10 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					<span class="input-group-addon" id="basic-addon1" style="padding-bottom:0px;"><label for="number"><span>.00</span></label></span>
 				</div>
 				<button type="submit" class="btn btn-success btn-block btn-lg formButton" >Donate !</button>
-				<hr>
-				<div class="center">
-				<small>Or <a href="signup.php">sign up for a new account</a></small>
-				</div>
+
 			</div>
 		</form>
 		<div class="clear"></div>

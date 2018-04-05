@@ -153,3 +153,12 @@ if(typeof $.fn.slider !== 'undefined')
 $(".slider").slider({tooltip: 'always',tooltip_position: 'bottom'});
 if(typeof $.fn.rating !== 'undefined')
 $(".ratinginput").rating({step: 1});
+
+
+function forgotpassword(){
+	if ($("#username").val()==""){
+		bootbox.alert("Please enter your username above and click forgot password button again.");
+	}else{
+		window.location.href="?forgot="+$("#username").val();
+	}
+}

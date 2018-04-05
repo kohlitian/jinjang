@@ -60,6 +60,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 
 }
+
+if (isset($_GET['forgot'])&&$_GET['forgot']!=""){
+	$passThruMessage = "If your username is valid, you will receive an email with your password in it.";
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -198,7 +203,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				<?php if(isset($passwordError)){echo $passwordError;}?>
 				<hr>
 				<div class="center">
-				<small>Or <a href="signUp.php">sign up for a new account</a></small>
+				<small><button type="button" class="btn btn-default" onclick="forgotpassword();">Forgot password?</button> Or <a href="signUp.php">sign up for a new account</a></small>
 				</div>
 			</div>
 		</form>
