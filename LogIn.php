@@ -62,13 +62,38 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 if (isset($_GET['forgot'])&&$_GET['forgot']!=""){
-	$passThruMessage = "If your username is valid, you will receive an email with your password in it.";
+
+	//make sure username exists
+ 	$find = "SELECT `username`,`email` FROM `JobFinder` WHERE `username` = '".addslashes($_GET['forgot'])."'";
+ 	$findMember = mysqli_query($connect, $find);
+ 	$find = "SELECT `username`,`email` FROM `JobProvider` WHERE `username` = '".addslashes($_GET['forgot'])."'";
+ 	$findprovider = mysqli_query($connect, $find);
+ 	if(mysqli_num_rows($findMember) >0 || mysqli_num_rows($findprovider) >0){
+
+ 		//get data from mysql
+ 		if(mysqli_num_rows($findMember) >0) $row=mysqli_fetch_assoc($findMember);
+ 		if(mysqli_num_rows($findprovider) >0) $row=mysqli_fetch_assoc($findprovider);
+
+ 		// the message
+		$msg = "Your Jinjang E-Business password is: ".$row['password'];
+
+		// use wordwrap() if lines are longer than 70 characters
+		$msg = wordwrap($msg,70);
+
+		// send email
+		mail($row['email'],"Jinjang Password Recovery",$msg);
+
+ 		$passThruMessage = "Your password has been emailed to ".$row['email']."";
+ 	} else {
+ 		$passThruMessage = "Username entered (".$_GET['forgot'].") is not in our system.";
+ 	}
 }
 
 ?>
 
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
 	<title>Login</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -78,8 +103,8 @@ if (isset($_GET['forgot'])&&$_GET['forgot']!=""){
 	<link rel="stylesheet" type="text/css" href="css/jinjang.css">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/animated.login.css">
-	
 </head>
+
 <body>
 	<!-- start of header -->
 	<?php 
