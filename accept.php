@@ -2,7 +2,7 @@
 //load startup files
 include("config.php");
 include("control.php");
-
+ 
 //if user is not logged in, redirect him to login page
 if(!isset($_SESSION['id'])){
 	$_SESSION['passThruMessage'] = "This page only allow subscriber, please log in or sign up then only can access this page.";
