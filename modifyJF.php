@@ -39,10 +39,11 @@ if(isset($user) && $user['type'] == "jobProvider"){
 			$expectedSalary = $user['expectedSalary'];
 		}
 
-		if(!empty($_POST['skills'])){
-			$skills = $_POST['skills'];
-		} else if($_POST['skills'] == ""){
-			$skillError = "Please enter your skill";
+
+		if (is_array($_POST['skills'])&&(is_array($_POST['skills'])&&count($_POST['skills'])>0)){
+			$skills = addslashes(implode(",",$_POST['skills']));
+		} else if (!is_array($_POST['skills'])||(is_array($_POST['skills'])&&count($_POST['skills'])==0)){
+			$skillError = "Please choose a skill";
 		} else {
 			$skills = $user['skills'];
 		}
@@ -131,7 +132,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		//if there is no errors, update trainer info
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""){
 			mysqli_query($connect, "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."' ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."';");
-//echo "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."' ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."';";die();
+
 			$_SESSION['name'] = $fname;
 			$_SESSION['username'] = $username;
 			$_SESSION['passThruMessage']="Your job finder account info modified successfully.";
@@ -143,6 +144,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 	}
 
 		$languageArr=explode(",", $user['languages']);
+		$skillArr=explode(",", $user['skills']);
 
 ?><!DOCTYPE HTML>
 <html lang="en">
@@ -225,12 +227,6 @@ if(isset($user) && $user['type'] == "jobProvider"){
 					<textarea class="form-control" placeholder="Please enter experience history" type="text" id="experienceHistory" name="experienceHistory"><?php echo $user['experienceHistory']; ?></textarea>
 				</div>
 
-				<span>Skills:</span>
-				<?php if(isset($skillError)){ echo $skillError;} ?>
-				<div class="input-group noSpaceTop">
-					<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
-					<input class="form-control" placeholder="Please enter your skills" type="text" id="skills" name="skills" value="<?php echo $user['skills']; ?>">
-				</div>
 
 
 
@@ -253,6 +249,21 @@ if(isset($user) && $user['type'] == "jobProvider"){
 							</select>
 				</div>
 
+				<span>Skills:</span>
+				<?php if(isset($skillError)){ echo $skillError;} ?>
+				<div class="input-group noSpaceTop">
+					<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
+							<select name="skills[]" id="skills" class="form-control" multiple="true">
+								<?php
+								$skillsq=mysqli_query($connect,"select * from skills where hide=0;");
+								while ($skill=mysqli_fetch_assoc($skillsq)){
+									?>
+									<option value="<?php echo $skill['skill']; ?>" <?php if (isset($skillArr)&&is_array($skillArr)&& in_array($skill['skill'], $skillArr)) echo ' selected'; ?>><?php echo $skill['skill']; ?></option>
+									<?php
+								}
+								?>
+							</select>
+				</div>
 
 
 				<span>Languages:</span>

@@ -111,8 +111,8 @@ $no_error=1;
 			if ($expectedSalary==""){
 			$salaryError = "Please type your desired salary";
 			}
-			if ($skills==""){
-			$skillError = "Please type your skill";
+			if (!is_array($skills)||(is_array($skills)&&count($skills)==0)){
+			$langError = "Please choose your skill";
 			}
 			if (!is_array($languages)||(is_array($languages)&&count($languages)==0)){
 			$langError = "Please choose your language";
@@ -139,7 +139,7 @@ $no_error=1;
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""&& $cnomborError==""&& $orgError==""&&$addressError==""&&$posError==""){
 			//insert data into database if no errors
 			if($_POST['userType']=='jf'){
-				$signUp = "INSERT INTO `JobFinder` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes($skills)."', '".addslashes(implode(",",$languages))."')";
+				$signUp = "INSERT INTO `JobFinder` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes(implode(",",$skills))."', '".addslashes(implode(",",$languages))."')";
 			} else {
 				$signUp = "INSERT INTO `JobProvider` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`, `companyName`, `companyAddress`, `position`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($companyName)."', '".addslashes($companyAddress)."', '".addslashes($position)."')";
 			}
@@ -275,7 +275,18 @@ $no_error=1;
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
-							<input class="form-control" placeholder="Skills (seperated by comma)" type="text" id="skills" name="skills" value="<?php if (isset($_POST['skills'])) echo $_POST['skills']; ?>">
+							<select name="skills[]" id="skills" class="form-control" multiple="true">
+								<?php
+								$skillsq=mysqli_query($connect,"select * from skills where hide=0;");
+								while ($skill=mysqli_fetch_assoc($skillsq)){
+									?>
+									<option value="<?php echo $skill['skill']; ?>" <?php if (isset($_POST['skills'])&&is_array($_POST['skills'])&& in_array($skill['skill'], $_POST['skills'])) echo ' selected'; ?>><?php echo $skill['skill']; ?></option>
+									<?php
+								}
+								?>
+							</select>
+
+
 						</div>
 						<?php if(isset($skillError)){ ?><span class="error"><?php echo $skillError; ?></span><?php } ?>
 
