@@ -128,10 +128,29 @@ div #navToggle{
 }
 
 /* footer */
+/* footer */
 footer{
 	background-color: #dedede;
 	padding-bottom: 20px;
 	box-shadow: 0px -5px 10px rgba(0,0,0,0.4);
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 2;
+}
+
+.footer-gap-provider{
+	height: 100px;
+}
+
+@media (max-width:768px) {
+	footer{
+		position: relative;
+	}
+	.footer-gap-provider{
+	height: 1px !important;
+	}
 }
 
 footer p{
