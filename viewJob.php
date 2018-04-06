@@ -72,11 +72,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			<div class="col-md-6 col-xs-12">Start Date: <?php if(isset($detail)){echo date("m/d/Y H:i A", $detail['startDateTime']);} ?></div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-xs-12">Participants: <?php if(isset($detail)){echo $detail['maxParticipant'];} ?></div>
+			<div class="col-md-6 col-xs-12">Active Participants: <?php if(isset($detail)){echo $detail['noParticipant'];} ?>/<?php if(isset($detail)){echo $detail['maxParticipant'];} ?></div>
 			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($detail)){echo date("m/d/Y H:i A", $detail['endDateTime']);} ?></div>
 			
 		</div>
 		<div class="row">
+			<div class="col-md-6 col-xs-12">Intrested Participant: <?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$detail['jobID']."';"))[0]; ?></div>
 			<div class="col-md-6 col-xs-12">Skills: <?php if(isset($detail)){echo $detail['skills'];} ?></div>
 
 		</div>
@@ -84,6 +85,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		<?php 
 		$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestID` FROM `requestedJobs` WHERE `jobID` = ".$detail['jobID']." AND `jfID` = ".$user['userID'].""));
 		echo mysqli_error($connect);
+		$status = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `status` FROM `requestedJobs` WHERE `jobID` = ".$detail['jobID']." AND `jfID` = ".$user['userID'].""));
 		if($check == 0){
 			echo "<a class=\"btn btn-success btn-lg\" href=\"joinJob.php?jobID=".$job."\" onclick=\"return ";
 			if($user['userID']==0){
@@ -95,7 +97,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			} 
 			echo "</a>";
 		} else if($check >0) {
-			echo "<button class=\"btn btn-warning disabled btn-lg\">Joined</button>";
+			
+			if($status['status'] == 'Accepted'){
+				echo "<button class=\"btn btn-primary disabled btn-lg\">Accepted</button>";
+			}
+			else if($status['status'] == 'Rejected'){
+				echo "<button class=\"btn btn-danger disabled btn-lg\">Rejected</button>";
+			}
+			else {echo "<button class=\"btn btn-warning disabled btn-lg\">Joined</button>";}
 		}
 
 		?>

@@ -56,12 +56,13 @@ $sqlpid=($pid-1)*$limit;
 
 			//get list of user created or joined sessions from database
 			if($user['type'] == "jobFinder"){
-				$result = mysqli_query($connect, "SELECT * FROM `requestedJobs`, `Jobs` WHERE `requestedJobs`.`jobID` = `Jobs`.`jobID` AND `requestedJobs`.`jfID` = '".$user['userID']."' LIMIT ".$sqlpid.", ".$limit.";");
+				$result = mysqli_query($connect, "SELECT *,requestedJobs.status as rstatus,Jobs.status as jstatus FROM `requestedJobs`, `Jobs` WHERE `requestedJobs`.`jobID` = `Jobs`.`jobID` AND `requestedJobs`.`jfID` = '".$user['userID']."' LIMIT ".$sqlpid.", ".$limit.";");
 			} else if($user['type'] == "jobProvider") {
 				$result = mysqli_query($connect, "SELECT * FROM `Jobs` WHERE `jpID` = '".$user['userID']."' LIMIT ".$sqlpid.", ".$limit.";");
 			}
 			$i = 1;
 			if(mysqli_num_rows($result) > 0){
+				
 
 				?>			<div class="row hidden-xs " style="padding-top:10px; padding-bottom:10px; border-top: 0px;">
 				<div class="col-sm-2 hidden-xs ">
@@ -132,18 +133,26 @@ $sqlpid=($pid-1)*$limit;
 						
 					</div>
 					<div class=\"col-xs-6 col-sm-3 marginTBL\">"; ?>
-					<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?>/<?php echo $row['maxParticipant']; ?></span>
+					<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?></span>
 						<?php 
+
 						if($user['type'] == "jobFinder"){
 							echo "<span class=\"label label-success\">".$row['hourlyRate']."</span>";?><?php 
 							if($check >0){ 
-								if($row['status'] == 'Cancelled'){ echo "<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>"; 
-								} else if($row['status'] == 'Passed') { echo "<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>"; 
-								} else { echo "<span class=\"label label-warning\" style=\"margin-left:5px;\">Joined</span>";
+								if($row['jstatus'] == 'Cancelled'){ echo "<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['jstatus']."</span>"; 
+								} else if($row['jstatus'] == 'Passed') { echo "<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['jstatus']."</span>"; 
+								} else { 
+									if ($row['rstatus'] == 'Accepted'){
+										echo "<span class=\"label label-primary\" style=\"margin-left:5px;\">".$row['rstatus']."</span>"; 
+									} else if ($row['rstatus'] == 'Rejected'){
+										echo "<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['rstatus']."</span>"; 
+									}
+										else { echo "<span class=\"label label-warning\" style=\"margin-left:5px;\">Joined</span>";
+									}
 								}
-							} else if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";
-							} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";
-							} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";
+							} else if($row['jstatus'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['jstatus']."</span>";
+							} else if($row['jstatus'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['jstatus']."</span>";
+							} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['jstatus']."</span>";
 							}
 						} else if($user['type'] = "jobProvider") {
 							echo "<span class=\"label label-info\">".$row['hourlyRate']."</span>";?><?php if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}

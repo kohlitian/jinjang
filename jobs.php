@@ -194,7 +194,7 @@ if(!isset($user['fullName'])){
 							
 						</div>
 						<div class=\"col-xs-6 col-sm-3 marginTBL\">"; ?>
-						<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?>/<?php echo $row['maxParticipant']; ?></span>
+						<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?></span>
 						<?php 
 						if($user['type'] == "jobFinder"){
 							echo "<span class=\"label label-success\">".$row['hourlyRate']."</span>";?><?php 

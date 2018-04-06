@@ -336,9 +336,10 @@ $skillArr=explode(",", $skills);
 		if((mysqli_num_rows($find))>0){
 
 			while($result = mysqli_fetch_assoc($find)){
+
 				echo "<hr style=\"border:1px solid #808080; margin-top: 0px; margin-bottom: 2px;\"><div class=\"row\">
 				<div class=\"col-sm-3\">
-					<span>".$result['fullName']."</span>
+					<a class=\"btn btn-link\" href=\"viewPeople.php?UID=".$result['userID']."&jobID=".$job['jobID']."\" >".$result['fullName']."</a>
 				</div>
 				<div class=\"col-sm-3\">
 					<span><small><small>".$result['languages']."</small></small></span><br>
@@ -386,6 +387,7 @@ $skillArr=explode(",", $skills);
 		<h2><strong>#<?php if(isset($job)){echo $job['jobID']." ".$job['jobTitle'];} ?> Info</strong></h2>
 		<br>
 		<div class="well"><?php if(isset($job)){echo $job['description'];} ?></div>
+		<br>
 		<div class="row">
 			<div class="col-md-6 col-xs-12">Hourly Rate: RM<?php if(isset($job)){echo $job['hourlyRate'];} ?></div>
 			<div class="col-md-6 col-xs-12">Location: <?php if(isset($job)){echo $job['location'];} ?></div>
@@ -395,10 +397,15 @@ $skillArr=explode(",", $skills);
 			<div class="col-md-6 col-xs-12">Start Date: <?php if(isset($job)){echo date("m/d/Y H:i A", $job['startDateTime']);} ?></div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-xs-12">Participants: <?php if(isset($job)){echo $job['maxParticipant'];} ?></div>
+			<div class="col-md-6 col-xs-12">Active Participants: <?php if(isset($job)){echo $job['noParticipant'];} ?>/<?php if(isset($job)){echo $job['maxParticipant'];} ?></div>
 			<div class="col-md-6 col-xs-12">End Date: <?php if(isset($job)){echo date("m/d/Y H:i A", $job['endDateTime']);} ?></div>
+			
 		</div>
-	</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">Intrested Participant: <?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$job['jobID']."';"))[0]; ?></div>
+			<div class="col-md-6 col-xs-12">Skills: <?php if(isset($job)){echo $job['skills'];} ?></div>
+
+		</div>
 
 	<?php } ?>
 
