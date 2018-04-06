@@ -87,7 +87,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		echo mysqli_error($connect);
 		$status = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `status` FROM `requestedJobs` WHERE `jobID` = ".$detail['jobID']." AND `jfID` = ".$user['userID'].""));
 		if($check == 0){
-			echo "<a class=\"btn btn-success btn-lg\" href=\"joinJob.php?jobID=".$job."\" onclick=\"return ";
+			if($detail['status'] == "Cancelled"){echo "<button type=\"button\" disabled class=\"btn btn-basic btn-lg\">Cancelled</button>";
+			} else if($detail['status'] == "Passed"){echo "<button type=\"button\" disabled class=\"btn btn-info btn-lg\">Passed</button>";
+			}
+			else { echo "<a class=\"btn btn-success btn-lg\" href=\"joinJob.php?jobID=".$job."\" onclick=\"return ";
 			if($user['userID']==0){
 				echo "confirm('Please login to system to join events');";
 			}
@@ -96,6 +99,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 				echo "Join";
 			} 
 			echo "</a>";
+			}
 		} else if($check >0) {
 			
 			if($status['status'] == 'Accepted'){
@@ -128,7 +132,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 		<?php
 		}else{
-		if($detail['endDateTime'] < time()){ ?>
+		if($detail['endDateTime'] < time() && $status['status'] == "Accpeted"){ ?>
 		<h3><strong>Review Job Provider: </strong></h3>
 		<form method="POST" action="<?php echo "viewJob.php?jobID=".$detail['jobID'] ?>">
 			<h2>Your Review</h2>

@@ -197,11 +197,19 @@ if(!isset($user['fullName'])){
 						<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?></span>
 						<?php 
 						if($user['type'] == "jobFinder"){
+							$rstatus = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `status` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."'"));
 							echo "<span class=\"label label-success\">".$row['hourlyRate']."</span>";?><?php 
 							if($check >0){ 
 								if($row['status'] == 'Cancelled'){ echo "<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>"; 
 								} else if($row['status'] == 'Passed') { echo "<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>"; 
-								} else { echo "<span class=\"label label-warning\" style=\"margin-left:5px;\">Joined</span>";
+								} else { 
+									if($rstatus['status'] == "Requested"){
+										echo "<span class=\"label label-warning\" style=\"margin-left:5px;\">Joined</span>";
+									} else if($rstatus['status'] == "Accepted"){
+										echo "<span class=\"label label-primary\" style=\"margin-left:5px;\">Accepted</span>";
+									} else if($rstatus['status'] == "Rejected"){
+										echo "<span class=\"label label-danger\" style=\"margin-left:5px;\">Rejected</span>";
+									}
 								}
 							} else if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";
 							} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";

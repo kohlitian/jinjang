@@ -180,7 +180,7 @@ $skillArr=explode(",", $skills);
 		<form method="POST" action="modifyJob.php?jobID=<?php echo $_GET['jobID']; ?>&type=view">
 			<div class="marginTB">
 				<span>Job Title</span>
-				<?php if(isset($nameError)){echo '<span style="color:#AFA;">'.$nameError.'</span>';} ?>
+				<?php if(isset($nameError)){echo '<span style="color:#FF0000;">'.$nameError.'</span>';} ?>
 				<input class="input-lg form-control" type="text" name="jobTitle" placeholder="Please enter title of job" required value="<?php if (isset($job)) {echo $job['jobTitle'];} ?>">
 			</div>
 			
@@ -338,8 +338,15 @@ $skillArr=explode(",", $skills);
 			while($result = mysqli_fetch_assoc($find)){
 
 				echo "<hr style=\"border:1px solid #808080; margin-top: 0px; margin-bottom: 2px;\"><div class=\"row\">
-				<div class=\"col-sm-3\">
-					<a class=\"btn btn-link\" href=\"viewPeople.php?UID=".$result['userID']."&jobID=".$job['jobID']."\" >".$result['fullName']."</a>
+				<div class=\"col-sm-3\">";
+				if($result['status'] == "Requested"){
+					echo "<a class=\"btn btn-link\" href=\"viewPeople.php?UID=".$result['userID']."&jobID=".$job['jobID']."&type=Choose\" >".$result['fullName']."</a>";
+				} else if($result['status'] == "Accepted"){
+					echo "<a class=\"btn btn-link\" href=\"viewPeople.php?UID=".$result['userID']."&jobID=".$job['jobID']."&type=Accepted\" >".$result['fullName']."</a>";
+				} else {
+					echo "<a class=\"btn btn-link\" href=\"viewPeople.php?UID=".$result['userID']."&jobID=".$job['jobID']."&type=Rejected\" >".$result['fullName']."</a>";
+				}
+				echo "
 				</div>
 				<div class=\"col-sm-3\">
 					<span><small><small>".$result['languages']."</small></small></span><br>
@@ -371,7 +378,7 @@ $skillArr=explode(",", $skills);
 				} else if($result['status'] == "Accepted") {
 					echo "<button class=\"btn btn-primary btn-sm disabled fullwidth\">Accepted</button>";
 				} else if ($result['status'] == "Rejected") {
-					echo "<button class=\"btn btn-warning btn-sm disabled fullwidth\">Rejected</button>";
+					echo "<button class=\"btn btn-danger btn-sm disabled fullwidth\">Rejected</button>";
 				}
 				echo "</div></div>";
 			}

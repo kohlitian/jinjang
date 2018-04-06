@@ -220,39 +220,39 @@ $no_error=1;
 						<span class="input-group-addon" id="basic-addon2"><label for="username"><i class="glyphicon glyphicon-user"></i></label></span>
 						<input class="form-control" placeholder="Please enter your username" type="text" id="username" name="username" required value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>">
 					</div>
-					<?php if(isset($usernameError)){ ?><span class="error"><?php echo $usernameError; ?></span><?php } ?>
+					<?php if(isset($usernameError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$usernameError.'</span>'; ?></span><?php } ?>
 
 
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2"><label for="psw"><i class="fa fa-key"></i></label></span>
 						<input class="form-control" placeholder="Enter a new Password" type="password" id="psw" name="password" required  value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>">
 					</div>
-					<?php if(isset($passwordError)){ ?><span class="error"><?php echo $passwordError; ?></span><?php } ?>
+					<?php if(isset($passwordError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$passwordError.'</span>'; ?></span><?php } ?>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon3"><label for="psw"><i class="fa fa-key"></i></label></span>
 						<input class="form-control" placeholder="Repeat Password" type="password" id="psw2" name="comfirmPassword" required  value="<?php if (isset($_POST['comfirmPassword'])) echo $_POST['comfirmPassword']; ?>">
 					</div>
-					<?php if(isset($conPassError)){ ?><span class="error"><?php echo $conPassError; ?></span><?php } ?>
+					<?php if(isset($conPassError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$conPassError.'</span>'; ?></span><?php } ?>
 
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2"><label for="email"><i class="glyphicon glyphicon-envelope"></i></label></span>
 						<input class="form-control" placeholder="Please enter your email" type="email" id="email" name="email" required value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>">
 					</div>
-					<?php if(isset($emailError)){ ?><span class="error"><?php echo $emailError; ?></span><?php } ?>
+					<?php if(isset($emailError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$emailError.'</span>'; ?></span><?php } ?>
 
 
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-user-circle"></i></label></span>
 						<input class="form-control" placeholder="Full Name" type="text" id="fname" name="fname" required  value="<?php if (isset($_POST['fname'])) echo $_POST['fname']; ?>">
 					</div>
-					<?php if(isset($nameError)){ ?><span class="error"><?php echo $nameError; ?></span><?php } ?>
+					<?php if(isset($nameError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$nameError.'</span>'; ?></span><?php } ?>
 
 
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa fa-phone"></i></label></span>
 						<input class="form-control" placeholder="Contact Number" type="number" id="cnombor" name="cnombor" required  value="<?php if (isset($_POST['cnombor'])) echo $_POST['cnombor']; ?>">
 					</div>
-					<?php if(isset($cnomborError)){ ?><span class="error"><?php echo $cnomborError; ?></span><?php } ?>
+					<?php if(isset($cnomborError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$cnomborError.'</span>'; ?></span><?php } ?>
 
 
 					<div id="memberelement"  style="width: 100%;">
@@ -262,7 +262,7 @@ $no_error=1;
 							<textarea class="form-control" placeholder="Experience History" type="text" id="experienceHistory" name="experienceHistory"><?php if (isset($_POST['experienceHistory'])) echo $_POST['experienceHistory']; ?></textarea>
 
 						</div>
-						<?php if(isset($expError)){ ?><span class="error"><?php echo $expError; ?></span><?php } ?>
+						<?php if(isset($expError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$expError.'</span>'; ?></span><?php } ?>
 
 						<div class="input-group">
 
@@ -270,7 +270,7 @@ $no_error=1;
 							<input class="form-control" placeholder="Expected Salary" type="number" id="expectedSalary" name="expectedSalary" value="<?php if (isset($_POST['expectedSalary'])) echo $_POST['expectedSalary']; ?>">
 
 						</div>
-						<?php if(isset($salaryError)){ ?><span class="error"><?php echo $salaryError; ?></span><?php } ?>
+						<?php if(isset($salaryError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$salaryError.'</span>'; ?></span><?php } ?>
 
 						<div class="input-group">
 
@@ -288,7 +288,7 @@ $no_error=1;
 
 
 						</div>
-						<?php if(isset($skillError)){ ?><span class="error"><?php echo $skillError; ?></span><?php } ?>
+						<?php if(isset($skillError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$skillError.'</span>'; ?></span><?php } ?>
 
 
 
@@ -312,7 +312,7 @@ $no_error=1;
 
 
 						</div><small>Hold Ctrl/CMD to choose multiple</small>
-						<?php if(isset($langError)){ ?><span class="error"><?php echo $langError; ?></span><?php } ?>
+						<?php if(isset($langError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$langError.'</span>'; ?></span><?php } ?>
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="educationLevel"><i class="fa fa-bolt"></i></label></span>
@@ -330,7 +330,7 @@ $no_error=1;
 							</select>
 
 						</div>
-						<?php if(isset($eduError)){ ?><span class="error"><?php echo $eduError; ?></span><?php } ?>
+						<?php if(isset($eduError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$eduError.'</span>'; ?></span><?php } ?>
 					</div>
 					
 
@@ -342,24 +342,24 @@ $no_error=1;
 							<input class="form-control" placeholder="Company Name" type="text" id="companyName" name="companyName" value="<?php if (isset($_POST['companyName'])) echo $_POST['companyName']; ?>">
 
 						</div>
-						<?php if(isset($orgError)){ ?><span class="error"><?php echo $orgError; ?></span><?php } ?>
+						<?php if(isset($orgError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$orgError.'</span>'; ?></span><?php } ?>
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-bolt"></i></label></span>
 							<input class="form-control" placeholder="Company Address" type="text" id="companyAddress" name="companyAddress" value="<?php if (isset($_POST['companyAddress'])) echo $_POST['companyAddress']; ?>">
 
 						</div>
-						<?php if(isset($addressError)){ ?><span class="error"><?php echo $addressError; ?></span><?php } ?>
+						<?php if(isset($addressError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$addressError.'</span>'; ?></span><?php } ?>
 						<div class="input-group">
 
 							<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-bolt"></i></label></span>
 							<input class="form-control" placeholder="Your Position" type="text" id="position" name="position" value="<?php if (isset($_POST['position'])) echo $_POST['position']; ?>">
 
 						</div>
-						<?php if(isset($posError)){ ?><span class="error"><?php echo $posError; ?></span><?php } ?>
+						<?php if(isset($posError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$posError.'</span>'; ?></span><?php } ?>
 					</div>
 
-					<?php if(isset($selectError)){ ?><span class="error"><?php echo $selectError; ?></span><?php } ?>
+					<?php if(isset($selectError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$selectError.'</span>'; ?></span><?php } ?>
 					<button type="submit" class="btn btn-success btn-block btn-lg formButton">Register</button>
 				</div>
 				<hr>

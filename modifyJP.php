@@ -148,7 +148,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 			<div class="formStyle">
 				<p><Strong>Modify your job provider account info</Strong></p>
 				<span>New Password:<br>(Leave password empty to keep unchanged)</span>
-				<?php if(isset($passwordError)){ echo $passwordError;} ?>
+				<?php if(isset($passwordError)){ echo '<span style="color:#FF0000;">'.$passwordError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="psw"><i class="fa fa-key"></i></label></span>
 					<input class="form-control" placeholder="Please enter a new password (optional)" type="password" id="psw" name="password">
@@ -161,7 +161,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				</div>
 
 				<span>Username:</span>
-				<?php if(isset($usernameError)){ echo $usernameError;} ?>
+				<?php if(isset($usernameError)){ echo '<span style="color:#FF0000;">'.$usernameError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="username"><i class="glyphicon glyphicon-user"></i></label></span>
 					<input class="form-control" placeholder="Please enter your username" type="text" id="username" name="username" value="<?php echo $user['username']; ?>">
@@ -169,21 +169,21 @@ if(isset($user) && $user['type'] == "jobFinder"){
 				
 				
 				<span>Email:</span>
-				<?php if(isset($emailError)){ echo $emailError;} ?>
+				<?php if(isset($emailError)){ echo '<span style="color:#FF0000;">'.$emailError.'</span>';;} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="email"><i class="glyphicon glyphicon-envelope"></i></label></span>
 					<input class="form-control" placeholder="Please enter your email" type="email" id="email" name="email" value="<?php echo $user['email']; ?>">
 				</div>
 				
 				<span>Name:</span>
-				<?php if(isset($nameError)){ echo $nameError;} ?>
+				<?php if(isset($nameError)){ echo '<span style="color:#FF0000;">'.$nameError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="fname"><i class="fa fa-user-circle"></i></label></span>
 					<input class="form-control" placeholder="Please enter your Full Name" type="text" id="fname" name="fname" value="<?php echo $user['fullName']; ?>">
 				</div>
 
 				<span>Contact Number:</span>
-				<?php if(isset($cnomborError)){ echo $cnomborError;} ?>
+				<?php if(isset($cnomborError)){ echo '<span style="color:#FF0000;">'.$cnomborError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="cnombor"><i class="fa fa-phone"></i></label></span>
 					<input class="form-control" placeholder="Please enter contact Number" type="text" id="cnombor" name="cnombor" value="<?php echo $user['contactNo']; ?>">
@@ -191,14 +191,14 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 
 				<span>Company Name:</span>
-				<?php if(isset($orgError)){ echo $orgError;} ?>
+				<?php if(isset($orgError)){ echo '<span style="color:#FF0000;">'.$orgError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="companyName"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter company name" type="text" id="companyName" name="companyName" value="<?php echo $user['companyName']; ?>">
 				</div>
 
 				<span>Company Address:</span>
-				<?php if(isset($addressError)){ echo $addressError;} ?>
+				<?php if(isset($addressError)){ echo '<span style="color:#FF0000;">'.$addressError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="companyAddress"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter company address" type="text" id="companyAddress" name="companyAddress" value="<?php echo $user['companyAddress']; ?>">
@@ -207,7 +207,7 @@ if(isset($user) && $user['type'] == "jobFinder"){
 
 
 				<span>Your position:</span>
-				<?php if(isset($posError)){ echo $posError;} ?>
+				<?php if(isset($posError)){ echo '<span style="color:#FF0000;">'.$posError.'</span>';} ?>
 				<div class="input-group noSpaceTop">
 					<span class="input-group-addon" id="basic-addon2"><label for="position"><i class="fa fa-bolt"></i></label></span>
 					<input class="form-control" placeholder="Please enter position" type="text" id="position" name="position" value="<?php echo $user['position']; ?>">
