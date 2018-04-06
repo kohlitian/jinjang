@@ -153,6 +153,27 @@ footer{
 	}
 }
 
+.page{
+	position: absolute; 
+	bottom: 150px; 
+	left: 50%;
+}
+
+.pagination{
+	position: relative; 
+	left: -50%;
+}
+
+@media(max-width:; 800px){
+	.page{
+		position: relative;
+	}
+	.pagination{
+		position: relative; 
+		
+	}
+}
+
 footer p{
 	font-size: 13px;
 }
