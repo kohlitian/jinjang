@@ -81,6 +81,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			<div class="col-md-6 col-xs-12">Skills: <?php if(isset($detail)){echo $detail['skills'];} ?></div>
 
 		</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">Status: <?php if(isset($detail)){echo $detail['status'];} ?></div>
+		</div>
 		<br>
 		<?php 
 		$check = mysqli_num_rows(mysqli_query($connect, "SELECT `requestID` FROM `requestedJobs` WHERE `jobID` = ".$detail['jobID']." AND `jfID` = ".$user['userID'].""));
