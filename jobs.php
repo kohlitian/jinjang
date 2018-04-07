@@ -167,7 +167,7 @@ if(!isset($user['fullName'])){
 					echo "<div class=\"row\">
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
 							<span class=\"lefty marginright10 hidden-xs idcol\">".$row['jobID']."</span>
-							<span>".$row['jobTitle']."<br><small>".$row['skills']."</small></span>
+							<span>".$row['jobTitle']."</span>
 						</div>
 						<div class=\"col-xs-6 col-sm-3\">
 							
@@ -219,7 +219,14 @@ if(!isset($user['fullName'])){
 							}
 						} else if($user['type'] = "jobProvider") {
 							echo "<span class=\"label label-info\">".$row['hourlyRate']."</span>";?><?php if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}
+
+
 						}
+
+
+						?><span class="label label-default skillslist" style="margin-left:5px;color: #000; background: #eee;"><?php echo count(explode(",",$row['skills'])); ?> Skill<?php if (count(explode(",",$row['skills']))>1) echo "s"; ?><div class="skillslistinner"><?php foreach (explode(",",$row['skills']) as $skill) echo "<div class='skilllistitem'>".$skill."</div>"; ?></div></span><?php
+
+
 						echo "</div>
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
 							<span>".date("d M, H:i", $row['startDateTime'])."<small class=\"transWord hidden-sm\">".date("Y", $row['startDateTime'])."</small></span>
@@ -258,8 +265,12 @@ if(!isset($user['fullName'])){
 						// 		}
 						// 	}
 						// }
-						echo"</div>
-					</div>";
+
+
+						echo "</div>";
+
+
+					echo "</div>";
 					}
 					
 				}
