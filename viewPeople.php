@@ -58,9 +58,9 @@ if(!isset($_SESSION['id'])){
 				<br>
 				<span>Education Level: </span><?php echo $info['educationLevel']; ?>
 				<br>
-				<span>Skills: </span><span class=" skillslist" style="margin-left:5px;color: #000; background: #eee; font-size: 12pt;"><?php echo count(explode(",",$info['skills'])); ?> Skill<?php if (count(explode(",",$info['skills']))>1) echo "s"; ?><div class="skillslistinner"><?php foreach (explode(",",$info['skills']) as $skill) echo "<div class='skilllistitem'>".$skill."</div>"; ?></div></span>
+				<span>Skills: </span><span class=" skillslist" style="margin-left:5px;color: blue; text-decoration: underline; background: #eee; font-size: 12pt;"><?php echo count(explode(",",$info['skills'])); ?> Skill<?php if (count(explode(",",$info['skills']))>1) echo "s"; ?><div class="skillslistinner"><?php foreach (explode(",",$info['skills']) as $skill) echo "<div class='skilllistitem'>".$skill."</div>"; ?></div></span>
 				<br>
-				<span>Languages: </span><span class=" skillslist" style="margin-left:5px;color: #000; background: #eee; font-size: 12pt;"><?php echo count(explode(",",$info['languages'])); ?> Language<?php if (count(explode(",",$info['languages']))>1) echo "s"; ?><div class="skillslistinner"><?php foreach (explode(",",$info['languages']) as $skill) echo "<div class='skilllistitem'>".$skill."</div>"; ?></div></span>
+				<span>Languages: </span><span class=" skillslist" style="margin-left:5px;color: blue; text-decoration: underline;background: #eee; font-size: 12pt;"><?php echo count(explode(",",$info['languages'])); ?> Language<?php if (count(explode(",",$info['languages']))>1) echo "s"; ?><div class="skillslistinner"><?php foreach (explode(",",$info['languages']) as $skill) echo "<div class='skilllistitem'>".$skill."</div>"; ?></div></span>
 				
 				<br>
 				<br>
