@@ -271,10 +271,10 @@ $no_error=1;
 
 						</div>
 						<?php if(isset($salaryError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$salaryError.'</span>'; ?></span><?php } ?>
-
+						
 						<div class="input-group">
 
-							<span class="input-group-addon" id="basic-addon2"><label for="skills"><i class="fa fa-bolt"></i></label></span>
+							<span class="input-group-addon" id="basic-addon2"><label for="skills">Skill</label></span>
 							<select name="skills[]" id="skills" class="form-control" multiple="true">
 								<?php
 								$skillsq=mysqli_query($connect,"select * from skills where hide=0;");
@@ -291,10 +291,10 @@ $no_error=1;
 						<?php if(isset($skillError)){ ?><span class="error"><?php echo '<span style="color:#FF0000;">'.$skillError.'</span>'; ?></span><?php } ?>
 
 
-
+							
 						<div class="input-group">
 
-							<span class="input-group-addon" id="basic-addon2"><label for="languages"><i class="fa fa-bolt"></i></label></span>
+							<span class="input-group-addon" id="basic-addon2"><label for="languages">Language</label></span>
 		
 							<select class="form-control" name="languages[]" id="languages" multiple="true">
 

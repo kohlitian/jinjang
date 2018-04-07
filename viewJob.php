@@ -119,6 +119,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		<br>
 		<br>
 		<?php 
+
 		//check reviews
 		$q=mysqli_query($connect,"select * from `Review` where `jfID`='".$user['userID']."' and `jobID`='".$detail['jobID']."';");
 		echo mysqli_error($connect);
@@ -135,7 +136,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 		<?php
 		}else{
-		if($detail['endDateTime'] < time() && $status['status'] == "Accpeted"){ ?>
+
+		if($detail['endDateTime'] < time() && $status['status'] == "Accepted"){ ?>
 		<h3><strong>Review Job Provider: </strong></h3>
 		<form method="POST" action="<?php echo "viewJob.php?jobID=".$detail['jobID'] ?>">
 			<h2>Your Review</h2>
