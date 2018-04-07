@@ -129,7 +129,7 @@ if(!isset($user['fullName'])){
 					<span>Job Provider</span>
 				</div>
 				<div class=\"col-sm-3 hidden-xs \">
-					<span>Job Info <small style=\"color: grey;\">(no. part., hourly, status)</small></span>
+					<span>Job Info <small style=\"color: grey;\"></small></span>
 				</div>
 				<div class=\"col-sm-2 hidden-xs\">
 					<span>Start Date</span>
@@ -275,7 +275,11 @@ if(!isset($user['fullName'])){
 					
 				}
 			} else {
-				echo "<div class=\"container\"><div class=\"well\">We have currently no job yet</div></div>";
+				if ($_GET['search']==''){
+					echo "<div class=\"container\"><div class=\"well\">We have currently no job yet</div></div>";
+				}else{
+				echo "<div class=\"container\"><div class=\"well\">No job with ".$_GET['search']." skill found</div></div>";
+				}
 			}
 			?>
 		<!-- end responsive division for training list -->

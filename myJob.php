@@ -73,7 +73,7 @@ $sqlpid=($pid-1)*$limit;
 					<span>Job Provider</span>
 				</div>
 				<div class="col-sm-3 hidden-xs ">
-					<span>Job Info <small style="color: grey;">(no. part., hourly, status)</small></span>
+					<span>Job Info <small style="color: grey;"></small></span>
 				</div>
 				<div class="col-sm-2 hidden-xs">
 					<span>Start Date</span>
