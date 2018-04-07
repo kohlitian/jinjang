@@ -271,7 +271,7 @@ if(!isset($user['fullName'])){
 	</div>
 
 	<!-- pagination -->
-	<div  class="page" >
+	<div class="center">
 		<ul class="pagination">
 			<?php if ($pid>1){ ?>
 			<li><a href="?pid=<?php echo $pid-1 ?><?php echo $addpagequery; ?>"><< Previous Page</a></li>
