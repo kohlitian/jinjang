@@ -24,7 +24,7 @@ if(!isset($_SESSION['id'])){
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title>Modify Job Finder</title>
+	<title>View Profile</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta http-equiv="content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="content-language" content="en">

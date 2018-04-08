@@ -137,7 +137,7 @@ $sqlpid=($pid-1)*$limit;
 						<?php 
 
 						if($user['type'] == "jobFinder"){
-							echo "<span class=\"label label-success\">".$row['hourlyRate']."</span>";?><?php 
+							echo "<span class=\"label label-success\">RM".$row['hourlyRate']."</span>";?><?php 
 							if($check >0){ 
 								if($row['jstatus'] == 'Cancelled'){ echo "<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['jstatus']."</span>"; 
 								} else if($row['jstatus'] == 'Passed') { echo "<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['jstatus']."</span>"; 
@@ -155,7 +155,7 @@ $sqlpid=($pid-1)*$limit;
 							} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['jstatus']."</span>";
 							}
 						} else if($user['type'] = "jobProvider") {
-							echo "<span class=\"label label-info\">".$row['hourlyRate']."</span>";?><?php if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}
+							echo "<span class=\"label label-info\">RM".$row['hourlyRate']."</span>";?><?php if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Cancelled') {echo"<span class=\"label label-default\" style=\"margin-left:5px;\">".$row['status']."</span>";} else if($row['status'] == 'Full'){echo"<span class=\"label label-danger\" style=\"margin-left:5px;\">".$row['status']."</span>";} else {echo"<span class=\"label label-info\" style=\"margin-left:5px;\">".$row['status']."</span>";}
 						}
 						?><span class="label label-default skillslist" style="margin-left:5px;color: #000; background: #eee;"><?php echo count(explode(",",$row['skills'])); ?> Skill<?php if (count(explode(",",$row['skills']))>1) echo "s"; ?><div class="skillslistinner"><?php foreach (explode(",",$row['skills']) as $skill) echo "<div class='skilllistitem'>".$skill."</div>"; ?></div></span><?php
 

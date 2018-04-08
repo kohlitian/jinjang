@@ -54,6 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		setcookie('name', $_SESSION['name'], time() + (86400 * 30), "/");
 		
 		//go to welcome page
+		$_SESSION['passThruMessage']='You have logged in';
 		header("Location: index.php"); die();
 	} else{
     	$passThruMessage = "Username or Password incorrect";
