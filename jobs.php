@@ -129,7 +129,7 @@ if(!isset($user['fullName'])){
 					<span>Job Provider</span>
 				</div>
 				<div class=\"col-sm-3 hidden-xs \">
-					<span>Job Info <small style=\"color: grey;\"></small></span>
+					<span>Job Info <small style=\"color: grey;\">(no. part., hourly rate, status, skill)</small></span>
 				</div>
 				<div class=\"col-sm-2 hidden-xs\">
 					<span>Start Date</span>
