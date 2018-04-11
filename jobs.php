@@ -164,7 +164,31 @@ if(!isset($user['fullName'])){
 						}
 
 					{
-					echo "<div class=\"row\">
+						?><?php
+						$color="0.5";
+						if($check ==0){
+								if($row['status'] == 'Available'){
+								 $color="1";
+								} else if($row['status'] == 'Cancelled') {
+									$color="0.5";
+								} else {}
+							} else if($check >0){ 
+								if($row['status'] == 'Cancelled'){
+									$color="0.5";
+								} else if($row['status'] == 'Passed') {
+									$color="0.5";
+								} else { 
+									if($rstatus['status'] == "Requested"){
+										$color="0.5";
+									} else if($rstatus['status'] == "Accepted"){
+										$color="0.5";
+									} else if($rstatus['status'] == "Rejected"){
+										$color="0.5";
+									}
+								}
+							}
+							?><?php
+					echo "<div class=\"row\" style=\"opacity: ".$color."\">
 						<div class=\"col-xs-6 col-sm-2 marginTBL\">
 							<span class=\"lefty marginright10 hidden-xs idcol\">".$row['jobID']."</span>
 							<span>".$row['jobTitle']."</span>
@@ -194,6 +218,7 @@ if(!isset($user['fullName'])){
 							
 						</div>
 						<div class=\"col-xs-6 col-sm-3 marginTBL\">"; ?>
+						
 						<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?></span>
 						<?php 
 						if($user['type'] == "jobFinder"){
