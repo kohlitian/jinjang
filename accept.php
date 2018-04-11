@@ -14,11 +14,8 @@ if(!isset($_SESSION['id'])){
 	//if session is valid and date of session is in future, join the member to that session
 	if(isset($session['endDateTime']) && isset($user)){
 		$check = mysqli_query($connect, "SELECT `jfID` FROM `requestedJobs` WHERE `jfID` = '".$_GET['chooseWorker']."' AND `jobID` = '".$session['jobID']."'");
-		if($session['status'] == 'Available' && $session['endDateTime'] > time() && mysqli_num_rows($check) >0){
 				mysqli_query($connect, "UPDATE `requestedJobs` SET `status` = 'Accepted' WHERE `jobID` = '".$session['jobID']."' AND `jfID` = ".$_GET['chooseWorker']."");
 				mysqli_query($connect, "UPDATE `Jobs` SET `noParticipant` = `noParticipant` + 1 WHERE `jobID` = '".$session['jobID']."' AND `jpID` = '".$user['userID']."'");
-				
-		}
 	}
 }
 
