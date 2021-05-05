@@ -1,16 +1,16 @@
 <?php
 
 // //config access to database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "JinJang";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "JinJang";
 
-// //config access to database
-// $servername = "remotemysql.com";
-// $username = "tFjbmdtNxP";
-// $password = "b4XqxeoPVP";
-// $dbname = "tFjbmdtNxP";
+//config access to database
+$servername = "remotemysql.com";
+$username = "tFjbmdtNxP";
+$password = "b4XqxeoPVP";
+$dbname = "tFjbmdtNxP";
 
 //connect to database
 $connect = new mysqli($servername, $username, $password, $dbname);
