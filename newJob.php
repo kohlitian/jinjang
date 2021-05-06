@@ -131,6 +131,19 @@ else {
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-slider.min.css">
 	<link rel="stylesheet" type="text/css" href="css/jinjang.css">
+	<!-- start of footer code -->
+	<?php
+	//problem
+	$no_helpfit_js=1;
+	 ?>
+	<!-- end of footer -->
+	
+	
+	
+	<script type="text/javascript" src = "js/moment.js"></script>
+	<script type="text/javascript" src = "js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src = "js/bootstrap-slider.min.js"></script>
+	<script type="text/javascript" src = "js/jinjang.js"></script>
 	
 	<style type="text/css">
 		form div span{
@@ -264,24 +277,14 @@ else {
 
 
 
+<?php
+include("footer.php");
+?>
 
 
 
 
-
-	<!-- start of footer code -->
-	<?php
-	//problem
-	$no_helpfit_js=1;
-	include("footer.php"); ?>
-	<!-- end of footer -->
 	
-	
-	
-	<script type="text/javascript" src = "js/moment.js"></script>
-	<script type="text/javascript" src = "js/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src = "js/bootstrap-slider.min.js"></script>
-	<script type="text/javascript" src = "js/jinjang.js"></script>
 
 </body>
 </html>
