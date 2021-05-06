@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$comment = $_POST['comment'];
 
 	if($rateError == ""){
-		mysqli_query($connect, "INSERT INTO `Review` (`reviewID`, `timeStamp`, `rating`, `comments`, `jfID`, `jobID`) VALUES ('', '".time()."', '$rate', '$comment', '".$user['userID']."', '".$_GET['jobID']."');");
+		mysqli_query($connect, "INSERT INTO `Review` (`timeStamp`, `rating`, `comments`, `jfID`, `jobID`) VALUES ('".time()."', '$rate', '$comment', '".$user['userID']."', '".$_GET['jobID']."');");
 		//echo mysqli_error($connect);die();
 		$_SESSION['passThruMessage']="Your review has been added successfully.";
 		header("Location: myJob.php"); exit;

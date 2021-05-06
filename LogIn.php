@@ -25,10 +25,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}
 
 	//look into database for entered user/pass for finder
-    $findMember = mysqli_query($connect, "SELECT * FROM `jobfinder` WHERE `username` = '".addslashes($username)."' AND `password` = '".addslashes($password)."';");
+    $findMember = mysqli_query($connect, "SELECT * FROM `JobFinder` WHERE `username` = '".addslashes($username)."' AND `password` = '".addslashes($password)."';");
 
 	//look into database for entered user/pass for provider
-    $findprovider = mysqli_query($connect, "SELECT * FROM `jobprovider` WHERE `username` = '".addslashes($username)."' AND `password` = '".addslashes($password)."';");
+    $findprovider = mysqli_query($connect, "SELECT * FROM `JobProvider` WHERE `username` = '".addslashes($username)."' AND `password` = '".addslashes($password)."';");
 
     //if user is found
     if(mysqli_num_rows($findMember) == 1 || mysqli_num_rows($findprovider) == 1){

@@ -139,9 +139,9 @@ $no_error=1;
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""&& $cnomborError==""&& $orgError==""&&$addressError==""&&$posError==""){
 			//insert data into database if no errors
 			if($_POST['userType']=='jf'){
-				$signUp = "INSERT INTO `JobFinder` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('$ID', '".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes(implode(",",$skills))."', '".addslashes(implode(",",$languages))."')";
+				$signUp = "INSERT INTO `JobFinder` (`email`, `username`, `password`, `fullName`, `contactNo`,`experienceHistory`,`educationLevel`,`expectedSalary`,`skills`,`languages`) VALUES ('".addslashes($email)."','".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($experienceHistory)."', '".addslashes($educationLevel)."', '".addslashes($expectedSalary)."', '".addslashes(implode(",",$skills))."', '".addslashes(implode(",",$languages))."')";
 			} else {
-				$signUp = "INSERT INTO `JobProvider` (`userID`, `email`, `username`, `password`, `fullName`, `contactNo`, `companyName`, `companyAddress`, `position`) VALUES ('$ID', '".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($companyName)."', '".addslashes($companyAddress)."', '".addslashes($position)."')";
+				$signUp = "INSERT INTO `JobProvider` (`email`, `username`, `password`, `fullName`, `contactNo`, `companyName`, `companyAddress`, `position`) VALUES ('".addslashes($email)."', '".addslashes($username)."', '".addslashes($password)."', '".addslashes($fname)."', '".addslashes($contactNo)."', '".addslashes($companyName)."', '".addslashes($companyAddress)."', '".addslashes($position)."')";
 			}
 			if(mysqli_query($connect, $signUp)){
 				//notify user about successfull signup

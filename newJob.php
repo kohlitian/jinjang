@@ -107,7 +107,7 @@ else {
 		$participant = $_POST['participant'];
 		//if there is no error, insert training session into database
 		if($titleError == "" && $salaryError == "" && $startDateError == "" && $endDateError == "" && $deadlineError == "" && $locationError == "" && $descriptionError == "" && $requirementError == ""){
-			$newJob = "INSERT INTO `Jobs` (`jobID`, `jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`,`skills`) VALUES ('', '".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."','".addslashes(implode(",",$skills))."')";
+			$newJob = "INSERT INTO `Jobs` (`jobTitle`, `description`, `requirement`, `hourlyRate`, `location`, `postDateTime`, `startDateTime`, `endDateTime`, `deadlineDays`, `maxParticipant`, `noParticipant`, `status`, `jpID`,`skills`) VALUES ('".addslashes($title)."', '".addslashes($description)."', '$requirement', '$salary', '".addslashes($location)."', '".time()."', '$startDateC', '$endDateC', '$deadlineC', '$participant', 0, 'Available', '".$user['userID']."','".addslashes(implode(",",$skills))."')";
 			if(mysqli_query($connect, $newJob)){
 				$_SESSION['passThruMessage'] = "Your new job has been added successfully.";
 				header('Location: jobs.php'); exit;

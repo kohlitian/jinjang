@@ -102,8 +102,8 @@ if(isset($user) && $user['type'] == "jobProvider"){
 			if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 			 	$emailError = "Invalid email format";
 			 } else {
-			 	$find = "SELECT `email` FROM `jobprovider` WHERE `email` = '".addslashes($_POST['email'])."' ";
-			 	$find2 = "SELECT `email` FROM `jobfinder` WHERE `email` = '".addslashes($_POST['email'])."'  and `userID`!='".$user['userID']."';";
+			 	$find = "SELECT `email` FROM `JobProvider` WHERE `email` = '".addslashes($_POST['email'])."' ";
+			 	$find2 = "SELECT `email` FROM `JobFinder` WHERE `email` = '".addslashes($_POST['email'])."'  and `userID`!='".$user['userID']."';";
 			 	$findMemberMail = mysqli_query($connect, $find);
 			 	$findMemberMail2 = mysqli_query($connect, $find2);
 			 	if(mysqli_num_rows($findMemberMail) >0 || mysqli_num_rows($findMemberMail2) >0 ){
@@ -118,8 +118,8 @@ if(isset($user) && $user['type'] == "jobProvider"){
 		if(empty($_POST['username'])){
 			$usernameError = "Please enter a username";
 		} else {
-			 	$find = "SELECT `username` FROM `jobprovider` WHERE `username` = '".addslashes($_POST['username'])."' ;";
-			 	$find2 = "SELECT `username` FROM `jobfinder` WHERE `username` = '".addslashes($_POST['username'])."'  and `userID`!='".$user['userID']."';";
+			 	$find = "SELECT `username` FROM `JobProvider` WHERE `username` = '".addslashes($_POST['username'])."' ;";
+			 	$find2 = "SELECT `username` FROM `JobFinder` WHERE `username` = '".addslashes($_POST['username'])."'  and `userID`!='".$user['userID']."';";
 			 	$findMember = mysqli_query($connect, $find);
 			 	$findMember2 = mysqli_query($connect, $find2);
 			 	if(mysqli_num_rows($findMember) >0 || mysqli_num_rows($findMember2) >0 ){
@@ -131,7 +131,7 @@ if(isset($user) && $user['type'] == "jobProvider"){
 
 		//if there is no errors, update trainer info
 		if($emailError == "" && $usernameError == "" && $passwordError == "" && $conPassError == "" && $expError == ""&& $nameError == ""  && $cnomborError == "" && $selectError == "" && $salaryError==""&&$langError==""&&$skillError==""  && $eduError==""){
-			mysqli_query($connect, "UPDATE `jobfinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."' ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."';");
+			mysqli_query($connect, "UPDATE `JobFinder` SET `username` = '".addslashes($username)."',`password` = '".addslashes($password)."', `email` = '".addslashes($email)."', `fullName` = '".addslashes($fname)."' ,`contactNo` = '".addslashes($cnombor)."',`experienceHistory` = '".addslashes($experienceHistory)."',`expectedSalary` = '".addslashes($expectedSalary)."',`skills` = '".addslashes($skills)."',`educationLevel` = '".addslashes($educationLevel)."',`languages` = '".$languages."' WHERE `userID` = '".$user['userID']."';");
 
 			$_SESSION['name'] = $fname;
 			$_SESSION['username'] = $username;

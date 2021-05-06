@@ -10,7 +10,7 @@ if(!isset($_SESSION['id'])){
 	die();
 }
 
-	$infoPp = mysqli_query($connect, "SELECT * FROM `jobFinder` WHERE `userID` = '".$_GET['UID']."'");
+	$infoPp = mysqli_query($connect, "SELECT * FROM `JobFinder` WHERE `userID` = '".$_GET['UID']."'");
 	if(mysqli_num_rows($infoPp) != 1){
 		$_SESSION['passThruMessage'] = "This user is no longer in our database.";
 		header("Location: modifyJob.php?jobID=".$_GET['JID'].""); die();

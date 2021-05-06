@@ -45,7 +45,7 @@ if(!isset($_SESSION['id'])){
 	if(isset($session['deadlineDays']) && isset($user)){
 		$check = mysqli_query($connect, "SELECT `jfID` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$session['jobID']."'");
 		if($session['status'] == 'Available' && $session['deadlineDays'] > time() && $user['type'] == "jobFinder" && mysqli_num_rows($check) == 0){
-				mysqli_query($connect, "INSERT INTO `requestedJobs` (`requestID`, `jfID`, `jobID`, `status`) VALUES ('$ID', '".$user['userID']."', '".$session['jobID']."', 'Requested')");
+				mysqli_query($connect, "INSERT INTO `requestedJobs` (`jfID`, `jobID`, `status`) VALUES ('".$user['userID']."', '".$session['jobID']."', 'Requested')");
 				$_SESSION['passThruMessage']="You've requested to join the job #".$_GET['jobID']." successfully.";
 
 				
