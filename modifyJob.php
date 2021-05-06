@@ -330,7 +330,7 @@ $skillArr=explode(",", $skills);
 
 		<?php 
 
-		$find = mysqli_query($connect, "SELECT * FROM `JobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `jobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."'");
+		$find = mysqli_query($connect, "SELECT * FROM `JobFinder`, `requestedJobs` WHERE `requestedJobs`.`jfID` = `JobFinder`.`userID` AND `requestedJobs`.`jobID` = '".$job['jobID']."'");
 
 
 		if((mysqli_num_rows($find))>0){

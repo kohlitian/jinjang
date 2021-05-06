@@ -165,6 +165,7 @@ if(!isset($user['fullName'])){
 
 					{
 						?><?php
+						$rstatus = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `status` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."'"));
 						$color="0.5";
 						if($check ==0){
 								if($row['status'] == 'Available'){
@@ -222,7 +223,6 @@ if(!isset($user['fullName'])){
 						<span class="label label-primary"><?php echo mysqli_fetch_array(mysqli_query($connect,"select count(*) from requestedJobs where jobID='".$row['jobID']."';"))[0]; ?></span>
 						<?php 
 						if($user['type'] == "jobFinder"){
-							$rstatus = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `status` FROM `requestedJobs` WHERE `jfID` = '".$user['userID']."' AND `jobID` = '".$row['jobID']."'"));
 							echo "<span class=\"label label-success\">RM".$row['hourlyRate']."</span>";?><?php 
 							if($check ==0){
 								if($row['status'] == 'Available'){ echo"<span class=\"label label-success\" style=\"margin-left:5px;\">".$row['status']."</span>";
@@ -300,10 +300,10 @@ if(!isset($user['fullName'])){
 					
 				}
 			} else {
-				if ($_GET['search']==''){
+				if (isset($_GET['search'])) {
 					echo "<div class=\"container\"><div class=\"well\">We have currently no job yet</div></div>";
-				}else{
-				echo "<div class=\"container\"><div class=\"well\">No job with ".$_GET['search']." skill found</div></div>";
+				} else{
+					echo "<div class=\"container\"><div class=\"well\">No job with ".$_GET['search']." skill found</div></div>";
 				}
 			}
 			?>
