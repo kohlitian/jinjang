@@ -6,7 +6,7 @@ include("control.php");
 //check if user is logged in
 if(!isset($_SESSION['id'])){
 	$_SESSION['passThruMessage'] = "This page only allow subscriber, please log in or sign up then only can access this page.";
-	header("Location: login.php");
+	header("Location: LogIn.php");
 	die();
 }
 
